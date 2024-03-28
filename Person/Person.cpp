@@ -11,7 +11,11 @@ class NonUniqueIDException : public std::exception {
 
 std::vector<unsigned int> Person::usedIds = {};
 
-Person::Person(unsigned int id, std::string nameFirst, std::string nameSecond, unsigned int timeBirthday, Gender gender) : nameFirst{nameFirst}, nameSecond{nameSecond}, gender{gender} {
+Person::Person(unsigned int id,
+               std::string nameFirst,
+               std::string nameSecond,
+               unsigned int timeBirthday,
+               Gender gender) : nameFirst{nameFirst}, nameSecond{nameSecond}, gender{gender} {
     setTimeBirthday(timeBirthday);
     setId(id);
 }
@@ -24,6 +28,7 @@ void Person::setId(unsigned int id) {
 }
 
 void Person::setTimeBirthday(unsigned int time) {
+    // CHECK IF IN FUTURE, RAISE ERROR
     this->timeBirthday = time;
 }
 
