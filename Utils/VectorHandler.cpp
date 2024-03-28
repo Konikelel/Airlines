@@ -4,7 +4,7 @@
 #include <vector>
 
 template <typename T>
-typename std::vector<T>::iterator FindInVector(std::vector<T>& vec, const T& target) {
+typename std::vector<T>::iterator FindInVector(const std::vector<T>& vec, const T& target) {
     return std::find(vec.begin(), vec.end(), target);
 }
 
