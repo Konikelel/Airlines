@@ -25,8 +25,6 @@ class Person {
     void setId(const unsigned int id);
     void setTimeBirthday(const unsigned int time);
 
-    bool uniqueId(const unsigned int id) const;
-
     unsigned int id;
     std::string nameFirst;
     std::string nameSecond;
