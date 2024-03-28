@@ -1,4 +1,3 @@
-#include <memory>
 #include <string>
 #include <vector>
 
@@ -16,7 +15,7 @@ class Plane {
     unsigned int requiredStewardess;
     unsigned int requiredPilots;
 
-    std::vector<std::shared_ptr<Flight>> pFlights;
+    std::vector<Flight*> flights;
 };
 
 #endif
