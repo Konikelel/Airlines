@@ -13,9 +13,10 @@ Plane::Plane(unsigned int id,
                                             capacityPassengers{capacityPassengers},
                                             requiredStewardess{requiredStewardess},
                                             requiredPilots{requiredPilots} {
+    setId(id);
 }
 
-void Plane::setId(unsigned int id) {
+void Plane::setId(const unsigned int id) {
     if (FindInVector(usedIds, id) != usedIds.end())
         throw NonUniqueIDException();
 

@@ -21,7 +21,7 @@ class Plane {
     void removeFlight(const Flight*& pFlight);
 
    private:
-    void setId(unsigned int id);
+    void setId(const unsigned int id);
 
     unsigned int id;
     std::string name;
