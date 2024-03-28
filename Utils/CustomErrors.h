@@ -5,9 +5,12 @@
 
 class NonUniqueIDException : public std::exception {
    public:
-    const char* what() const noexcept override {
-        return "ID provided is not unique.";
-    }
+    const char* what() const noexcept override;
+};
+
+class CannotAllocateMemory : public std::exception {
+   public:
+    const char* what() const noexcept override;
 };
 
 #endif
