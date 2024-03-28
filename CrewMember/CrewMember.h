@@ -9,6 +9,7 @@
 #include "Role.h"
 
 class CrewMember : public Person {
+   private:
     Role role;
 
     std::vector<std::shared_ptr<Flight>> flights;
