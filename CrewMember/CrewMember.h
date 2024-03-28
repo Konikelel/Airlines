@@ -1,4 +1,3 @@
-#include <memory>
 #include <vector>
 
 #ifndef CREW_MEMBER_H
@@ -12,7 +11,7 @@ class CrewMember : public Person {
    private:
     Role role;
 
-    std::vector<std::shared_ptr<Flight>> flights;
+    std::vector<Flight*> flights;
 };
 
 #endif
