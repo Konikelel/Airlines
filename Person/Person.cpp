@@ -15,6 +15,14 @@ Person::Person(unsigned int id,
     setId(id);
 }
 
+void Person::setNameFirst(std::string name) {
+    this->nameFirst = name;
+}
+
+void Person::setNameSecond(std::string name) {
+    this->nameSecond = name;
+}
+
 void Person::setId(unsigned int id) {
     if (!uniqueId(id))
         throw NonUniqueIDException();

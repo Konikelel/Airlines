@@ -18,12 +18,15 @@ class Person {
         unsigned int timeBirthday,
         Gender gender);
 
+    void setNameFirst(std::string name);
+    void setNameSecond(std::string name);
+
+   private:
     void setId(unsigned int id);
     void setTimeBirthday(unsigned int time);
 
     bool uniqueId(unsigned int id) const;
 
-   private:
     unsigned int id;
     std::string nameFirst;
     std::string nameSecond;
