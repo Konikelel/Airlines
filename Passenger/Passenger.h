@@ -1,4 +1,3 @@
-#include <memory>
 #include <string>
 #include <vector>
 
@@ -9,7 +8,22 @@
 #include "../Person/Person.h"
 
 class Passenger : public Person {
-    std::vector<std::shared_ptr<Flight>> flights;
+   public:
+    Passenger(
+        unsigned int id,
+        std::string nameFirst,
+        std::string nameSecond,
+        unsigned int timeBirthday,
+        Gender gender);
+
+    void addFlight(Flight*& pFlight);
+    void removeFlight(Flight*& pFlight);
+
+    void removeFlights();
+    void terminate();
+
+   private:
+    std::vector<Flight*> flights;
 };
 
 #endif
