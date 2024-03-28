@@ -9,7 +9,7 @@
 #include "../Person/Person.h"
 
 class Passenger : public Person {
-    std::vector<std::shared_ptr<Flight>> pFlights;
+    std::vector<std::shared_ptr<Flight>> flights;
 };
 
 #endif

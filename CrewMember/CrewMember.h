@@ -11,7 +11,7 @@
 class CrewMember : public Person {
     Role role;
 
-    std::vector<std::shared_ptr<Flight>> pFlights;
+    std::vector<std::shared_ptr<Flight>> flights;
 };
 
 #endif

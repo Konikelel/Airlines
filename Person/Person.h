@@ -9,7 +9,7 @@
 
 class Person {
    public:
-    static std::vector<std::shared_ptr<unsigned int>> pActiveIds;
+    static std::vector<std::shared_ptr<unsigned int>> activeIds;
 
    private:
     unsigned int id;
