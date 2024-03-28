@@ -15,27 +15,27 @@ Person::Person(unsigned int id,
     setId(id);
 }
 
-void Person::setNameFirst(std::string name) {
+void Person::setNameFirst(const std::string name) {
     this->nameFirst = name;
 }
 
-void Person::setNameSecond(std::string name) {
+void Person::setNameSecond(const std::string name) {
     this->nameSecond = name;
 }
 
-void Person::setId(unsigned int id) {
+void Person::setId(const unsigned int id) {
     if (!uniqueId(id))
         throw NonUniqueIDException();
 
     this->id = id;
 }
 
-void Person::setTimeBirthday(unsigned int time) {
+void Person::setTimeBirthday(const unsigned int time) {
     // CHECK IF IN FUTURE, RAISE ERROR
     this->timeBirthday = time;
 }
 
-bool Person::uniqueId(unsigned int id) const {
+bool Person::uniqueId(const unsigned int id) const {
     for (auto& usedId : usedIds)
         if (id == usedId)
             return false;
