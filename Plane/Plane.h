@@ -9,6 +9,7 @@
 
 class Plane {
    private:
+    unsigned int id;
     std::string name;
 
     unsigned int capacityPassengers;
