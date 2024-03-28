@@ -2,8 +2,9 @@
 #define FLIGHT_STATUS_H
 
 enum FlightStatus {
+    AS_PLANNED,
+    ON_HOLD,
     CANCELLED,
-    PLANNED
 };
 
 #endif
