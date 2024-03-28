@@ -23,7 +23,8 @@ class Flight {
     std::string cityArrival;
 
     std::vector<std::shared_ptr<Passenger>> passenger;
-    std::vector<std::shared_ptr<CrewMember>> crewMember;
+    std::vector<std::shared_ptr<CrewMember>> stewardess;
+    std::vector<std::shared_ptr<CrewMember>> pilots;
 };
 
 #endif

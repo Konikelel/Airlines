@@ -12,7 +12,8 @@ class Plane {
     std::string name;
 
     unsigned int capacityPassengers;
-    unsigned int capacityCrewMembers;  // divide to pilots and stewardess ???
+    unsigned int requiredStewardess;
+    unsigned int requiredPilots;
 
     std::vector<std::shared_ptr<Flight>> pFlights;
 };
