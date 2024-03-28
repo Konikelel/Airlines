@@ -2,12 +2,7 @@
 
 #include <memory>
 
-class NonUniqueIDException : public std::exception {
-   public:
-    const char* what() const noexcept override {
-        return "ID provided is not unique.";
-    }
-};
+#include "../Utils/CustomErrors.h"
 
 std::vector<unsigned int> Person::usedIds = {};
 
