@@ -5,7 +5,7 @@
 #define PLANE_H
 
 #include "../Flight/Flight.h"
-#include "PlanetStatus.h"
+#include "PlaneStatus.h"
 
 class Plane {
    public:
