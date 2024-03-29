@@ -26,21 +26,21 @@ void Plane::setName(const std::string& name) {
     this->name = name;
 }
 
-void Plane::setStatus(const PlaneStatus& status) {
-    this->status = status;
+// void Plane::setStatus(const PlaneStatus& status) {
+//     this->status = status;
 
-    if (!flights.size())
-        return;
+//     if (!flights.size())
+//         return;
 
-    switch (status) {
-        case OPERATING:
-            // CHANGE ALL PLANE FLIGHTS THAT HAVE ALL CREW TO AS_PLANNED
-            break;
-        case MAINTENANCE:
-            // CHANGE ALL PLANE FLIGHTS TO ON_HOLD
-            break;
-    }
-}
+//     switch (status) {
+//         case OPERATING:
+//             // CHANGE ALL PLANE FLIGHTS THAT HAVE ALL CREW TO AS_PLANNED
+//             break;
+//         case MAINTENANCE:
+//             // CHANGE ALL PLANE FLIGHTS TO ON_HOLD
+//             break;
+//     }
+// }
 
 void Plane::setCapacityPassengers(const unsigned int& number) {
     this->capacityPassengers = number;
