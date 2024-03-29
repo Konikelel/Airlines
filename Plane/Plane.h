@@ -12,11 +12,11 @@ class Plane {
     static std::vector<unsigned int> usedIds;
 
     Plane(
-        unsigned int id,
-        std::string name,
-        unsigned int capacityPassengers,
-        unsigned int requiredStewardess,
-        unsigned int requiredPilots);
+        unsigned int& id,
+        std::string& name,
+        unsigned int& capacityPassengers,
+        unsigned int& requiredStewardess,
+        unsigned int& requiredPilots);
 
     void setName(const std::string& name);
     void setStatus(const PlaneStatus& status);

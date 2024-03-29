@@ -10,11 +10,11 @@
 class Passenger : public Person {
    public:
     Passenger(
-        unsigned int id,
-        std::string nameFirst,
-        std::string nameSecond,
-        unsigned int timeBirthday,
-        Gender gender);
+        unsigned int& id,
+        std::string& nameFirst,
+        std::string& nameSecond,
+        unsigned int& timeBirthday,
+        Gender& gender);
 
     void addFlight(Flight*& pFlight);
     void removeFlight(Flight*& pFlight);

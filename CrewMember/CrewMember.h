@@ -11,12 +11,12 @@
 class CrewMember : public Person {
    public:
     CrewMember(
-        CrewRole role,
-        unsigned int id,
-        std::string nameFirst,
-        std::string nameSecond,
-        unsigned int timeBirthday,
-        Gender gender);
+        CrewRole& role,
+        unsigned int& id,
+        std::string& nameFirst,
+        std::string& nameSecond,
+        unsigned int& timeBirthday,
+        Gender& gender);
 
     void setStatus(const CrewStatus& status);
 
