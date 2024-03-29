@@ -1,7 +1,5 @@
 #include "Person.h"
 
-#include <memory>
-
 #include "../Utils/CustomErrors.h"
 #include "../Utils/VectorHandler.h"
 
