@@ -28,6 +28,9 @@ class Plane {
     void addFlight(Flight*& pFlight);
     void removeFlight(Flight*& pFlight);
 
+    void removeFlights();
+    void terminate();
+
    private:
     void setId(const unsigned int& id);
 

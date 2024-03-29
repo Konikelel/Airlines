@@ -54,16 +54,13 @@ void Plane::setRequiredPilots(const unsigned int& number) {
     this->requiredPilots = number;
 }
 
-void Plane::addFlight(Flight*& pFlight) {
-    if (status == OPERATING)
-        flights.push_back(pFlight);
-    else
-        std::cout << "Cannot add flight. Plane status is set to: " << status;
-}
-
-void Plane::removeFlight(Flight*& pFlight) {
-    PopFromVector(flights, pFlight);
-}
+// void Plane::addFlight(Flight*& pFlight) {
+//     // CHANGE PLANE IN FLIGHT
+//     if (status == OPERATING)
+//         flights.push_back(pFlight);
+//     else
+//         std::cout << "Cannot add flight. Plane status is set to: " << status;
+// }
 
 void Plane::setId(const unsigned int& id) {
     if (FindInVector(usedIds, id) != usedIds.end())
