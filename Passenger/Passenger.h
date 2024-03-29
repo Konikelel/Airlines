@@ -16,8 +16,8 @@ class Passenger : public Person {
         unsigned int timeBirthday,
         Gender gender);
 
-    void addFlight(const Flight*& pFlight);
-    void removeFlight(const Flight*& pFlight);
+    void addFlight(Flight*& pFlight);
+    void removeFlight(Flight*& pFlight);
 
     void removeFlights();
     void terminate();
