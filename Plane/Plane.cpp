@@ -1,5 +1,7 @@
 #include "Plane.h"
 
+#include <iostream>
+
 #include "../Utils/CustomErrors.h"
 #include "../Utils/VectorHandler.h"
 
@@ -9,18 +11,64 @@ Plane::Plane(unsigned int id,
              std::string name,
              unsigned int capacityPassengers,
              unsigned int requiredStewardess,
-             unsigned int requiredPilots) : name{name},
-                                            capacityPassengers{capacityPassengers},
-                                            requiredStewardess{requiredStewardess},
-                                            requiredPilots{requiredPilots} {
-    setId(id);
-    this->status = OPERATING;
+             unsigned int requiredPilots) {
     this->flights = {};
+
+    setId(id);
+    setName(name);
+    setCapacityPassengers(capacityPassengers);
+    setRequiredStewardess(requiredStewardess);
+    setRequiredPilots(requiredPilots);
+    setStatus(OPERATING);
 }
 
-void Plane::setId(const unsigned int id) {
+void Plane::setName(const std::string& name) {
+    this->name = name;
+}
+
+void Plane::setStatus(const PlaneStatus& status) {
+    this->status = status;
+
+    if (!flights.size())
+        return;
+
+    switch (status) {
+        case OPERATING:
+            // CHANGE ALL PLANE FLIGHTS THAT HAVE ALL CREW TO AS_PLANNED
+            break;
+        case MAINTENANCE:
+            // CHANGE ALL PLANE FLIGHTS TO ON_HOLD
+            break;
+    }
+}
+
+void Plane::setCapacityPassengers(const unsigned int& number) {
+    this->capacityPassengers = number;
+}
+
+void Plane::setRequiredStewardess(const unsigned int& number) {
+    this->requiredStewardess = number;
+}
+
+void Plane::setRequiredPilots(const unsigned int& number) {
+    this->requiredPilots = number;
+}
+
+void Plane::addFlight(Flight*& pFlight) {
+    if (status == OPERATING)
+        flights.push_back(pFlight);
+    else
+        std::cout << "Cannot add flight. Plane status is set to: " << status;
+}
+
+void Plane::removeFlight(Flight*& pFlight) {
+    PopFromVector(flights, pFlight);
+}
+
+void Plane::setId(const unsigned int& id) {
     if (FindInVector(usedIds, id) != usedIds.end())
         throw NonUniqueIDException();
 
+    usedIds.push_back(id);
     this->id = id;
 }

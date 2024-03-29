@@ -18,11 +18,18 @@ class Plane {
         unsigned int requiredStewardess,
         unsigned int requiredPilots);
 
-    void addFlight(const Flight*& pFlight);
-    void removeFlight(const Flight*& pFlight);
+    void setName(const std::string& name);
+    void setStatus(const PlaneStatus& status);
+
+    void setCapacityPassengers(const unsigned int& number);
+    void setRequiredStewardess(const unsigned int& number);
+    void setRequiredPilots(const unsigned int& number);
+
+    void addFlight(Flight*& pFlight);
+    void removeFlight(Flight*& pFlight);
 
    private:
-    void setId(const unsigned int id);
+    void setId(const unsigned int& id);
 
     unsigned int id;
     std::string name;
