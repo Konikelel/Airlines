@@ -11,9 +11,11 @@ Person::Person(unsigned int id,
                std::string nameFirst,
                std::string nameSecond,
                unsigned int timeBirthday,
-               Gender gender) : nameFirst{nameFirst}, nameSecond{nameSecond}, gender{gender} {
-    setTimeBirthday(timeBirthday);
+               Gender gender) : gender{gender} {
     setId(id);
+    setNameFirst(nameFirst);
+    setNameSecond(nameSecond);
+    setTimeBirthday(timeBirthday);
 }
 
 void Person::setNameFirst(const std::string name) {
@@ -28,6 +30,7 @@ void Person::setId(const unsigned int id) {
     if (FindInVector(usedIds, id) != usedIds.end())
         throw NonUniqueIDException();
 
+    usedIds.push_back(id);
     this->id = id;
 }
 
