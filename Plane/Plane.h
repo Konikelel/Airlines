@@ -5,6 +5,7 @@
 #define PLANE_H
 
 #include "../Flight/Flight.h"
+#include "PlanetStatus.h"
 
 class Plane {
    public:
@@ -25,6 +26,7 @@ class Plane {
 
     unsigned int id;
     std::string name;
+    PlaneStatus status;
 
     unsigned int capacityPassengers;
     unsigned int requiredStewardess;  // VALIDATE IF TOO MANY

@@ -14,6 +14,8 @@ Plane::Plane(unsigned int id,
                                             requiredStewardess{requiredStewardess},
                                             requiredPilots{requiredPilots} {
     setId(id);
+    this->status = OPERATING;
+    this->flights = {};
 }
 
 void Plane::setId(const unsigned int id) {
