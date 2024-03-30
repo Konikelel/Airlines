@@ -1,6 +1,7 @@
 #include "Person.h"
 
 #include "../Utils/CustomErrors.h"
+#include "../Utils/StringHandler.h"
 #include "../Utils/VectorHandler.h"
 
 std::vector<unsigned int> Person::usedIds = {};
@@ -16,12 +17,12 @@ Person::Person(unsigned int& id,
     setTimeBirthday(timeBirthday);
 }
 
-void Person::setNameFirst(const std::string& name) {
-    this->nameFirst = name;
+void Person::setNameFirst(std::string& name) {
+    this->nameFirst = toTitle(name);
 }
 
-void Person::setNameSecond(const std::string& name) {
-    this->nameSecond = name;
+void Person::setNameSecond(std::string& name) {
+    this->nameSecond = toTitle(name);
 }
 
 void Person::setId(const unsigned int& id) {

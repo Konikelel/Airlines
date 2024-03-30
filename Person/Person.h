@@ -17,8 +17,8 @@ class Person {
         unsigned int& timeBirthday,
         Gender& gender);
 
-    void setNameFirst(const std::string& name);
-    void setNameSecond(const std::string& name);
+    void setNameFirst(std::string& name);
+    void setNameSecond(std::string& name);
 
    private:
     void setId(const unsigned int& id);
