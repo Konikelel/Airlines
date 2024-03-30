@@ -4,7 +4,7 @@
 #ifndef PLANE_H
 #define PLANE_H
 
-#include "../Flight/Flight.h"
+#include "Flight/Flight.h"
 #include "PlaneStatus.h"
 
 class Plane {

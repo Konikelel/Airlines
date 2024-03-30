@@ -3,10 +3,10 @@
 #ifndef CREW_MEMBER_H
 #define CREW_MEMBER_H
 
-#include "../Flight/Flight.h"
-#include "../Person/Person.h"
 #include "CrewRole.h"
 #include "CrewStatus.h"
+#include "Flight/Flight.h"
+#include "Person/Person.h"
 
 class CrewMember : public Person {
    public:
