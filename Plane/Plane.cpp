@@ -11,9 +11,9 @@ Plane::Plane(unsigned int& id,
              std::string& name,
              unsigned int& capacityPassengers,
              unsigned int& requiredStewardess,
-             unsigned int& requiredPilots) {
-    this->flights = {};
-
+             unsigned int& requiredPilots) : flights{{}},
+                                             capacityStewardess{requiredStewardess * 2},
+                                             capacityPilots{requiredPilots * 2} {
     setId(id);
     setName(name);
     setCapacityPassengers(capacityPassengers);
@@ -66,11 +66,19 @@ const unsigned int& Plane::getRequiredPilots() {
     return requiredPilots;
 }
 
-bool Plane::sufficientCrew(std::vector<CrewMember*> stewardesses, std::vector<CrewMember*> pilots) {
-    return requiredStewardess <= stewardesses.size() && requiredPilots <= pilots.size();
+bool Plane::inRangeStewardesses(std::vector<CrewMember*> stewardesses) {
+    return requiredStewardess <= stewardesses.size() <= capacityStewardess;
 }
 
-bool Plane::passengersFull(std::vector<Passenger*> passengers) {
+bool Plane::inRangePilots(std::vector<CrewMember*> pilots) {
+    return requiredPilots <= pilots.size() <= capacityPilots;
+}
+
+bool Plane::inRangeCrew(std::vector<CrewMember*> stewardesses, std::vector<CrewMember*> pilots) {
+    return inRangeStewardesses(stewardesses) && inRangePilots(pilots);
+}
+
+bool Plane::passengersMax(std::vector<Passenger*> passengers) {
     return capacityPassengers <= passengers.size();
 }
 

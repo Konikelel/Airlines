@@ -29,8 +29,10 @@ class Plane {
     const unsigned int& getRequiredStewardess();
     const unsigned int& getRequiredPilots();
 
-    bool sufficientCrew(std::vector<CrewMember*> stewardesses, std::vector<CrewMember*> pilots);
-    bool passengersFull(std::vector<Passenger*> passengers);
+    bool inRangeStewardesses(std::vector<CrewMember*> stewardesses);
+    bool inRangePilots(std::vector<CrewMember*> pilots);
+    bool inRangeCrew(std::vector<CrewMember*> stewardesses, std::vector<CrewMember*> pilots);
+    bool passengersMax(std::vector<Passenger*> passengers);
 
     void addFlight(Flight*& pFlight);
     void removeFlight(Flight*& pFlight);
@@ -46,8 +48,11 @@ class Plane {
     PlaneStatus status;
 
     unsigned int capacityPassengers;
-    unsigned int requiredStewardess;  // VALIDATE IF TOO MANY
-    unsigned int requiredPilots;      // VALIDATE IF TOO MANY
+    unsigned int requiredStewardess;
+    unsigned int requiredPilots;
+
+    unsigned int capacityStewardess;
+    unsigned int capacityPilots;
 
     std::vector<Flight*> flights;
 };
