@@ -25,6 +25,10 @@ class Plane {
     void setRequiredStewardess(const unsigned int& number);
     void setRequiredPilots(const unsigned int& number);
 
+    const unsigned int& getCapacityPassengers();
+    const unsigned int& getRequiredStewardess();
+    const unsigned int& getRequiredPilots();
+
     void addFlight(Flight*& pFlight);
     void removeFlight(Flight*& pFlight);
 

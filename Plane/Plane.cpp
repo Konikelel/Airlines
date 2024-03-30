@@ -54,6 +54,18 @@ void Plane::setRequiredPilots(const unsigned int& number) {
     this->requiredPilots = number;
 }
 
+const unsigned int& Plane::getCapacityPassengers() {
+    return capacityPassengers;
+}
+
+const unsigned int& Plane::getRequiredStewardess() {
+    return requiredStewardess;
+}
+
+const unsigned int& Plane::getRequiredPilots() {
+    return requiredPilots;
+}
+
 // void Plane::addFlight(Flight*& pFlight) {
 //     // CHANGE PLANE IN FLIGHT
 //     if (status == OPERATING)
