@@ -29,6 +29,9 @@ class Plane {
     const unsigned int& getRequiredStewardess();
     const unsigned int& getRequiredPilots();
 
+    bool sufficientCrew(std::vector<CrewMember*> stewardesses, std::vector<CrewMember*> pilots);
+    bool passengersFull(std::vector<Passenger*> passengers);
+
     void addFlight(Flight*& pFlight);
     void removeFlight(Flight*& pFlight);
 

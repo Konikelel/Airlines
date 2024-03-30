@@ -66,6 +66,14 @@ const unsigned int& Plane::getRequiredPilots() {
     return requiredPilots;
 }
 
+bool Plane::sufficientCrew(std::vector<CrewMember*> stewardesses, std::vector<CrewMember*> pilots) {
+    return requiredStewardess <= stewardesses.size() && requiredPilots <= pilots.size();
+}
+
+bool Plane::passengersFull(std::vector<Passenger*> passengers) {
+    return capacityPassengers <= passengers.size();
+}
+
 // void Plane::addFlight(Flight*& pFlight) {
 //     // CHANGE PLANE IN FLIGHT
 //     if (status == OPERATING)
