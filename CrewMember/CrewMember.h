@@ -26,6 +26,8 @@ class CrewMember : public Person {
     void removeFlights();
     void terminate();
 
+    bool isBusy(unsigned int& timeStart, unsigned int& timeEnd);
+
    private:
     CrewRole role;
     CrewStatus status;

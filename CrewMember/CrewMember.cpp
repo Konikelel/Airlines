@@ -5,8 +5,18 @@ CrewMember::CrewMember(CrewRole& role,
                        std::string& nameFirst,
                        std::string& nameSecond,
                        unsigned int& timeBirthday,
-                       Gender& gender) : role{role},
+                       Gender& gender) : flights{{}},
+                                         role{role},
                                          Person(id, nameFirst, nameSecond, timeBirthday, gender) {
-    this->flights = {};
     setStatus(WORKING);
+}
+
+bool CrewMember::isBusy(unsigned int& timeStart, unsigned int& timeEnd) {
+    if (status == VACATION)
+        return true;
+
+    for (auto& flight : flights)
+        if (!(flight->getTimeDeparture() > timeEnd || flight->getTimeArrival() < timeStart))
+            return true;
+    return false;
 }
