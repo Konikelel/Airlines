@@ -4,7 +4,6 @@
 #define CREW_MEMBER_H
 
 #include "CrewRole.h"
-#include "CrewStatus.h"
 #include "Flight/Flight.h"
 #include "Person/Person.h"
 
@@ -18,8 +17,6 @@ class CrewMember : public Person {
         unsigned int& timeBirthday,
         Gender& gender);
 
-    void setStatus(const CrewStatus& status);
-
     void addFlight(Flight*& pFlight);
     void removeFlight(Flight*& pFlight);
 
@@ -30,7 +27,6 @@ class CrewMember : public Person {
 
    private:
     CrewRole role;
-    CrewStatus status;
 
     std::vector<Flight*> flights;
 };
