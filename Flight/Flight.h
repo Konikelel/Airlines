@@ -53,12 +53,13 @@ class Flight {
     unsigned int& getTimeArrival();
 
     void addPassenger(Passenger*& pPassenger);
-    void addStewardess(CrewMember*& pStewardess);
-    void removePassenger(Passenger*& pPassenger);
-    void addPilots(CrewMember*& pPilot);
+    bool removePassenger(Passenger*& pPassenger);
 
-    void removeStewardess(CrewMember*& pStewardess);
-    void removePilots(CrewMember*& pPilot);
+    void addStewardess(CrewMember*& pStewardess);
+    bool removeStewardess(CrewMember*& pStewardess);
+
+    void addPilots(CrewMember*& pPilot);
+    bool removePilots(CrewMember*& pPilot);
 
     bool operator==(const Flight*& pFlight);
 

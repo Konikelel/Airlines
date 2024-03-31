@@ -4,7 +4,7 @@
 enum FlightStatus {
     AS_PLANNED,
     ON_HOLD,
-    CANCELLED,
+    INCOMPLETE,
 };
 
 #endif
