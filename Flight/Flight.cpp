@@ -58,10 +58,10 @@ void Flight::setPlane(Plane*& pPlane) {
         throw InvalidPlane("Plane cannot accommodate all passengers");
 
     if (!pPlane->inRangeStewardesses(stewardesses))
-        throw InvalidPlane("Plane cannot operate with the current stewardess");
+        throw InvalidPlane("Plane cannot operate with the current number of stewardess");
 
     if (!pPlane->inRangePilots(pilots))
-        throw InvalidPlane("Plane cannot operate with the current pilots");
+        throw InvalidPlane("Plane cannot operate with the current number of pilots");
 
     this->pPlane = pPlane;
 }
