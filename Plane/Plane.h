@@ -5,7 +5,6 @@
 #define PLANE_H
 
 #include "Flight/Flight.h"
-#include "PlaneStatus.h"
 
 class Plane {
    public:
@@ -19,7 +18,6 @@ class Plane {
         unsigned int& requiredPilots);
 
     void setName(const std::string& name);
-    void setStatus(const PlaneStatus& status);
 
     void setCapacityPassengers(const unsigned int& number);
     void setRequiredStewardess(const unsigned int& number);
@@ -51,7 +49,6 @@ class Plane {
 
     unsigned int id;
     std::string name;
-    PlaneStatus status;
 
     unsigned int capacityPassengers;
     unsigned int requiredStewardess;

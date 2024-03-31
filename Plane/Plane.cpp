@@ -19,28 +19,11 @@ Plane::Plane(unsigned int& id,
     setCapacityPassengers(capacityPassengers);
     setRequiredStewardess(requiredStewardess);
     setRequiredPilots(requiredPilots);
-    setStatus(OPERATING);
 }
 
 void Plane::setName(const std::string& name) {
     this->name = name;
 }
-
-// void Plane::setStatus(const PlaneStatus& status) {
-//     this->status = status;
-
-//     if (!flights.size())
-//         return;
-
-//     switch (status) {
-//         case OPERATING:
-//             // CHANGE ALL PLANE FLIGHTS THAT HAVE ALL CREW TO AS_PLANNED
-//             break;
-//         case MAINTENANCE:
-//             // CHANGE ALL PLANE FLIGHTS TO ON_HOLD
-//             break;
-//     }
-// }
 
 void Plane::setCapacityPassengers(const unsigned int& number) {
     this->capacityPassengers = number;
@@ -93,14 +76,6 @@ bool Plane::inRangePilots(std::vector<CrewMember*> pilots) {
 bool Plane::inRangeCrew(std::vector<CrewMember*> stewardesses, std::vector<CrewMember*> pilots) {
     return inRangeStewardesses(stewardesses) && inRangePilots(pilots);
 }
-
-// void Plane::addFlight(Flight*& pFlight) {
-//     // CHANGE PLANE IN FLIGHT
-//     if (status == OPERATING)
-//         flights.push_back(pFlight);
-//     else
-//         std::cout << "Cannot add flight. Plane status is set to: " << status;
-// }
 
 void Plane::setId(const unsigned int& id) {
     if (FindInVector(usedIds, id) != usedIds.end())
