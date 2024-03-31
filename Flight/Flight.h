@@ -46,10 +46,9 @@ class Flight {
     bool removePilots(CrewMember*& pPilot);
 
     bool operator==(const Flight*& pFlight);
-
-   private:
     bool timeOverlap(unsigned int& timeStart, unsigned int& timeEnd);
 
+   private:
     int nrValidCrewMembers(std::vector<CrewMember*>& crew);
 
     std::string flightNr;

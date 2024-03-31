@@ -90,11 +90,11 @@ void Flight::setDataArrival(const unsigned int& time, std::string& city) {
     this->cityArrival = toTitle(city);
 }
 
-// PRIVATE
-
 bool Flight::timeOverlap(unsigned int& timeStart, unsigned int& timeEnd) {
     return !(timeDeparture > timeEnd || timeArrival < timeStart);
 }
+
+// PRIVATE
 
 int Flight::nrValidCrewMembers(std::vector<CrewMember*>& crew) {
     int validNr = crew.size();
