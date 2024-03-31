@@ -21,6 +21,18 @@ Plane::Plane(unsigned int& id,
     setRequiredPilots(requiredPilots);
 }
 
+const unsigned int& Plane::getCapacityPassengers() {
+    return capacityPassengers;
+}
+
+const unsigned int& Plane::getRequiredStewardess() {
+    return requiredStewardess;
+}
+
+const unsigned int& Plane::getRequiredPilots() {
+    return requiredPilots;
+}
+
 void Plane::setName(const std::string& name) {
     this->name = name;
 }
@@ -35,18 +47,6 @@ void Plane::setRequiredStewardess(const unsigned int& number) {
 
 void Plane::setRequiredPilots(const unsigned int& number) {
     this->requiredPilots = number;
-}
-
-const unsigned int& Plane::getCapacityPassengers() {
-    return capacityPassengers;
-}
-
-const unsigned int& Plane::getRequiredStewardess() {
-    return requiredStewardess;
-}
-
-const unsigned int& Plane::getRequiredPilots() {
-    return requiredPilots;
 }
 
 bool Plane::inRangePassengers(unsigned int number) {
@@ -76,6 +76,8 @@ bool Plane::inRangePilots(std::vector<CrewMember*> pilots) {
 bool Plane::inRangeCrew(std::vector<CrewMember*> stewardesses, std::vector<CrewMember*> pilots) {
     return inRangeStewardesses(stewardesses) && inRangePilots(pilots);
 }
+
+// PRIVATE
 
 void Plane::setId(const unsigned int& id) {
     if (FindInVector(usedIds, id) != usedIds.end())
