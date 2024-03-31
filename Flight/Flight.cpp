@@ -11,30 +11,15 @@
 #include "Utils/VectorHandler.h"
 
 Flight::Flight(std::string& flightNr,
-               FlightStatus& status,
                Plane*& pPlane,
                unsigned int& timeDeparture,
                unsigned int& timeArrival,
                std::string& cityDeparture,
-               std::string& cityArrival,
-               std::vector<CrewMember*>& stewardesses,
-               std::vector<CrewMember*>& pilots) : Flight(flightNr, status, pPlane, timeDeparture, timeArrival, cityDeparture, cityArrival) {
-    setStewardess(stewardesses);
-    setPilots(pilots);
-}
-
-Flight::Flight(std::string& flightNr,
-               FlightStatus& status,
-               Plane*& pPlane,
-               unsigned int& timeDeparture,
-               unsigned int& timeArrival,
-               std::string& cityDeparture,
-               std::string& cityArrival) : Flight(flightNr, status, timeDeparture, timeArrival, cityDeparture, cityArrival) {
+               std::string& cityArrival) : Flight(flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival) {
     setPlane(pPlane);
 }
 
 Flight::Flight(std::string& flightNr,
-               FlightStatus& status,
                unsigned int& timeDeparture,
                unsigned int& timeArrival,
                std::string& cityDeparture,
@@ -43,9 +28,16 @@ Flight::Flight(std::string& flightNr,
                                            stewardesses{{}},
                                            passengers{{}} {
     setFlightNr(flightNr);
-    setStatus(status);
     setDataDeparture(timeDeparture, cityDeparture);
     setDataArrival(timeArrival, cityArrival);
+}
+
+unsigned int& Flight::getTimeDeparture() {
+    return timeDeparture;
+}
+
+unsigned int& Flight::getTimeArrival() {
+    return timeArrival;
 }
 
 void Flight::setFlightNr(std::string& flightNr) {
@@ -98,69 +90,18 @@ void Flight::setDataArrival(const unsigned int& time, std::string& city) {
     this->cityArrival = toTitle(city);
 }
 
-void Flight::setStewardess(std::vector<CrewMember*>& stewardesses) {
-    if (pPlane && pPlane->inRangeStewardesses(getNrValidCrewMembers(stewardesses)))
-        throw InvalidCrew("Available stewardesses cannot operate the plane");
+// PRIVATE
 
-    this->stewardesses = stewardesses;
+bool Flight::timeOverlap(unsigned int& timeStart, unsigned int& timeEnd) {
+    return !(timeDeparture > timeEnd || timeArrival < timeStart);
 }
 
-void Flight::setPilots(std::vector<CrewMember*>& pilots) {
-    if (pPlane && getNrValidCrewMembers(pilots) != pPlane->getRequiredPilots())
-        throw InvalidCrew("Available pilots cannot operate the plane");
-
-    this->pilots = pilots;
-}
-
-unsigned int& Flight::getTimeDeparture() {
-    return timeDeparture;
-}
-
-unsigned int& Flight::getTimeArrival() {
-    return timeArrival;
-}
-
-void Flight::addPassenger(Passenger*& pPassenger) {
-    if (pPlane && pPlane->inRangePassengers(passengers.size() + 1))
-        throw MaximumCapacity("Maximum capacity for passengers reached");
-
-    this->passengers.push_back(pPassenger);
-}
-
-bool Flight::removePassenger(Passenger*& pPassenger) {
-    auto iPassenger = PopFromVector(passengers, pPassenger);
-    return iPassenger != passengers.end();
-}
-
-void Flight::addStewardess(CrewMember*& pStewardess) {
-    if (pPlane && pPlane->inRangeStewardesses(stewardesses.size() + 1))
-        throw MaximumCapacity("Maximum capacity for stewardesses reached");
-
-    this->stewardesses.push_back(pStewardess);
-}
-
-bool Flight::removeStewardess(CrewMember*& pStewardess) {
-    auto iStewardess = PopFromVector(stewardesses, pStewardess);
-    return iStewardess != stewardesses.end();
-}
-
-void Flight::addPilots(CrewMember*& pPilot) {
-    if (pPlane && pPlane->inRangePilots(pilots.size() + 1))
-        throw MaximumCapacity("Maximum capacity for pilots reached");
-
-    this->pilots.push_back(pPilot);
-}
-
-bool Flight::removePilots(CrewMember*& pPilot) {
-    auto iPilot = PopFromVector(pilots, pPilot);
-    return iPilot != pilots.end();
-}
-
-int& Flight::getNrValidCrewMembers(std::vector<CrewMember*>& crew) {
+int Flight::nrValidCrewMembers(std::vector<CrewMember*>& crew) {
     int validNr = crew.size();
-    for (auto& member : crew)
+    for (auto& member : crew) {
         if (member->isBusy(timeDeparture, timeArrival))
             validNr--;
+    }
 
     return validNr;
 }
