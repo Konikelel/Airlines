@@ -24,5 +24,6 @@ using InvalidFlightNr = CustomException<InvalidFlightNr>;
 using InvalidPlane = CustomException<InvalidPlane>;
 using InvalidTime = CustomException<InvalidTime>;
 using InvalidCrew = CustomException<InvalidCrew>;
+using MaximumCapacity = CustomException<MaximumCapacity>;
 
 #endif
