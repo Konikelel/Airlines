@@ -66,12 +66,12 @@ const unsigned int& Plane::getRequiredPilots() {
     return requiredPilots;
 }
 
-bool Plane::inRangePassengers(std::vector<Passenger*> passengers) {
-    return capacityPassengers >= passengers.size();
+bool Plane::inRangePassengers(unsigned int number) {
+    return capacityPassengers >= number;
 }
 
-bool Plane::passengersMax(std::vector<Passenger*> passengers) {
-    return capacityPassengers <= passengers.size();
+bool Plane::inRangePassengers(std::vector<Passenger*> passengers) {
+    return inRangePassengers(passengers.size());
 }
 
 bool Plane::inRangeStewardesses(unsigned int number) {

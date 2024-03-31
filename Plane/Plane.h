@@ -29,8 +29,8 @@ class Plane {
     const unsigned int& getRequiredStewardess();
     const unsigned int& getRequiredPilots();
 
+    bool inRangePassengers(unsigned int number);
     bool inRangePassengers(std::vector<Passenger*> passengers);
-    bool passengersMax(std::vector<Passenger*> passengers);
 
     bool inRangeStewardesses(unsigned int number);
     bool inRangeStewardesses(std::vector<CrewMember*> stewardesses);
