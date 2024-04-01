@@ -5,9 +5,9 @@ CrewMember::CrewMember(CrewRole& role,
                        std::string& nameFirst,
                        std::string& nameSecond,
                        unsigned int& timeBirthday,
-                       Gender& gender) : flights{{}},
-                                         role{role},
-                                         Person(id, nameFirst, nameSecond, timeBirthday, gender) {
+                       Gender& gender) : Person(id, nameFirst, nameSecond, timeBirthday, gender),
+                                         flights{{}},
+                                         role{role} {
 }
 
 bool CrewMember::isBusy(unsigned int& timeStart, unsigned int& timeEnd) {

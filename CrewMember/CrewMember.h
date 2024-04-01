@@ -26,9 +26,9 @@ class CrewMember : public Person {
     bool isBusy(unsigned int& timeStart, unsigned int& timeEnd);
 
    private:
-    CrewRole role;
-
     std::vector<Flight*> flights;
+
+    CrewRole role;
 };
 
 #endif
