@@ -23,13 +23,16 @@ Flight::Flight(std::string& flightNr,
                unsigned int& timeDeparture,
                unsigned int& timeArrival,
                std::string& cityDeparture,
-               std::string& cityArrival) : pPlane{nullptr},
-                                           pilots{{}},
-                                           stewardesses{{}},
-                                           passengers{{}} {
+               std::string& cityArrival) {
     setFlightNr(flightNr);
+    this->pPlane = nullptr;
+
     setDataDeparture(timeDeparture, cityDeparture);
     setDataArrival(timeArrival, cityArrival);
+
+    this->passengers = {};
+    this->stewardesses = {};
+    this->pilots = {};
 }
 
 void Flight::setFlightNr(std::string& flightNr) {
