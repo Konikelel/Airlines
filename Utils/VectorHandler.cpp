@@ -9,7 +9,7 @@ typename std::vector<T>::iterator FindInVector(const std::vector<T>& vec, const 
 }
 
 template <typename T>
-typename std::vector<T>::iterator PopFromVector(std::vector<T>& vec, const T& target) {
+typename std::vector<T>::iterator PopFromVector(const std::vector<T>& vec, const T& target) {
     auto targetElement = FindInVector<T>(vec, target);
 
     if (targetElement == vec.end())
