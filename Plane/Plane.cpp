@@ -7,11 +7,11 @@
 
 std::vector<unsigned int> Plane::usedIds = {};
 
-Plane::Plane(unsigned int& id,
-             std::string& name,
-             unsigned int& capacityPassengers,
-             unsigned int& requiredStewardess,
-             unsigned int& requiredPilots) : flights{{}} {
+Plane::Plane(unsigned int id,
+             std::string name,
+             unsigned int capacityPassengers,
+             unsigned int requiredStewardess,
+             unsigned int requiredPilots) : flights{{}} {
     setId(id);
     setName(name);
 
