@@ -23,7 +23,7 @@ void Passenger::addFlight(Flight*& pFlight) {
 }
 
 bool Passenger::removeFlight(Flight*& pFlight) {
-    auto iFlight = popFromVector(flights, pFlight);
+    auto iFlight = PopFromVector(flights, pFlight);
 
     // REMOVE PASSENGER FROM FLIGHT PASSENGERS
 
@@ -31,5 +31,5 @@ bool Passenger::removeFlight(Flight*& pFlight) {
 }
 
 bool Passenger::existFlight(Flight*& pFlight) {
-    return findInVector(flights, pFlight) != flights.end();
+    return existInVector(flights, pFlight);
 }
