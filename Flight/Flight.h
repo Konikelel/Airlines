@@ -25,9 +25,6 @@ class Flight {
         std::string& cityDeparture,
         std::string& cityArrival);
 
-    unsigned int& getTimeDeparture();
-    unsigned int& getTimeArrival();
-
     void setFlightNr(std::string& flightNr);
     void setPlane(Plane*& pPlane);
 
@@ -44,6 +41,12 @@ class Flight {
 
     void addPilots(CrewMember*& pPilot);
     bool removePilots(CrewMember*& pPilot);
+
+    void terminate();
+
+    bool existPassenger(Passenger*& pPassenger);
+    bool existStewardess(Passenger*& pStewardess);
+    bool existPilot(Passenger*& pPilot);
 
     bool operator==(const Flight*& pFlight);
     bool timeOverlap(unsigned int& timeStart, unsigned int& timeEnd);

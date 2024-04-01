@@ -32,14 +32,6 @@ Flight::Flight(std::string& flightNr,
     setDataArrival(timeArrival, cityArrival);
 }
 
-unsigned int& Flight::getTimeDeparture() {
-    return timeDeparture;
-}
-
-unsigned int& Flight::getTimeArrival() {
-    return timeArrival;
-}
-
 void Flight::setFlightNr(std::string& flightNr) {
     if (flightNr.size() < 4)
         throw InvalidFlightNr("Flight number must be longer than 3 symbols");
@@ -88,6 +80,10 @@ void Flight::setDataDeparture(const unsigned int& time, std::string& city) {
 void Flight::setDataArrival(const unsigned int& time, std::string& city) {
     setDataArrival(time);
     this->cityArrival = toTitle(city);
+}
+
+bool Flight::existPassenger(Passenger*& pPassenger) {
+    return FindInVector(passengers, pPassenger) != passengers.end();
 }
 
 bool Flight::timeOverlap(unsigned int& timeStart, unsigned int& timeEnd) {
