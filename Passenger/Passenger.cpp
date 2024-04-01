@@ -7,8 +7,8 @@ Passenger::Passenger(unsigned int& id,
                      std::string& nameFirst,
                      std::string& nameSecond,
                      unsigned int& timeBirthday,
-                     Gender& gender) : flights{{}},
-                                       Person(id, nameFirst, nameSecond, timeBirthday, gender) {
+                     Gender& gender) : Person(id, nameFirst, nameSecond, timeBirthday, gender),
+                                       flights{{}} {
 }
 
 void Passenger::addFlight(Flight*& pFlight) {
