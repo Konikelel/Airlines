@@ -17,10 +17,12 @@ class Passenger : public Person {
         Gender& gender);
 
     void addFlight(Flight*& pFlight);
-    void removeFlight(Flight*& pFlight);
+    bool removeFlight(Flight*& pFlight);
 
-    void removeFlights();
+    bool removeFlights();
     void terminate();
+
+    bool existFlight(Flight*& pFlight);
 
    private:
     std::vector<Flight*> flights;
