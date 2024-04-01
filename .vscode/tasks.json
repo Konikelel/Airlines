@@ -17,11 +17,11 @@
                 "${workspaceFolder}\\Passenger\\Passenger.cpp",
                 "${workspaceFolder}\\Person\\Person.cpp",
                 "${workspaceFolder}\\Plane\\Plane.cpp",
-                "${workspaceFolder}\\Utils\\VectorHandler.cpp",
                 "${workspaceFolder}\\Utils\\StringHandler.cpp",
                 "${workspaceFolder}\\Utils\\CustomErrors.cpp",
 
-                "${workspaceFolder}\\global.test.cpp",
+                "${workspaceFolder}\\Tests\\Global.test.cpp",
+                "${workspaceFolder}\\Tests\\Plane.test.cpp",
                 "-o",
                 "${workspaceFolder}\\program.exe",
                 "-lstdc++"
