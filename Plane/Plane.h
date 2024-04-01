@@ -46,14 +46,14 @@ class Plane {
     unsigned int id;
     std::string name;
 
+    std::vector<Flight*> flights;
+
     unsigned int capacityPassengers;
     unsigned int requiredStewardess;
     unsigned int requiredPilots;
 
     unsigned int capacityStewardess;
     unsigned int capacityPilots;
-
-    std::vector<Flight*> flights;
 };
 
 #endif
