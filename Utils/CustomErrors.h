@@ -20,11 +20,11 @@ class CustomException : public std::exception {
     std::string message;
 };
 
-using InvalidFlightNr = CustomException<InvalidFlightNr>;
-using InvalidPlane = CustomException<InvalidPlane>;
-using InvalidTime = CustomException<InvalidTime>;
-using InvalidCrew = CustomException<InvalidCrew>;
-using MaximumCapacity = CustomException<MaximumCapacity>;
-using DuplicationError = CustomException<DuplicationError>;
+using InvalidFlightNr = CustomException<std::exception>;
+using InvalidPlane = CustomException<std::exception>;
+using InvalidTime = CustomException<std::exception>;
+using InvalidCrew = CustomException<std::exception>;
+using MaximumCapacity = CustomException<std::exception>;
+using DuplicationError = CustomException<std::exception>;
 
 #endif
