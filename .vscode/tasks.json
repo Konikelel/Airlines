@@ -4,14 +4,24 @@
         {
             "type": "cppbuild",
             "label": "C/C++: gcc.exe build active file",
-            "command": "C:\\Programy\\MinGW\\bin\\gcc.exe", //EDIT
+            "command": "D:\\Programy\\MinGW\\bin\\gcc.exe", //EDIT
             "args": [
                 "-g",
                 "-fdiagnostics-color=always",
                 "-Wextra",
                 "-Wall",
                 "-pedantic",
-                "${workspaceFolder}\\UNKNOWN.cpp",
+                "-I${workspaceFolder}",
+                "${workspaceFolder}\\CrewMember\\CrewMember.cpp",
+                "${workspaceFolder}\\Flight\\Flight.cpp",
+                "${workspaceFolder}\\Passenger\\Passenger.cpp",
+                "${workspaceFolder}\\Person\\Person.cpp",
+                "${workspaceFolder}\\Plane\\Plane.cpp",
+                "${workspaceFolder}\\Utils\\VectorHandler.cpp",
+                "${workspaceFolder}\\Utils\\StringHandler.cpp",
+                "${workspaceFolder}\\Utils\\CustomErrors.cpp",
+
+                "${workspaceFolder}\\global.test.cpp",
                 "-o",
                 "${workspaceFolder}\\program.exe",
                 "-lstdc++"
