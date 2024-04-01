@@ -72,7 +72,7 @@ bool Plane::inRangeCrew(std::vector<CrewMember*> stewardesses, std::vector<CrewM
 // PRIVATE
 
 void Plane::setId(const unsigned int& id) {
-    if (FindInVector(usedIds, id) != usedIds.end())
+    if (findInVector(usedIds, id) != usedIds.end())
         throw NonUniqueIDException();
 
     usedIds.push_back(id);

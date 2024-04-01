@@ -97,7 +97,7 @@ void Flight::addPassenger(Passenger*& pPassenger) {
 }
 
 bool Flight::existPassenger(Passenger*& pPassenger) {
-    return FindInVector(passengers, pPassenger) != passengers.end();
+    return findInVector(passengers, pPassenger) != passengers.end();
 }
 
 bool Flight::timeOverlap(unsigned int& timeStart, unsigned int& timeEnd) {

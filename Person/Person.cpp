@@ -26,7 +26,7 @@ void Person::setNameSecond(std::string& name) {
 }
 
 void Person::setId(const unsigned int& id) {
-    if (FindInVector(usedIds, id) != usedIds.end())
+    if (existInVector(usedIds, id))
         throw NonUniqueIDException();
 
     usedIds.push_back(id);
