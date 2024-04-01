@@ -23,6 +23,14 @@ Plane::Plane(unsigned int id,
     this->capacityPilots = requiredPilots * 2;
 }
 
+void Plane::setId(const unsigned int& id) {
+    if (existInVector(usedIds, id))
+        throw NonUniqueIDException();
+
+    usedIds.push_back(id);
+    this->id = id;
+}
+
 void Plane::setName(const std::string& name) {
     this->name = name;
 }
@@ -65,14 +73,4 @@ bool Plane::inRangePilots(std::vector<CrewMember*> pilots) {
 
 bool Plane::inRangeCrew(std::vector<CrewMember*> stewardesses, std::vector<CrewMember*> pilots) {
     return inRangeStewardesses(stewardesses) && inRangePilots(pilots);
-}
-
-// PRIVATE
-
-void Plane::setId(const unsigned int& id) {
-    if (existInVector(usedIds, id))
-        throw NonUniqueIDException();
-
-    usedIds.push_back(id);
-    this->id = id;
 }
