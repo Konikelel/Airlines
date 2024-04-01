@@ -48,7 +48,6 @@ class Flight {
     bool existStewardess(Passenger*& pStewardess);
     bool existPilot(Passenger*& pPilot);
 
-    bool operator==(const Flight*& pFlight);
     bool timeOverlap(unsigned int& timeStart, unsigned int& timeEnd);
 
    private:
