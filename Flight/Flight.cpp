@@ -82,6 +82,17 @@ void Flight::setDataArrival(const unsigned int& time, std::string& city) {
     this->cityArrival = toTitle(city);
 }
 
+void Flight::addPassenger(Passenger*& pPassenger) {
+    if (existPassenger(pPassenger))
+        throw DuplicationError("Passenger is already on the flight");
+
+    passengers.push_back(pPassenger);
+
+    Flight* pFlight = this;
+    if (!pPassenger->existFlight(pFlight))
+        pPassenger->addFlight(pFlight);
+}
+
 bool Flight::existPassenger(Passenger*& pPassenger) {
     return FindInVector(passengers, pPassenger) != passengers.end();
 }
