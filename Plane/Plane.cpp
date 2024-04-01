@@ -21,18 +21,6 @@ Plane::Plane(unsigned int& id,
     setRequiredPilots(requiredPilots);
 }
 
-const unsigned int& Plane::getCapacityPassengers() {
-    return capacityPassengers;
-}
-
-const unsigned int& Plane::getRequiredStewardess() {
-    return requiredStewardess;
-}
-
-const unsigned int& Plane::getRequiredPilots() {
-    return requiredPilots;
-}
-
 void Plane::setName(const std::string& name) {
     this->name = name;
 }
