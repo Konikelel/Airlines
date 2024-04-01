@@ -11,11 +11,9 @@ Plane::Plane(unsigned int& id,
              std::string& name,
              unsigned int& capacityPassengers,
              unsigned int& requiredStewardess,
-             unsigned int& requiredPilots) {
+             unsigned int& requiredPilots) : flights{{}} {
     setId(id);
     setName(name);
-
-    this->flights = {};
 
     setCapacityPassengers(capacityPassengers);
     setRequiredStewardess(requiredStewardess);
