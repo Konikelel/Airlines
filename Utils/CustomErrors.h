@@ -4,6 +4,11 @@
 #ifndef CUSTOM_ERRORS_H
 #define CUSTOM_ERRORS_H
 
+class NonUniqueIDException : public std::exception {
+   public:
+    const char* what() const noexcept override;
+};
+
 template <typename T>
 class CustomException : public std::exception {
    public:
@@ -13,11 +18,6 @@ class CustomException : public std::exception {
 
    private:
     std::string message;
-};
-
-class NonUniqueIDException : public std::exception {
-   public:
-    const char* what() const noexcept override;
 };
 
 using InvalidFlightNr = CustomException<InvalidFlightNr>;
