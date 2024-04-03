@@ -61,7 +61,7 @@ void Plane::setId(const unsigned int id) {
     this->id = id;
 }
 
-void Plane::setName(const std::string name) {
+void Plane::setName(std::string name) {
     if (name.size() == 0)
         throw InvalidName("Name must contain any character");
 
@@ -82,30 +82,30 @@ void Plane::setRequiredPilots(const unsigned int number) {
     this->requiredPilots = number;
 }
 
-bool Plane::inRangePassengers(unsigned int number) {
+bool Plane::inRangePassengers(unsigned int number) const {
     return capacityPassengers >= number;
 }
 
-bool Plane::inRangePassengers(const std::vector<Passenger*>& passengers) {
+bool Plane::inRangePassengers(const std::vector<Passenger*>& passengers) const {
     return inRangePassengers(passengers.size());
 }
 
-bool Plane::inRangeStewardesses(unsigned int number) {
+bool Plane::inRangeStewardesses(unsigned int number) const {
     return requiredStewardess <= number && number <= capacityStewardess;
 }
 
-bool Plane::inRangeStewardesses(const std::vector<CrewMember*>& stewardesses) {
+bool Plane::inRangeStewardesses(const std::vector<CrewMember*>& stewardesses) const {
     return inRangeStewardesses(stewardesses.size());
 }
 
-bool Plane::inRangePilots(unsigned int number) {
+bool Plane::inRangePilots(unsigned int number) const {
     return requiredPilots <= number && number <= capacityPilots;
 }
 
-bool Plane::inRangePilots(const std::vector<CrewMember*>& pilots) {
+bool Plane::inRangePilots(const std::vector<CrewMember*>& pilots) const {
     return inRangePilots(pilots.size());
 }
 
-bool Plane::inRangeCrew(const std::vector<CrewMember*>& stewardesses, const std::vector<CrewMember*>& pilots) {
+bool Plane::inRangeCrew(const std::vector<CrewMember*>& stewardesses, const std::vector<CrewMember*>& pilots) const {
     return inRangeStewardesses(stewardesses) && inRangePilots(pilots);
 }

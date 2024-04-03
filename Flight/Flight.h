@@ -11,47 +11,47 @@ class Plane;
 class Flight {
    public:
     Flight(
-        std::string& flightNr,
-        Plane*& pPlane,
-        unsigned int& timeDeparture,
-        unsigned int& timeArrival,
-        std::string& cityDeparture,
-        std::string& cityArrival);
+        std::string flightNr,
+        Plane* pPlane,
+        unsigned int timeDeparture,
+        unsigned int timeArrival,
+        std::string cityDeparture,
+        std::string cityArrival);
 
     Flight(
-        std::string& flightNr,
-        unsigned int& timeDeparture,
-        unsigned int& timeArrival,
-        std::string& cityDeparture,
-        std::string& cityArrival);
+        std::string flightNr,
+        unsigned int timeDeparture,
+        unsigned int timeArrival,
+        std::string cityDeparture,
+        std::string cityArrival);
 
-    void setFlightNr(std::string& flightNr);
-    void setPlane(Plane*& pPlane);
+    void setFlightNr(const std::string flightNr);
+    void setPlane(Plane* pPlane);
 
-    void setDataDeparture(const unsigned int& time);
-    void setDataArrival(const unsigned int& time);
-    void setDataDeparture(const unsigned int& time, std::string& city);
-    void setDataArrival(const unsigned int& time, std::string& city);
+    void setDataDeparture(const unsigned int time);
+    void setDataArrival(const unsigned int time);
+    void setDataDeparture(const unsigned int time, const std::string city);
+    void setDataArrival(const unsigned int time, const std::string city);
 
-    void addPassenger(Passenger*& pPassenger);
-    bool removePassenger(Passenger*& pPassenger);
+    void addPassenger(Passenger* pPassenger);
+    bool removePassenger(const Passenger* pPassenger);
 
-    void addStewardess(CrewMember*& pStewardess);
-    bool removeStewardess(CrewMember*& pStewardess);
+    void addStewardess(CrewMember* pStewardess);
+    bool removeStewardess(const CrewMember* pStewardess);
 
-    void addPilots(CrewMember*& pPilot);
-    bool removePilots(CrewMember*& pPilot);
+    void addPilots(CrewMember* pPilot);
+    bool removePilots(const CrewMember* pPilot);
 
     void terminate();
 
-    bool existPassenger(Passenger*& pPassenger);
-    bool existStewardess(Passenger*& pStewardess);
-    bool existPilot(Passenger*& pPilot);
+    bool existPassenger(Passenger* pPassenger);  // BEST (const Passenger* pPassenger) const {} BUT ERRORS
+    bool existStewardess(const Passenger* pStewardess);
+    bool existPilot(const Passenger* pPilot);
 
-    bool timeOverlap(unsigned int& timeStart, unsigned int& timeEnd);
+    bool timeOverlap(const unsigned int timeStart, const unsigned int timeEnd);
 
    private:
-    int nrValidCrewMembers(std::vector<CrewMember*>& crew);
+    int nrValidCrewMembers(const std::vector<CrewMember*>& crew);
 
     std::string flightNr;
     Plane* pPlane;
