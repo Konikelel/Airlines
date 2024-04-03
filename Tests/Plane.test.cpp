@@ -12,9 +12,17 @@ int testPlane() {  // ADD IN DESTRUCTOR TO REMOVE ID FROM LIST
 
     Plane plane{100, "B737", 100, 3, 2};
 
-    std::cout << "Testing constructor, setters, getters... ";
+    std::cout << "Testing constructor, getters, setters... ";
+    passed = false;
     {
         Plane plane1{101, "B737", 50, 1, 1};
+
+        try {
+            plane1.setName("");
+        } catch (const InvalidName& e) {
+            passed = true;
+        }
+
         plane1.changeId(99);
         plane1.setName("B777");
         plane1.setCapacityPassengers(100);
@@ -22,7 +30,8 @@ int testPlane() {  // ADD IN DESTRUCTOR TO REMOVE ID FROM LIST
         plane1.setRequiredPilots(2);
 
         passed = (plane1.getId() == 99 && plane1.getName() == "B777" && plane1.getCapacityPassengers() == 100 &&
-                  plane1.getRequiredStewardess() == 3 && plane1.getRequiredPilots() == 2);
+                  plane1.getRequiredStewardess() == 3 && plane1.getRequiredPilots() == 2) &&
+                 passed;
     }
     std::cout << (passed ? "Passed" : throw std::runtime_error("Failed")) << std::endl;
 

@@ -1,7 +1,10 @@
+#include <iostream>
+
 #include "Tests.h"
 
 int main() {
-    // testPlane();
+    testPlane();
+    std::cout << std::endl;
     testPerson();
 
     return 0;

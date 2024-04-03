@@ -62,6 +62,9 @@ void Plane::setId(const unsigned int id) {
 }
 
 void Plane::setName(const std::string name) {
+    if (name.size() == 0)
+        throw InvalidName("Name must contain any character");
+
     this->name = name;
 }
 

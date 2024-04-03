@@ -26,6 +26,7 @@ using InvalidFlightNr = CustomException<std::exception>;
 using InvalidPlane = CustomException<std::exception>;
 using InvalidTime = CustomException<std::exception>;
 using InvalidCrew = CustomException<std::exception>;
+using InvalidName = CustomException<std::exception>;
 using MaximumCapacity = CustomException<std::exception>;
 using DuplicationError = CustomException<std::exception>;
 
