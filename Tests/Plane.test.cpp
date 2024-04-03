@@ -3,13 +3,14 @@
 #include <exception>
 #include <iostream>
 
+#include "Tests.h"
 #include "Utils/CustomErrors.h"
 
 int testPlane() {  // ADD IN DESTRUCTOR TO REMOVE ID FROM LIST
     std::cout << "Testing Plane class:" << std::endl;
     bool passed = false;
 
-    Plane plane{100, "B737", 100, 3, 2};
+    Plane plane{100, "B737", 50, 2, 1};
 
     std::cout << "Testing constructor and setters... ";
     {
@@ -18,10 +19,14 @@ int testPlane() {  // ADD IN DESTRUCTOR TO REMOVE ID FROM LIST
         plane.setCapacityPassengers(100);
         plane.setRequiredStewardess(3);
         plane.setRequiredPilots(2);
+
+        passed = (plane.getId() == 101 && plane.getName() == "B777" && plane.getCapacityPassengers() == 100 &&
+                  plane.getRequiredStewardess() == 3 && plane.getRequiredPilots() == 2);
     }
-    std::cout << "Passed" << std::endl;
+    std::cout << (passed ? "Passed" : throw std::runtime_error("Failed")) << std::endl;
 
     std::cout << "Testing uniqueId... ";
+    passed = false;
     {
         Plane plane2{102, "B737", 100, 3, 2};
 
