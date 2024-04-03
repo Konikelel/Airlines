@@ -1,1 +1,3 @@
-void testPlane();
+int testPlane();
+
+int testPerson();

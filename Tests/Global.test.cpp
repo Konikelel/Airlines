@@ -1,5 +1,8 @@
 #include "Tests.h"
 
 int main() {
-    testPlane();
+    // testPlane();
+    testPerson();
+
+    return 0;
 }
