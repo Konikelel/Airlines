@@ -23,13 +23,13 @@ class Person {
     unsigned int getTimeBirthday();
     Gender getGender();
 
+    void setId(const unsigned int& id);
     void setNameFirst(std::string& name);
     void setNameSecond(std::string& name);
 
-   private:
-    void setId(const unsigned int& id);
     void setTimeBirthday(const unsigned int& time);
 
+   private:
     unsigned int id;
     std::string nameFirst;
     std::string nameSecond;
