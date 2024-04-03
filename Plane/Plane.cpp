@@ -61,10 +61,12 @@ void Plane::setCapacityPassengers(const unsigned int& number) {
 
 void Plane::setRequiredStewardess(const unsigned int& number) {
     this->requiredStewardess = number;
+    this->capacityStewardess = number * 2;
 }
 
 void Plane::setRequiredPilots(const unsigned int& number) {
     this->requiredPilots = number;
+    this->capacityPilots = number * 2;
 }
 
 bool Plane::inRangePassengers(unsigned int number) {
