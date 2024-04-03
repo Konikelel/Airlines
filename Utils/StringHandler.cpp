@@ -19,5 +19,5 @@ std::string toTitle(std::string& sentence) {
     if (sentence.size() > 1)
         restString = toLower(restString = sentence.substr(1));
 
-    return sentence + restString;
+    return sentence[0] + restString;
 }
