@@ -25,7 +25,7 @@ class Plane {
     unsigned int getRequiredStewardess();
     unsigned int getRequiredPilots();
 
-    void setId(const unsigned int id);
+    void changeId(const unsigned int id);
     void setName(const std::string name);
 
     void setCapacityPassengers(const unsigned int number);
@@ -50,6 +50,8 @@ class Plane {
     void terminate();
 
    private:
+    void setId(const unsigned int id);
+
     unsigned int id;
     std::string name;
 

@@ -15,7 +15,7 @@ int testPlane() {  // ADD IN DESTRUCTOR TO REMOVE ID FROM LIST
     std::cout << "Testing constructor and setters... ";
     {
         Plane plane1{101, "B737", 50, 1, 1};
-        plane1.setId(99);
+        plane1.changeId(99);
         plane1.setName("B777");
         plane1.setCapacityPassengers(100);
         plane1.setRequiredStewardess(3);
@@ -27,14 +27,25 @@ int testPlane() {  // ADD IN DESTRUCTOR TO REMOVE ID FROM LIST
     std::cout << (passed ? "Passed" : throw std::runtime_error("Failed")) << std::endl;
 
     std::cout << "Testing uniqueId... ";
-    passed = false;
+    passed = true;
     {
         Plane plane2{102, "B737", 100, 3, 2};
 
         try {
-            plane2.setId(101);
+            plane2.changeId(101);
         } catch (const NonUniqueIDException& e) {
-            passed = true;
+            passed = false;
+        }
+    }
+    std::cout << (passed ? "Passed" : throw std::runtime_error("Failed")) << std::endl;
+
+    std::cout << "Testing destructor... ";
+    passed = true;
+    {
+        try {
+            plane.changeId(99);
+        } catch (const NonUniqueIDException& e) {
+            passed = false;
         }
     }
     std::cout << (passed ? "Passed" : throw std::runtime_error("Failed")) << std::endl;
