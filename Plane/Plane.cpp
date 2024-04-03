@@ -23,6 +23,10 @@ Plane::Plane(unsigned int id,
     this->capacityPilots = requiredPilots * 2;
 }
 
+Plane::~Plane() {
+    popFromVector(usedIds, id);
+}
+
 unsigned int Plane::getId() {
     return id;
 }

@@ -17,6 +17,8 @@ class Plane {
         unsigned int requiredStewardess,
         unsigned int requiredPilots);
 
+    ~Plane();
+
     unsigned int getId();
     std::string getName();
     unsigned int getCapacityPassengers();
