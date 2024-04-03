@@ -43,7 +43,7 @@ unsigned int Plane::getRequiredPilots() {
     return requiredPilots;
 }
 
-void Plane::setId(const unsigned int& id) {
+void Plane::setId(const unsigned int id) {
     if (existInVector(usedIds, id))
         throw NonUniqueIDException();
 
@@ -51,20 +51,20 @@ void Plane::setId(const unsigned int& id) {
     this->id = id;
 }
 
-void Plane::setName(const std::string& name) {
+void Plane::setName(const std::string name) {
     this->name = name;
 }
 
-void Plane::setCapacityPassengers(const unsigned int& number) {
+void Plane::setCapacityPassengers(const unsigned int number) {
     this->capacityPassengers = number;
 }
 
-void Plane::setRequiredStewardess(const unsigned int& number) {
+void Plane::setRequiredStewardess(const unsigned int number) {
     this->requiredStewardess = number;
     this->capacityStewardess = number * 2;
 }
 
-void Plane::setRequiredPilots(const unsigned int& number) {
+void Plane::setRequiredPilots(const unsigned int number) {
     this->requiredPilots = number;
     this->capacityPilots = number * 2;
 }
@@ -73,7 +73,7 @@ bool Plane::inRangePassengers(unsigned int number) {
     return capacityPassengers >= number;
 }
 
-bool Plane::inRangePassengers(std::vector<Passenger*> passengers) {
+bool Plane::inRangePassengers(const std::vector<Passenger*>& passengers) {
     return inRangePassengers(passengers.size());
 }
 
@@ -81,7 +81,7 @@ bool Plane::inRangeStewardesses(unsigned int number) {
     return requiredStewardess <= number && number <= capacityStewardess;
 }
 
-bool Plane::inRangeStewardesses(std::vector<CrewMember*> stewardesses) {
+bool Plane::inRangeStewardesses(const std::vector<CrewMember*>& stewardesses) {
     return inRangeStewardesses(stewardesses.size());
 }
 
@@ -89,10 +89,10 @@ bool Plane::inRangePilots(unsigned int number) {
     return requiredPilots <= number && number <= capacityPilots;
 }
 
-bool Plane::inRangePilots(std::vector<CrewMember*> pilots) {
+bool Plane::inRangePilots(const std::vector<CrewMember*>& pilots) {
     return inRangePilots(pilots.size());
 }
 
-bool Plane::inRangeCrew(std::vector<CrewMember*> stewardesses, std::vector<CrewMember*> pilots) {
+bool Plane::inRangeCrew(const std::vector<CrewMember*>& stewardesses, const std::vector<CrewMember*>& pilots) {
     return inRangeStewardesses(stewardesses) && inRangePilots(pilots);
 }
