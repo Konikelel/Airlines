@@ -12,7 +12,7 @@ int testPlane() {  // ADD IN DESTRUCTOR TO REMOVE ID FROM LIST
 
     Plane plane{100, "B737", 100, 3, 2};
 
-    std::cout << "Testing constructor and setters... ";
+    std::cout << "Testing constructor, setters, getters... ";
     {
         Plane plane1{101, "B737", 50, 1, 1};
         plane1.changeId(99);

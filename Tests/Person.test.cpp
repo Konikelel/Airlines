@@ -10,7 +10,7 @@ int testPerson() {
     bool passed = false;
     Person person{100, "Victor", "Alb", 0, MALE};
 
-    std::cout << "Testing constructor and setters... ";
+    std::cout << "Testing constructor, getters, setters... ";
     {
         Person person1{0, "Anna", "B", 1, FEMALE};
         person1.changeId(1);
