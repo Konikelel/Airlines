@@ -23,6 +23,26 @@ Plane::Plane(unsigned int id,
     this->capacityPilots = requiredPilots * 2;
 }
 
+unsigned int Plane::getId() {
+    return id;
+}
+
+std::string Plane::getName() {
+    return name;
+}
+
+unsigned int Plane::getCapacityPassengers() {
+    return capacityPassengers;
+}
+
+unsigned int Plane::getRequiredStewardess() {
+    return requiredStewardess;
+}
+
+unsigned int Plane::getRequiredPilots() {
+    return requiredPilots;
+}
+
 void Plane::setId(const unsigned int& id) {
     if (existInVector(usedIds, id))
         throw NonUniqueIDException();
