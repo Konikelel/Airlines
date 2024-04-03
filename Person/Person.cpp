@@ -17,6 +17,10 @@ Person::Person(unsigned int id,
     setTimeBirthday(timeBirthday);
 }
 
+Person::~Person() {
+    popFromVector(usedIds, id);
+}
+
 unsigned int Person::getId() {
     return id;
 }

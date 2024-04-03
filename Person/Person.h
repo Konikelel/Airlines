@@ -16,6 +16,7 @@ class Person {
         std::string nameSecond,
         unsigned int timeBirthday,
         Gender gender);
+    ~Person();
 
     unsigned int getId();
     std::string getNameFirst();

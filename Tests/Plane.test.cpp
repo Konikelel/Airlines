@@ -27,14 +27,14 @@ int testPlane() {  // ADD IN DESTRUCTOR TO REMOVE ID FROM LIST
     std::cout << (passed ? "Passed" : throw std::runtime_error("Failed")) << std::endl;
 
     std::cout << "Testing uniqueId... ";
-    passed = true;
+    passed = false;
     {
         Plane plane2{102, "B737", 100, 3, 2};
 
         try {
-            plane2.changeId(101);
+            plane2.changeId(100);
         } catch (const NonUniqueIDException& e) {
-            passed = false;
+            passed = true;
         }
     }
     std::cout << (passed ? "Passed" : throw std::runtime_error("Failed")) << std::endl;
