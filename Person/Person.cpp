@@ -37,6 +37,12 @@ Gender Person::getGender() {
     return gender;
 }
 
+void Person::changeId(const unsigned int id) {
+    unsigned int oldId = this->id;
+    setId(id);
+    popFromVector(usedIds, oldId);
+}
+
 void Person::setId(const unsigned int id) {
     if (existInVector(usedIds, id))
         throw NonUniqueIDException();
