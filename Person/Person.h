@@ -11,11 +11,17 @@ class Person {
     static std::vector<unsigned int> usedIds;
 
     Person(
-        unsigned int& id,
-        std::string& nameFirst,
-        std::string& nameSecond,
-        unsigned int& timeBirthday,
-        Gender& gender);
+        unsigned int id,
+        std::string nameFirst,
+        std::string nameSecond,
+        unsigned int timeBirthday,
+        Gender gender);
+
+    unsigned int getId();
+    std::string getNameFirst();
+    std::string getNameSecond();
+    unsigned int getTimeBirthday();
+    Gender getGender();
 
     void setNameFirst(std::string& name);
     void setNameSecond(std::string& name);

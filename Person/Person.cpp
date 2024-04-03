@@ -6,15 +6,35 @@
 
 std::vector<unsigned int> Person::usedIds = {};
 
-Person::Person(unsigned int& id,
-               std::string& nameFirst,
-               std::string& nameSecond,
-               unsigned int& timeBirthday,
-               Gender& gender) : gender{gender} {
+Person::Person(unsigned int id,
+               std::string nameFirst,
+               std::string nameSecond,
+               unsigned int timeBirthday,
+               Gender gender) : gender{gender} {
     setId(id);
     setNameFirst(nameFirst);
     setNameSecond(nameSecond);
     setTimeBirthday(timeBirthday);
+}
+
+unsigned int Person::getId() {
+    return id;
+}
+
+std::string Person::getNameFirst() {
+    return nameFirst;
+}
+
+std::string Person::getNameSecond() {
+    return nameSecond;
+}
+
+unsigned int Person::getTimeBirthday() {
+    return timeBirthday;
+}
+
+Gender Person::getGender() {
+    return gender;
 }
 
 void Person::setNameFirst(std::string& name) {
