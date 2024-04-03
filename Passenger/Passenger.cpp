@@ -3,15 +3,15 @@
 #include "Utils/CustomErrors.h"
 #include "Utils/VectorHandler.h"
 
-Passenger::Passenger(unsigned int& id,
-                     std::string& nameFirst,
-                     std::string& nameSecond,
-                     unsigned int& timeBirthday,
-                     Gender& gender) : Person(id, nameFirst, nameSecond, timeBirthday, gender),
-                                       flights{{}} {
+Passenger::Passenger(unsigned int id,
+                     std::string nameFirst,
+                     std::string nameSecond,
+                     unsigned int timeBirthday,
+                     Gender gender) : Person(id, nameFirst, nameSecond, timeBirthday, gender),
+                                      flights{{}} {
 }
 
-void Passenger::addFlight(Flight*& pFlight) {
+void Passenger::addFlight(Flight* pFlight) {
     if (existFlight(pFlight))
         throw DuplicationError("Passenger is already on the flight");
 
@@ -22,7 +22,7 @@ void Passenger::addFlight(Flight*& pFlight) {
         pFlight->addPassenger(pPassenger);
 }
 
-bool Passenger::removeFlight(Flight*& pFlight) {
+bool Passenger::removeFlight(Flight* pFlight) {
     auto iFlight = popFromVector(flights, pFlight);
 
     // REMOVE PASSENGER FROM FLIGHT PASSENGERS
@@ -30,6 +30,6 @@ bool Passenger::removeFlight(Flight*& pFlight) {
     return iFlight != flights.end();
 }
 
-bool Passenger::existFlight(Flight*& pFlight) {
+bool Passenger::existFlight(Flight* pFlight) {
     return existInVector(flights, pFlight);
 }

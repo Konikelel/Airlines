@@ -7,7 +7,7 @@
 // RETURN ITERATOR OF FOUND ELEMENT OF VEC.END(), NEED OVERLOADED ==
 template <typename T>
 typename std::vector<T>::iterator findInVector(std::vector<T>& vec, const T& target) {
-    return std::find(vec.begin(), vec.end(), target);
+    return std::find(vec.begin(), vec.end(), target);  // ERROR WHEN TRYING WITH CONST
 }
 
 // RETURN BOOL IF ELEMENT EXIST IN VECTOR, NEED OVERLOADED ==
