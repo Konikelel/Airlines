@@ -24,8 +24,8 @@ class Person {
     Gender getGender();
 
     void setId(const unsigned int& id);
-    void setNameFirst(std::string& name);
-    void setNameSecond(std::string& name);
+    void setNameFirst(std::string name);
+    void setNameSecond(std::string name);
 
     void setTimeBirthday(const unsigned int& time);
 

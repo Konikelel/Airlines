@@ -37,20 +37,20 @@ Gender Person::getGender() {
     return gender;
 }
 
-void Person::setNameFirst(std::string& name) {
-    this->nameFirst = toTitle(name);
-}
-
-void Person::setNameSecond(std::string& name) {
-    this->nameSecond = toTitle(name);
-}
-
 void Person::setId(const unsigned int& id) {
     if (existInVector(usedIds, id))
         throw NonUniqueIDException();
 
     usedIds.push_back(id);
     this->id = id;
+}
+
+void Person::setNameFirst(std::string name) {
+    this->nameFirst = toTitle(name);
+}
+
+void Person::setNameSecond(std::string name) {
+    this->nameSecond = toTitle(name);
 }
 
 void Person::setTimeBirthday(const unsigned int& time) {
