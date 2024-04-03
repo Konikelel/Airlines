@@ -37,7 +37,7 @@ Gender Person::getGender() {
     return gender;
 }
 
-void Person::setId(const unsigned int& id) {
+void Person::setId(const unsigned int id) {
     if (existInVector(usedIds, id))
         throw NonUniqueIDException();
 
@@ -53,7 +53,7 @@ void Person::setNameSecond(std::string name) {
     this->nameSecond = toTitle(name);
 }
 
-void Person::setTimeBirthday(const unsigned int& time) {
+void Person::setTimeBirthday(const unsigned int time) {
     // CHECK IF IN FUTURE, RAISE ERROR
     this->timeBirthday = time;
 }
