@@ -24,7 +24,7 @@ Plane::Plane(unsigned int id,
 }
 
 Plane::~Plane() {
-    popFromVector(usedIds, id);
+    popVector(usedIds, id);
 }
 
 unsigned int Plane::getId() {
@@ -50,11 +50,11 @@ unsigned int Plane::getRequiredPilots() {
 void Plane::changeId(const unsigned int id) {
     unsigned int oldId = this->id;
     setId(id);
-    popFromVector(usedIds, oldId);
+    popVector(usedIds, oldId);
 }
 
 void Plane::setId(const unsigned int id) {
-    if (existInVector(usedIds, id))
+    if (existVector(usedIds, id))
         throw NonUniqueIDException();
 
     usedIds.push_back(id);

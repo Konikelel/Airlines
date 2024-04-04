@@ -18,7 +18,7 @@ Person::Person(unsigned int id,
 }
 
 Person::~Person() {
-    popFromVector(usedIds, id);
+    popVector(usedIds, id);
 }
 
 unsigned int Person::getId() {
@@ -44,11 +44,11 @@ Gender Person::getGender() {
 void Person::changeId(const unsigned int id) {
     unsigned int oldId = this->id;
     setId(id);
-    popFromVector(usedIds, oldId);
+    popVector(usedIds, oldId);
 }
 
 void Person::setId(const unsigned int id) {
-    if (existInVector(usedIds, id))
+    if (existVector(usedIds, id))
         throw NonUniqueIDException();
 
     usedIds.push_back(id);

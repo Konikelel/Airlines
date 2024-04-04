@@ -94,7 +94,7 @@ void Flight::addPassenger(Passenger* const pPassenger) {
 }
 
 bool Flight::existPassenger(Passenger* pPassenger) {
-    return existInVector(passengers, pPassenger);
+    return existVector(passengers, pPassenger);
 }
 
 bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) {

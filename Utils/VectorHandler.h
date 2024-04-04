@@ -4,27 +4,44 @@
 #ifndef VECTOR_HANDLER_H
 #define VECTOR_HANDLER_H
 
-// RETURN ITERATOR OF FOUND ELEMENT OF VEC.END(), NEED OVERLOADED ==
+// RETURN ITERATOR OF FOUND ELEMENT OR VEC.END()
 template <typename T>
-typename std::vector<T>::iterator findInVector(std::vector<T>& vec, const T& target) {
+typename std::vector<T>::iterator findVector(std::vector<T>& vec, const T& target) {
     return std::find(vec.begin(), vec.end(), target);  // ERROR WHEN TRYING WITH CONST
 }
 
-// RETURN BOOL IF ELEMENT EXIST IN VECTOR, NEED OVERLOADED ==
 template <typename T>
-bool existInVector(std::vector<T>& vec, const T& target) {
-    return findInVector(vec, target) != vec.end();
+typename std::vector<T>::const_iterator findVector(const std::vector<T>& vec, const T& target) {
+    return std::find(vec.begin(), vec.end(), target);
 }
 
-// RETURN ITERATOR OF POPPED ELEMENT OF VEC.END(), NEED OVERLOADED ==
+// RETURN BOOL IF ELEMENT EXIST IN VECTOR
 template <typename T>
-typename std::vector<T>::iterator popFromVector(std::vector<T>& vec, const T& target) {
-    auto targetElement = findInVector<T>(vec, target);
+bool existVector(const std::vector<T>& vec, const T& target) {
+    return findVector(vec, target) != vec.end();
+}
+
+// RETURN ITERATOR OF POPPED ELEMENT OR VEC.END()
+template <typename T>
+typename std::vector<T>::iterator popVector(std::vector<T>& vec, const T& target) {
+    typename std::vector<T>::iterator targetElement = findVector<T>(vec, target);
+
+    if (targetElement != vec.end())
+        vec.erase(targetElement);
+
+    return targetElement;
+}
+
+// RETURN BOOL IF ELEMENT WAS DELETED
+template <typename T>
+bool deleteVector(std::vector<T>& vec, const T& target) {
+    typename std::vector<T>::iterator targetElement = findVector<T>(vec, target);
 
     if (targetElement == vec.end())
-        return vec.end();
+        return false;
 
-    return vec.erase(targetElement);
+    vec.erase(targetElement);
+    return true;
 }
 
 #endif
