@@ -18,7 +18,7 @@ Person::Person(unsigned int id,
 }
 
 Person::~Person() {
-    popVector(usedIds, id);
+    deleteVector(usedIds, id);
 }
 
 unsigned int Person::getId() {
@@ -44,7 +44,7 @@ Gender Person::getGender() {
 void Person::changeId(const unsigned int id) {
     unsigned int oldId = this->id;
     setId(id);
-    popVector(usedIds, oldId);
+    deleteVector(usedIds, oldId);
 }
 
 void Person::setId(const unsigned int id) {

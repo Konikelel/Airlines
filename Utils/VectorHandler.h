@@ -12,7 +12,7 @@ typename std::vector<T>::iterator findVector(std::vector<T>& vec, const T& targe
 
 // RETURN BOOL IF ELEMENT EXIST IN VECTOR
 template <typename T>
-bool existVector(const std::vector<T>& vec, const T& target) {
+bool existVector(std::vector<T>& vec, const T& target) {
     return findVector(vec, target) != vec.end();
 }
 

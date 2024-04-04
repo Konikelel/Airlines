@@ -24,7 +24,7 @@ Plane::Plane(unsigned int id,
 }
 
 Plane::~Plane() {
-    popVector(usedIds, id);
+    deleteVector(usedIds, id);
 }
 
 unsigned int Plane::getId() {
@@ -50,7 +50,7 @@ unsigned int Plane::getRequiredPilots() {
 void Plane::changeId(const unsigned int id) {
     unsigned int oldId = this->id;
     setId(id);
-    popVector(usedIds, oldId);
+    deleteVector(usedIds, oldId);
 }
 
 void Plane::setId(const unsigned int id) {
