@@ -8,7 +8,7 @@
 
 int testPlane() {  // ADD IN DESTRUCTOR TO REMOVE ID FROM LIST
     std::cout << "Testing Plane class:" << std::endl;
-    bool passed = false;
+    bool passed;
 
     Plane plane{100, "B737", 100, 3, 2};
 

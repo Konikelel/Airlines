@@ -7,7 +7,8 @@
 
 int testPerson() {
     std::cout << "Testing Person class:" << std::endl;
-    bool passed = false;
+    bool passed;
+
     Person person{100, "Victor", "Alb", 0, MALE};
 
     std::cout << "Testing constructor, getters, setters... ";
