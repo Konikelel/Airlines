@@ -10,11 +10,6 @@ typename std::vector<T>::iterator findVector(std::vector<T>& vec, const T& targe
     return std::find(vec.begin(), vec.end(), target);  // ERROR WHEN TRYING WITH CONST
 }
 
-template <typename T>
-typename std::vector<T>::const_iterator findVector(const std::vector<T>& vec, const T& target) {
-    return std::find(vec.begin(), vec.end(), target);
-}
-
 // RETURN BOOL IF ELEMENT EXIST IN VECTOR
 template <typename T>
 bool existVector(const std::vector<T>& vec, const T& target) {
@@ -35,13 +30,7 @@ typename std::vector<T>::iterator popVector(std::vector<T>& vec, const T& target
 // RETURN BOOL IF ELEMENT WAS DELETED
 template <typename T>
 bool deleteVector(std::vector<T>& vec, const T& target) {
-    typename std::vector<T>::iterator targetElement = findVector<T>(vec, target);
-
-    if (targetElement == vec.end())
-        return false;
-
-    vec.erase(targetElement);
-    return true;
+    return popVector<T>(vec, target) != vec.end();
 }
 
 #endif

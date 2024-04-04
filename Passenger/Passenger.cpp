@@ -23,11 +23,8 @@ void Passenger::addFlight(Flight* pFlight) {
 }
 
 bool Passenger::removeFlight(Flight* pFlight) {
-    auto iFlight = popVector(flights, pFlight);
-
     // REMOVE PASSENGER FROM FLIGHT PASSENGERS
-
-    return iFlight != flights.end();
+    return deleteVector(flights, pFlight);
 }
 
 bool Passenger::existFlight(Flight* pFlight) {
