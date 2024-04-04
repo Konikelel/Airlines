@@ -44,9 +44,9 @@ class Flight {
 
     void terminate();
 
-    bool existPassenger(Passenger* pPassenger);  // BEST (const Passenger* pPassenger) const {} BUT ERRORS
-    bool existStewardess(const Passenger* pStewardess);
-    bool existPilot(const Passenger* pPilot);
+    bool existPassenger(Passenger* pPassenger);  // BEST (const Passenger* pPassenger) BUT ERRORS
+    bool existStewardess(CrewMember* pStewardess);
+    bool existPilot(CrewMember* pPilot);
 
     bool timeOverlap(const unsigned int timeStart, const unsigned int timeEnd);
 
