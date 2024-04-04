@@ -93,6 +93,16 @@ void Flight::addPassenger(Passenger* const pPassenger) {
         pPassenger->addFlight(pFlight);
 }
 
+bool Flight::removePassenger(Passenger* pPassenger) {
+    bool success = deleteVector(passengers, pPassenger);
+
+    Flight* pFlight = this;
+    if (pPassenger->existFlight(pFlight))
+        pPassenger->removeFlight(pFlight);
+
+    return success;
+}
+
 bool Flight::existPassenger(Passenger* pPassenger) {
     return existVector(passengers, pPassenger);
 }

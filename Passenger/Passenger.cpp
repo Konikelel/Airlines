@@ -18,13 +18,18 @@ void Passenger::addFlight(Flight* pFlight) {
     flights.push_back(pFlight);
 
     Passenger* pPassenger = this;
-    if (!pFlight->existPassenger(pPassenger))
+    if (!pFlight->existPassenger(pPassenger))  // Maybe unnecessary
         pFlight->addPassenger(pPassenger);
 }
 
 bool Passenger::removeFlight(Flight* pFlight) {
-    // REMOVE PASSENGER FROM FLIGHT PASSENGERS
-    return deleteVector(flights, pFlight);
+    bool success = deleteVector(flights, pFlight);
+
+    Passenger* pPassenger = this;
+    if (pFlight->existPassenger(pPassenger))
+        pFlight->removePassenger(pPassenger);
+
+    return success;
 }
 
 bool Passenger::existFlight(Flight* pFlight) {

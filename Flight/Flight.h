@@ -34,13 +34,13 @@ class Flight {
     void setDataArrival(const unsigned int time, const std::string city);
 
     void addPassenger(Passenger* pPassenger);
-    bool removePassenger(const Passenger* pPassenger);
+    bool removePassenger(Passenger* pPassenger);
 
     void addStewardess(CrewMember* pStewardess);
-    bool removeStewardess(const CrewMember* pStewardess);
+    bool removeStewardess(CrewMember* pStewardess);
 
     void addPilots(CrewMember* pPilot);
-    bool removePilots(const CrewMember* pPilot);
+    bool removePilots(CrewMember* pPilot);
 
     void terminate();
 
