@@ -43,5 +43,6 @@
         "typeinfo": "cpp",
         "chrono": "cpp",
         "iostream": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": true
 }

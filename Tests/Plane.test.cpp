@@ -1,10 +1,10 @@
-#include "Plane/Plane.h"
+#include "Plane.h"
 
 #include <exception>
 #include <iostream>
 
+#include "CustomErrors.h"
 #include "Tests.h"
-#include "Utils/CustomErrors.h"
 
 int testPlane() {  // ADD IN DESTRUCTOR TO REMOVE ID FROM LIST
     std::cout << "Testing Plane class:" << std::endl;

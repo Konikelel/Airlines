@@ -4,8 +4,8 @@
 #define CREW_MEMBER_H
 
 #include "CrewRole.h"
-#include "Flight/Flight.h"
-#include "Person/Person.h"
+#include "Flight.h"
+#include "Person.h"
 
 class CrewMember : public Person {
    public:

@@ -3,12 +3,12 @@
 #include <cctype>
 #include <iostream>
 
-#include "CrewMember/CrewMember.h"
-#include "Passenger/Passenger.h"
-#include "Plane/Plane.h"
-#include "Utils/CustomErrors.h"
-#include "Utils/StringHandler.h"
-#include "Utils/VectorHandler.h"
+#include "CrewMember.h"
+#include "CustomErrors.h"
+#include "Passenger.h"
+#include "Plane.h"
+#include "StringHandler.h"
+#include "VectorHandler.h"
 
 Flight::Flight(std::string flightNr,
                Plane* pPlane,

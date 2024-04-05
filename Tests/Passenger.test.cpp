@@ -1,8 +1,8 @@
-#include "Passenger/Passenger.h"
+#include "Passenger.h"
 
 #include <iostream>
 
-#include "Person/Person.h"
+#include "Person.h"
 #include "Tests.h"
 
 int testPassenger() {

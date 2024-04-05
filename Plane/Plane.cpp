@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-#include "Utils/CustomErrors.h"
-#include "Utils/VectorHandler.h"
+#include "CustomErrors.h"
+#include "VectorHandler.h"
 
 std::vector<unsigned int> Plane::usedIds = {};
 

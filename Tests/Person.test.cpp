@@ -1,9 +1,9 @@
-#include "Person/Person.h"
+#include "Person.h"
 
 #include <iostream>
 
+#include "CustomErrors.h"
 #include "Tests.h"
-#include "Utils/CustomErrors.h"
 
 int testPerson() {
     std::cout << "Testing Person class:" << std::endl;
