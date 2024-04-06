@@ -1,5 +1,5 @@
+cmake_minimum_required(VERSION 3.5)
 include(FetchContent)
-include(CTest)
 
 FetchContent_Declare(
   googletest
@@ -15,7 +15,7 @@ add_executable(
   Tests
   "${CMAKE_CURRENT_SOURCE_DIR}/UnitTest.cpp"
 )
-target_link_libraries(Tests PRIVATE GTest::gtest_main)
+target_link_libraries(Tests gtest_main)
 
 
 include(GoogleTest)
