@@ -1,8 +1,10 @@
 include(FetchContent)
+include(CTest)
 
 FetchContent_Declare(
   googletest
-  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG        release-1.11.0
 )
 
 # For Windows: Prevent overriding the parent project's compiler/linker settings
@@ -13,13 +15,8 @@ add_executable(
   Tests
   "${CMAKE_CURRENT_SOURCE_DIR}/UnitTest.cpp"
 )
+target_link_libraries(Tests PRIVATE GTest::gtest_main)
 
-target_link_libraries(Tests PRIVATE gtest_main Airlines)
 
-add_test(
-  NAME UnitTests
-  COMMAND Tests
-)
-
-# include(GoogleTest)
-# gtest_discover_tests(Tests)
+include(GoogleTest)
+gtest_discover_tests(Tests)
