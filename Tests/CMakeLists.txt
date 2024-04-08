@@ -13,9 +13,10 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(
   Tests
-  "${CMAKE_CURRENT_SOURCE_DIR}/Person.test.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Person.tests.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Plane.tests.cpp"
 )
-target_link_libraries(Tests PRIVATE gtest_main Person)
+target_link_libraries(Tests PRIVATE gtest_main Person Plane)
 
 
 include(GoogleTest)
