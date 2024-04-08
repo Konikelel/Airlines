@@ -4,8 +4,8 @@
 #ifndef PASSENGER_H
 #define PASSENGER_H
 
-#include "Flight.h"
-#include "Person.h"
+#include "Flight.hpp"
+#include "Person.hpp"
 
 class Passenger : public Person {
    public:

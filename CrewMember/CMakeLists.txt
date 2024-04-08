@@ -1,9 +1,9 @@
 add_library(
     CrewMember
     CrewMember.cpp
-    CrewMember.h
-    CrewRole.h
-    CrewStatus.h
+    CrewMember.hpp
+    CrewRole.hpp
+    CrewStatus.hpp
 )
 
 target_include_directories(CrewMember PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

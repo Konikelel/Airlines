@@ -1,4 +1,4 @@
-#include "StringHandler.h"
+#include "StringHandler.hpp"
 
 std::string toUpper(const std::string& sentence) {
     std::string newSentence = sentence;

@@ -1,7 +1,7 @@
-#include "Passenger.h"
+#include "Passenger.hpp"
 
-#include "CustomErrors.h"
-#include "VectorHandler.h"
+#include "CustomErrors.hpp"
+#include "VectorHandler.hpp"
 
 Passenger::Passenger(unsigned int id,
                      std::string nameFirst,

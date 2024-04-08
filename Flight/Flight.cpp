@@ -1,14 +1,14 @@
-#include "Flight.h"
+#include "Flight.hpp"
 
 #include <cctype>
 #include <iostream>
 
-#include "CrewMember.h"
-#include "CustomErrors.h"
-#include "Passenger.h"
-#include "Plane.h"
-#include "StringHandler.h"
-#include "VectorHandler.h"
+#include "CrewMember.hpp"
+#include "CustomErrors.hpp"
+#include "Passenger.hpp"
+#include "Plane.hpp"
+#include "StringHandler.hpp"
+#include "VectorHandler.hpp"
 
 Flight::Flight(std::string flightNr,
                Plane* pPlane,

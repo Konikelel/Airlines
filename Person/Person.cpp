@@ -1,8 +1,8 @@
-#include "Person.h"
+#include "Person.hpp"
 
-#include "CustomErrors.h"
-#include "StringHandler.h"
-#include "VectorHandler.h"
+#include "CustomErrors.hpp"
+#include "StringHandler.hpp"
+#include "VectorHandler.hpp"
 
 std::vector<unsigned int> Person::usedIds = {};
 

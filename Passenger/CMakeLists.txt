@@ -1,7 +1,7 @@
 add_library(
     Passenger
     Passenger.cpp
-    Passenger.h
+    Passenger.hpp
 )
 
 target_include_directories(Passenger PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

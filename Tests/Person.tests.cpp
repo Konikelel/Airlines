@@ -1,7 +1,8 @@
+#include "Person.hpp"
+
 #include <gtest/gtest.h>
 
-#include "CustomErrors.h"
-#include "Person.h"
+#include "CustomErrors.hpp"
 
 TEST(PersonClass, constructor) {
     Person person{1, "Victor", "Alb", 1, MALE};

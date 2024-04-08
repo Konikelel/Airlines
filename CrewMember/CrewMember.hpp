@@ -3,9 +3,9 @@
 #ifndef CREW_MEMBER_H
 #define CREW_MEMBER_H
 
-#include "CrewRole.h"
-#include "Flight.h"
-#include "Person.h"
+#include "CrewRole.hpp"
+#include "Flight.hpp"
+#include "Person.hpp"
 
 class CrewMember : public Person {
    public:

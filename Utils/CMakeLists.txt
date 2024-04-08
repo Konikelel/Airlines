@@ -1,10 +1,10 @@
 add_library(
     Utils
     CustomErrors.cpp
-    CustomErrors.h
+    CustomErrors.hpp
     StringHandler.cpp
-    StringHandler.h
-    VectorHandler.h
+    StringHandler.hpp
+    VectorHandler.hpp
 )
 
 target_include_directories(Utils INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}")

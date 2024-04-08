@@ -1,8 +1,8 @@
-#include "Plane.h"
+#include "Plane.hpp"
 
 #include <gtest/gtest.h>
 
-#include "CustomErrors.h"
+#include "CustomErrors.hpp"
 
 TEST(PlaneClass, constructor) {
     Plane plane{100, "B737", 100, 3, 2};

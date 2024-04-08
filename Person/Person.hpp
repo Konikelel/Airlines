@@ -4,7 +4,7 @@
 #ifndef PERSON_H
 #define PERSON_H
 
-#include "Gender.h"
+#include "Gender.hpp"
 
 class Person {
    public:
