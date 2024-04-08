@@ -43,8 +43,16 @@ unsigned int Plane::getRequiredStewardess() {
     return requiredStewardess;
 }
 
+unsigned int Plane::getCapacityStewardess() {
+    return capacityStewardess;
+}
+
 unsigned int Plane::getRequiredPilots() {
     return requiredPilots;
+}
+
+unsigned int Plane::getCapacityPilots() {
+    return capacityPilots;
 }
 
 void Plane::changeId(const unsigned int id) {
