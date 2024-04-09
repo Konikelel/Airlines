@@ -29,10 +29,12 @@ class Flight {
     void setFlightNr(const std::string flightNr);
     void setPlane(std::shared_ptr<Plane> pPlane);
 
-    void setDataDeparture(const unsigned int time);
-    void setDataArrival(const unsigned int time);
-    void setDataDeparture(const unsigned int time, const std::string city);
-    void setDataArrival(const unsigned int time, const std::string city);
+    void setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival);
+    void setDataTime(const unsigned int timeDeparture, const std::string cityDeparture, const unsigned int timeArrival, const std::string cityArrival);
+    void changeDataDeparture(const unsigned int time);
+    void changeDataArrival(const unsigned int time);
+    void changeDataDeparture(const unsigned int time, const std::string city);
+    void changeDataArrival(const unsigned int time, const std::string city);
 
     void addPassenger(Passenger* pPassenger);
     bool removePassenger(Passenger* pPassenger);

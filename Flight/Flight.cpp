@@ -28,8 +28,7 @@ Flight::Flight(std::string flightNr,
                                           stewardesses{{}},
                                           pilots{{}} {
     setFlightNr(flightNr);
-    setDataDeparture(timeDeparture, cityDeparture);
-    setDataArrival(timeArrival, cityArrival);
+    setDataTime(timeDeparture, cityDeparture, timeArrival, cityArrival);
 }
 
 void Flight::setFlightNr(std::string flightNr) {
@@ -58,27 +57,42 @@ void Flight::setPlane(std::shared_ptr<Plane> pPlane) {
     this->pPlane = pPlane;
 }
 
-void Flight::setDataDeparture(const unsigned int time) {
+void Flight::setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival) {
+    if (timeArrival <= timeDeparture)
+        throw InvalidTime("Arrival and Departure time is invalid compared to arrival time");
+
+    this->timeDeparture = timeDeparture;
+    this->timeArrival = timeArrival;
+}
+
+void Flight::setDataTime(const unsigned int timeDeparture, const std::string cityDeparture, const unsigned int timeArrival, const std::string cityArrival) {
+    setDataTime(timeDeparture, timeArrival);
+
+    this->cityDeparture = cityDeparture;
+    this->cityArrival = cityArrival;
+}
+
+void Flight::changeDataDeparture(const unsigned int time) {
     if (timeArrival <= time)
         throw InvalidTime("Arrival time is invalid compared to departure time");
 
     this->timeDeparture = time;
 }
 
-void Flight::setDataArrival(const unsigned int time) {
-    if (timeDeparture <= time)
+void Flight::changeDataArrival(const unsigned int time) {
+    if (time <= timeDeparture)
         throw InvalidTime("Departure time is invalid compared to arrival time");
 
     this->timeArrival = time;
 }
 
-void Flight::setDataDeparture(const unsigned int time, const std::string city) {
-    setDataDeparture(time);
+void Flight::changeDataDeparture(const unsigned int time, const std::string city) {
+    changeDataDeparture(time);
     this->cityDeparture = toTitle(city);
 }
 
-void Flight::setDataArrival(const unsigned int time, const std::string city) {
-    setDataArrival(time);
+void Flight::changeDataArrival(const unsigned int time, const std::string city) {
+    changeDataArrival(time);
     this->cityArrival = toTitle(city);
 }
 
