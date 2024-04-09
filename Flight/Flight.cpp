@@ -31,6 +31,30 @@ Flight::Flight(std::string flightNr,
     setDataTime(timeDeparture, cityDeparture, timeArrival, cityArrival);
 }
 
+std::string Flight::getFlightNr() const {
+    return flightNr;
+}
+
+Plane* Flight::getPlane() const {
+    return pPlane.get();
+}
+
+unsigned int Flight::getTimeDeparture() const {
+    return timeDeparture;
+}
+
+unsigned int Flight::getTimeArrival() const {
+    return timeArrival;
+}
+
+std::string Flight::getCityDeparture() const {
+    return cityDeparture;
+}
+
+std::string Flight::getCityArrival() const {
+    return cityArrival;
+}
+
 void Flight::setFlightNr(std::string flightNr) {
     if (flightNr.size() < 4)
         throw InvalidFlightNr("Flight number must be longer than 3 symbols");

@@ -26,6 +26,13 @@ class Flight {
         std::string cityDeparture,
         std::string cityArrival);
 
+    std::string getFlightNr() const;
+    Plane* getPlane() const;
+    unsigned int getTimeDeparture() const;
+    unsigned int getTimeArrival() const;
+    std::string getCityDeparture() const;
+    std::string getCityArrival() const;
+
     void setFlightNr(const std::string flightNr);
     void changePlane(std::shared_ptr<Plane> pPlane);
 
