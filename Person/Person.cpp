@@ -21,23 +21,23 @@ Person::~Person() {
     deleteVector(usedIds, id);
 }
 
-unsigned int Person::getId() {
+unsigned int Person::getId() const {
     return id;
 }
 
-std::string Person::getNameFirst() {
+std::string Person::getNameFirst() const {
     return nameFirst;
 }
 
-std::string Person::getNameSecond() {
+std::string Person::getNameSecond() const {
     return nameSecond;
 }
 
-unsigned int Person::getTimeBirthday() {
+unsigned int Person::getTimeBirthday() const {
     return timeBirthday;
 }
 
-Gender Person::getGender() {
+Gender Person::getGender() const {
     return gender;
 }
 

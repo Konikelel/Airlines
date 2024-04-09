@@ -18,11 +18,11 @@ class Person {
         Gender gender);
     ~Person();
 
-    unsigned int getId();
-    std::string getNameFirst();
-    std::string getNameSecond();
-    unsigned int getTimeBirthday();
-    Gender getGender();
+    unsigned int getId() const;
+    std::string getNameFirst() const;
+    std::string getNameSecond() const;
+    unsigned int getTimeBirthday() const;
+    Gender getGender() const;
 
     void changeId(const unsigned int id);
     void setNameFirst(const std::string name);

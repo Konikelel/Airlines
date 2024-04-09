@@ -19,13 +19,13 @@ class Plane {
 
     ~Plane();
 
-    unsigned int getId();
-    std::string getName();
-    unsigned int getCapacityPassengers();
-    unsigned int getRequiredStewardess();
-    unsigned int getCapacityStewardess();
-    unsigned int getRequiredPilots();
-    unsigned int getCapacityPilots();
+    unsigned int getId() const;
+    std::string getName() const;
+    unsigned int getCapacityPassengers() const;
+    unsigned int getRequiredStewardess() const;
+    unsigned int getCapacityStewardess() const;
+    unsigned int getRequiredPilots() const;
+    unsigned int getCapacityPilots() const;
 
     void changeId(const unsigned int id);
     void setName(const std::string name);

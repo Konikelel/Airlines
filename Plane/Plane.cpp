@@ -27,31 +27,31 @@ Plane::~Plane() {
     deleteVector(usedIds, id);
 }
 
-unsigned int Plane::getId() {
+unsigned int Plane::getId() const {
     return id;
 }
 
-std::string Plane::getName() {
+std::string Plane::getName() const {
     return name;
 }
 
-unsigned int Plane::getCapacityPassengers() {
+unsigned int Plane::getCapacityPassengers() const {
     return capacityPassengers;
 }
 
-unsigned int Plane::getRequiredStewardess() {
+unsigned int Plane::getRequiredStewardess() const {
     return requiredStewardess;
 }
 
-unsigned int Plane::getCapacityStewardess() {
+unsigned int Plane::getCapacityStewardess() const {
     return capacityStewardess;
 }
 
-unsigned int Plane::getRequiredPilots() {
+unsigned int Plane::getRequiredPilots() const {
     return requiredPilots;
 }
 
-unsigned int Plane::getCapacityPilots() {
+unsigned int Plane::getCapacityPilots() const {
     return capacityPilots;
 }
 
