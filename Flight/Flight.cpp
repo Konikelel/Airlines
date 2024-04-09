@@ -81,29 +81,6 @@ void Flight::changePlane(std::shared_ptr<Plane> pPlane) {
     setPlane(pPlane);
 }
 
-void Flight::setPlane(std::shared_ptr<Plane> pPlane) {
-    this->pPlane = pPlane;
-}
-
-void Flight::setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival) {
-    if (timeArrival <= timeDeparture)
-        throw InvalidTime("Arrival and Departure time is invalid compared to arrival time");
-
-    this->timeDeparture = timeDeparture;
-    this->timeArrival = timeArrival;
-}
-
-void Flight::setDataTime(const unsigned int timeDeparture, const std::string cityDeparture, const unsigned int timeArrival, const std::string cityArrival) {
-    if (!cityDeparture.size())
-        throw InvalidName("City departure must contain any character");
-    if (!cityArrival.size())
-        throw InvalidName("City arrival must contain any character");
-    setDataTime(timeDeparture, timeArrival);
-
-    this->cityDeparture = cityDeparture;
-    this->cityArrival = cityArrival;
-}
-
 void Flight::changeDataDeparture(const unsigned int time) {
     if (timeArrival <= time)
         throw InvalidTime("Arrival time is invalid compared to departure time");
@@ -135,6 +112,7 @@ void Flight::changeDataArrival(const unsigned int time, const std::string city) 
 }
 
 void Flight::addPassenger(Passenger* const pPassenger) {
+    // if (pPlane)
     if (existPassenger(pPassenger))
         throw DuplicationError("Passenger is already on the flight");
 
@@ -158,11 +136,37 @@ bool Flight::existPassenger(Passenger* pPassenger) {
     return existVector(passengers, pPassenger);
 }
 
+bool Flight::inRangePassengers() {
+    return pPlane ? pPlane.get()->inRangePassengers(passengers) : true;
+}
+
 bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) {
     return !(timeDeparture > timeEnd || timeArrival < timeStart);
 }
 
 // PRIVATE
+void Flight::setPlane(std::shared_ptr<Plane> pPlane) {
+    this->pPlane = pPlane;
+}
+
+void Flight::setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival) {
+    if (timeArrival <= timeDeparture)
+        throw InvalidTime("Arrival and Departure time is invalid compared to arrival time");
+
+    this->timeDeparture = timeDeparture;
+    this->timeArrival = timeArrival;
+}
+
+void Flight::setDataTime(const unsigned int timeDeparture, const std::string cityDeparture, const unsigned int timeArrival, const std::string cityArrival) {
+    if (!cityDeparture.size())
+        throw InvalidName("City departure must contain any character");
+    if (!cityArrival.size())
+        throw InvalidName("City arrival must contain any character");
+    setDataTime(timeDeparture, timeArrival);
+
+    this->cityDeparture = cityDeparture;
+    this->cityArrival = cityArrival;
+}
 
 int Flight::nrValidCrewMembers(const std::vector<CrewMember*>& crew) {
     int validNr = crew.size();
