@@ -12,14 +12,13 @@ Passenger::Passenger(unsigned int id,
 }
 
 void Passenger::addFlight(Flight* pFlight) {
+    Passenger* pPassenger = this;
+    if (!pFlight->existPassenger(pPassenger))  // Maybe unnecessary
+        pFlight->addPassenger(pPassenger);
     if (existFlight(pFlight))
         throw DuplicationError("Passenger is already on the flight");
 
     flights.push_back(pFlight);
-
-    Passenger* pPassenger = this;
-    if (!pFlight->existPassenger(pPassenger))  // Maybe unnecessary
-        pFlight->addPassenger(pPassenger);
 }
 
 bool Passenger::removeFlight(Flight* pFlight) {
