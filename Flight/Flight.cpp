@@ -97,8 +97,7 @@ bool Flight::removePassenger(Passenger* pPassenger) {
     bool success = deleteVector(passengers, pPassenger);
 
     Flight* pFlight = this;
-    if (pPassenger->existFlight(pFlight))
-        pPassenger->removeFlight(pFlight);
+    pPassenger->removeFlight(pFlight);
 
     return success;
 }
