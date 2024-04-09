@@ -112,7 +112,8 @@ void Flight::changeDataArrival(const unsigned int time, const std::string city) 
 }
 
 void Flight::addPassenger(Passenger* const pPassenger) {
-    // if (pPlane)
+    if (!inRangePassengers())  // FUNCTION HANDLE IF PLANE IS NULLPTR
+        throw MaximumCapacity("Maximum capacity for passengers reached");
     if (existPassenger(pPassenger))
         throw DuplicationError("Passenger is already on the flight");
 
