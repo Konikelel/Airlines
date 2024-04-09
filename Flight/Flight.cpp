@@ -86,6 +86,11 @@ void Flight::setPlane(std::shared_ptr<Plane> pPlane) {
 }
 
 void Flight::setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival) {
+    if (!cityDeparture.size())
+        throw InvalidName("City departure must contain any character");
+    if (!cityArrival.size())
+        throw InvalidName("City arrival must contain any character");
+
     if (timeArrival <= timeDeparture)
         throw InvalidTime("Arrival and Departure time is invalid compared to arrival time");
 
@@ -115,11 +120,17 @@ void Flight::changeDataArrival(const unsigned int time) {
 }
 
 void Flight::changeDataDeparture(const unsigned int time, const std::string city) {
+    if (!city.size())
+        throw InvalidName("City departure must contain any character");
+
     changeDataDeparture(time);
     this->cityDeparture = toTitle(city);
 }
 
 void Flight::changeDataArrival(const unsigned int time, const std::string city) {
+    if (!city.size())
+        throw InvalidName("City arrival must contain any character");
+
     changeDataArrival(time);
     this->cityArrival = toTitle(city);
 }

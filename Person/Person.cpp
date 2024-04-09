@@ -56,14 +56,14 @@ void Person::setId(const unsigned int id) {
 }
 
 void Person::setNameFirst(std::string name) {
-    if (name.size() == 0)
+    if (!name.size())
         throw InvalidName("First name must contain any character");
 
     this->nameFirst = toTitle(name);
 }
 
 void Person::setNameSecond(std::string name) {
-    if (name.size() == 0)
+    if (!name.size())
         throw InvalidName("Second name must contain any character");
 
     this->nameSecond = toTitle(name);
