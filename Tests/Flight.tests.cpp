@@ -22,7 +22,7 @@ TEST(FlightClass, constructor) {
     EXPECT_EQ(flight2.getPlane(), pPlane.get());
 }
 
-TEST(FlightClass, setters) {  // ADD TESTING FOR CREW MEMBERS
+TEST(FlightClass, setters) {  // ADD TESTING FOR CREW MEMBERS AND PASSENGERS
     Flight flight{"RYR120", 1, 2, "Warsaw", "Berlin"};
 
     EXPECT_THROW(flight.setFlightNr("ryr"), InvalidFlightNr);
