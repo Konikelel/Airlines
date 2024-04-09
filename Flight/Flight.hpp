@@ -27,10 +27,8 @@ class Flight {
         std::string cityArrival);
 
     void setFlightNr(const std::string flightNr);
-    void setPlane(std::shared_ptr<Plane> pPlane);
+    void changePlane(std::shared_ptr<Plane> pPlane);
 
-    void setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival);
-    void setDataTime(const unsigned int timeDeparture, const std::string cityDeparture, const unsigned int timeArrival, const std::string cityArrival);
     void changeDataDeparture(const unsigned int time);
     void changeDataArrival(const unsigned int time);
     void changeDataDeparture(const unsigned int time, const std::string city);
@@ -54,6 +52,10 @@ class Flight {
     bool timeOverlap(const unsigned int timeStart, const unsigned int timeEnd);
 
    private:
+    void setPlane(std::shared_ptr<Plane> pPlane);
+    void setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival);
+    void setDataTime(const unsigned int timeDeparture, const std::string cityDeparture, const unsigned int timeArrival, const std::string cityArrival);
+
     int nrValidCrewMembers(const std::vector<CrewMember*>& crew);
 
     std::string flightNr;

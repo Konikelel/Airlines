@@ -44,7 +44,7 @@ void Flight::setFlightNr(std::string flightNr) {
     this->flightNr = toUpper(flightNr);
 }
 
-void Flight::setPlane(std::shared_ptr<Plane> pPlane) {
+void Flight::changePlane(std::shared_ptr<Plane> pPlane) {
     if (!pPlane->inRangePassengers(passengers))
         throw InvalidPlane("Plane cannot accommodate all passengers");
 
@@ -54,6 +54,10 @@ void Flight::setPlane(std::shared_ptr<Plane> pPlane) {
     if (!pPlane->inRangePilots(pilots))
         throw InvalidPlane("Plane cannot operate with the current number of pilots");
 
+    setPlane(pPlane);
+}
+
+void Flight::setPlane(std::shared_ptr<Plane> pPlane) {
     this->pPlane = pPlane;
 }
 
