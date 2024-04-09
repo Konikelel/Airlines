@@ -11,7 +11,7 @@
 #include "VectorHandler.hpp"
 
 Flight::Flight(std::string flightNr,
-               Plane* pPlane,
+               std::shared_ptr<Plane> pPlane,
                unsigned int timeDeparture,
                unsigned int timeArrival,
                std::string cityDeparture,
@@ -45,7 +45,7 @@ void Flight::setFlightNr(std::string flightNr) {
     this->flightNr = toUpper(flightNr);
 }
 
-void Flight::setPlane(Plane* pPlane) {
+void Flight::setPlane(std::shared_ptr<Plane> pPlane) {
     if (!pPlane->inRangePassengers(passengers))
         throw InvalidPlane("Plane cannot accommodate all passengers");
 

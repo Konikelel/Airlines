@@ -1,3 +1,4 @@
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -12,7 +13,7 @@ class Flight {
    public:
     Flight(
         std::string flightNr,
-        Plane* pPlane,
+        std::shared_ptr<Plane> pPlane,
         unsigned int timeDeparture,
         unsigned int timeArrival,
         std::string cityDeparture,
@@ -26,7 +27,7 @@ class Flight {
         std::string cityArrival);
 
     void setFlightNr(const std::string flightNr);
-    void setPlane(Plane* pPlane);
+    void setPlane(std::shared_ptr<Plane> pPlane);
 
     void setDataDeparture(const unsigned int time);
     void setDataArrival(const unsigned int time);
@@ -54,7 +55,7 @@ class Flight {
     int nrValidCrewMembers(const std::vector<CrewMember*>& crew);
 
     std::string flightNr;
-    Plane* pPlane;
+    std::shared_ptr<Plane> pPlane;
 
     unsigned int timeDeparture;  // time in miliseconds
     unsigned int timeArrival;    // time in miliseconds
