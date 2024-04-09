@@ -5,7 +5,7 @@ std::string toUpper(const std::string& sentence) {
 
     for (char& symbol : newSentence)
         symbol = std::toupper(symbol);
-    return sentence;
+    return newSentence;
 }
 
 std::string toLower(const std::string& sentence) {
@@ -13,7 +13,7 @@ std::string toLower(const std::string& sentence) {
 
     for (char& symbol : newSentence)
         symbol = std::tolower(symbol);
-    return sentence;
+    return newSentence;
 }
 
 std::string toTitle(const std::string& sentence) {
