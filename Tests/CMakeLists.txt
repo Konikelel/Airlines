@@ -15,10 +15,11 @@ add_executable(
   Tests
   "${CMAKE_CURRENT_SOURCE_DIR}/Person.tests.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/Plane.tests.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Flight.tests.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/Passenger.tests.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/CrewMember.tests.cpp"
 )
-target_link_libraries(Tests PRIVATE gtest_main Person Plane Passenger CrewMember)
+target_link_libraries(Tests PRIVATE gtest_main Person Plane Passenger CrewMember Flight)
 
 
 include(GoogleTest)
