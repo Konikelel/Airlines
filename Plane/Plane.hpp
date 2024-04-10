@@ -14,7 +14,7 @@ class Plane {
         unsigned int id,
         std::string name,
         unsigned int capacityPassengers,
-        unsigned int requiredStewardess,
+        unsigned int requiredStewardesses,
         unsigned int requiredPilots);
 
     ~Plane();
@@ -22,8 +22,8 @@ class Plane {
     unsigned int getId() const;
     std::string getName() const;
     unsigned int getCapacityPassengers() const;
-    unsigned int getRequiredStewardess() const;
-    unsigned int getCapacityStewardess() const;
+    unsigned int getRequiredStewardesses() const;
+    unsigned int getCapacityStewardesses() const;
     unsigned int getRequiredPilots() const;
     unsigned int getCapacityPilots() const;
 
@@ -31,7 +31,7 @@ class Plane {
     void setName(const std::string name);
 
     void setCapacityPassengers(const unsigned int number);
-    void setRequiredStewardess(const unsigned int number);
+    void setRequiredStewardesses(const unsigned int number);
     void setRequiredPilots(const unsigned int number);
 
     bool inRangePassengers(const unsigned int number) const;
@@ -60,10 +60,10 @@ class Plane {
     std::vector<Flight*> flights;
 
     unsigned int capacityPassengers;
-    unsigned int requiredStewardess;
+    unsigned int requiredStewardesses;
     unsigned int requiredPilots;
 
-    unsigned int capacityStewardess;
+    unsigned int capacityStewardesses;
     unsigned int capacityPilots;
 };
 

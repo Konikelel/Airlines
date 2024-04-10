@@ -17,7 +17,7 @@ class Passenger : public Person {
         Gender gender);
 
     void addFlight(Flight* pFlight);
-    bool removeFlight(Flight* pFlight);  // BEST (const Flight* pFlight) BUT ERRORS
+    bool removeFlight(Flight* pFlight);
 
     bool removeFlights();
     void terminate();

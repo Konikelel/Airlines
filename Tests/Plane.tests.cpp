@@ -10,7 +10,7 @@ TEST(PlaneClass, constructor) {
     EXPECT_EQ(plane.getId(), 100);
     EXPECT_EQ(plane.getName(), "B737");
     EXPECT_EQ(plane.getCapacityPassengers(), 100);
-    EXPECT_EQ(plane.getRequiredStewardess(), 3);
+    EXPECT_EQ(plane.getRequiredStewardesses(), 3);
     EXPECT_EQ(plane.getRequiredPilots(), 2);
 }
 
@@ -28,9 +28,9 @@ TEST(PlaneClass, setters) {
 
     EXPECT_THROW(plane2.setName(""), InvalidName);
 
-    plane2.setRequiredStewardess(5);
-    EXPECT_EQ(plane2.getRequiredStewardess(), 5);
-    EXPECT_EQ(plane2.getCapacityStewardess(), 5 * 2);
+    plane2.setRequiredStewardesses(5);
+    EXPECT_EQ(plane2.getRequiredStewardesses(), 5);
+    EXPECT_EQ(plane2.getCapacityStewardesses(), 5 * 2);
 
     plane2.setRequiredPilots(4);
     EXPECT_EQ(plane2.getRequiredPilots(), 4);

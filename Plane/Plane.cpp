@@ -16,10 +16,10 @@ Plane::Plane(unsigned int id,
     setName(name);
 
     setCapacityPassengers(capacityPassengers);
-    setRequiredStewardess(requiredStewardess);
+    setRequiredStewardesses(requiredStewardess);
     setRequiredPilots(requiredPilots);
 
-    this->capacityStewardess = requiredStewardess * 2;
+    this->capacityStewardesses = requiredStewardess * 2;
     this->capacityPilots = requiredPilots * 2;
 }
 
@@ -39,12 +39,12 @@ unsigned int Plane::getCapacityPassengers() const {
     return capacityPassengers;
 }
 
-unsigned int Plane::getRequiredStewardess() const {
-    return requiredStewardess;
+unsigned int Plane::getRequiredStewardesses() const {
+    return requiredStewardesses;
 }
 
-unsigned int Plane::getCapacityStewardess() const {
-    return capacityStewardess;
+unsigned int Plane::getCapacityStewardesses() const {
+    return capacityStewardesses;
 }
 
 unsigned int Plane::getRequiredPilots() const {
@@ -80,9 +80,9 @@ void Plane::setCapacityPassengers(const unsigned int number) {
     this->capacityPassengers = number;
 }
 
-void Plane::setRequiredStewardess(const unsigned int number) {
-    this->capacityStewardess = number * 2;
-    this->requiredStewardess = number;
+void Plane::setRequiredStewardesses(const unsigned int number) {
+    this->capacityStewardesses = number * 2;
+    this->requiredStewardesses = number;
 }
 
 void Plane::setRequiredPilots(const unsigned int number) {
@@ -99,7 +99,7 @@ bool Plane::inRangePassengers(const std::vector<Passenger*>& passengers) const {
 }
 
 bool Plane::inRangeStewardesses(unsigned int number) const {
-    return requiredStewardess <= number && number <= capacityStewardess;
+    return requiredStewardesses <= number && number <= capacityStewardesses;
 }
 
 bool Plane::inRangeStewardesses(const std::vector<CrewMember*>& stewardesses) const {
