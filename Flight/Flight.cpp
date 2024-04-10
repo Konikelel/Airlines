@@ -11,7 +11,7 @@
 #include "VectorHandler.hpp"
 
 Flight::Flight(std::string flightNr,
-               std::shared_ptr<Plane> pPlane,
+               Plane* pPlane,
                unsigned int timeDeparture,
                unsigned int timeArrival,
                std::string cityDeparture,
@@ -36,7 +36,7 @@ std::string Flight::getFlightNr() const {
 }
 
 Plane* Flight::getPlane() const {
-    return pPlane.get();
+    return pPlane;
 }
 
 unsigned int Flight::getTimeDeparture() const {
@@ -68,7 +68,7 @@ void Flight::setFlightNr(std::string flightNr) {
     this->flightNr = toUpper(flightNr);
 }
 
-void Flight::changePlane(std::shared_ptr<Plane> pPlane) {
+void Flight::changePlane(Plane* pPlane) {
     if (!pPlane->inRangePassengers(passengers))
         throw InvalidPlane("Plane cannot accommodate all passengers");
 
@@ -138,7 +138,7 @@ bool Flight::existPassenger(Passenger* pPassenger) {
 }
 
 bool Flight::inRangePassengers() {
-    return pPlane ? pPlane.get()->inRangePassengers(passengers) : true;
+    return pPlane ? pPlane->inRangePassengers(passengers) : true;
 }
 
 bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) {
@@ -146,7 +146,7 @@ bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEn
 }
 
 // PRIVATE
-void Flight::setPlane(std::shared_ptr<Plane> pPlane) {
+void Flight::setPlane(Plane* pPlane) {
     this->pPlane = pPlane;
 }
 
@@ -167,14 +167,4 @@ void Flight::setDataTime(const unsigned int timeDeparture, const std::string cit
 
     this->cityDeparture = cityDeparture;
     this->cityArrival = cityArrival;
-}
-
-int Flight::nrValidCrewMembers(const std::vector<CrewMember*>& crew) {
-    int validNr = crew.size();
-    for (auto& member : crew) {
-        if (member->isBusy(timeDeparture, timeArrival))
-            validNr--;
-    }
-
-    return validNr;
 }

@@ -25,9 +25,6 @@ class CrewMember : public Person {
     // REMOVE ALL FLIGHTS FROM CREW MEMBER AND CREW MEMBER POINTERS FROM FLIGHTS
     bool removeFlights();
 
-    // CHECK IF CREW MEMBER HAVE OTHER FLIGHTS DURING TIME PERIOD
-    bool isBusy(unsigned int timeStart, unsigned int timeEnd);
-
    private:
     std::vector<Flight*> flights;
 

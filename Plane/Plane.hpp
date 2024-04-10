@@ -57,9 +57,6 @@ class Plane {
     // REMOVE ALL FLIGHTS FROM PLANE AND PLANE FROM FLIGHTS
     void removeFlights();
 
-    // CHECK IF PLANE IS ON OTHER FLIGHTS DURING TIME PERIOD
-    bool isBusy(unsigned int timeStart, unsigned int timeEnd);
-
    private:
     // SET ID, CALLED IN CONSTRUCTOR
     void setId(const unsigned int id);
