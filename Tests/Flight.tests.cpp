@@ -10,7 +10,7 @@
 TEST(FlightClass, constructor) {
     Flight flight1{"RYR120", 1, 2, "Warsaw", "Berlin"};
 
-    auto pPlane = std::make_shared<Plane>(Plane{101, "B737", 100, 4, 2});
+    auto pPlane = new (Plane){101, "B737", 100, 4, 2};
     Flight flight2{"RYR102", pPlane, 1, 2, "Poznan", "Krakow"};
 
     EXPECT_EQ(flight1.getFlightNr(), "RYR120");
@@ -19,7 +19,8 @@ TEST(FlightClass, constructor) {
     EXPECT_EQ(flight1.getCityDeparture(), "Warsaw");
     EXPECT_EQ(flight1.getCityArrival(), "Berlin");
 
-    EXPECT_EQ(flight2.getPlane(), pPlane.get());
+    EXPECT_EQ(flight2.getPlane(), pPlane);
+    delete pPlane;
 }
 
 TEST(FlightClass, setters) {  // ADD TESTING FOR CREW MEMBERS AND PASSENGERS

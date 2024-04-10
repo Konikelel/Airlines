@@ -9,10 +9,3 @@ CrewMember::CrewMember(CrewRole role,
                                         flights{{}},
                                         role{role} {
 }
-
-bool CrewMember::isBusy(unsigned int timeStart, unsigned int timeEnd) {
-    for (auto& flight : flights)
-        if (flight->timeOverlap(timeStart, timeEnd))
-            return true;
-    return false;
-}
