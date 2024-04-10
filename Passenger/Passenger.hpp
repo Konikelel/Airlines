@@ -16,12 +16,17 @@ class Passenger : public Person {
         unsigned int timeBirthday,
         Gender gender);
 
+    // ADD FLIGHT POINTER TO PASSENGER, IF PASSENGER IS NOT ON THE FLIGHT, INVOKE FUNCTION IN FLIGHT TO ADD PASSENGER POINTER
     void addFlight(Flight* pFlight);
+    // REMOVE FLIGHT POINTER FROM PASSENGER, IF PASSENGER IS NOT ON THE FLIGHT, INVOKE FUNCTION IN FLIGHT TO REMOVE PASSENGER POINTER
     bool removeFlight(Flight* pFlight);
 
+    // REMOVE ALL FLIGHTS FROM PASSENGER AND PASSENGER POINTERS FROM FLIGHTS
     bool removeFlights();
+    // USED IN DESTRUCTOR, REMOVE ALL FLIGHTS FROM PASSENGER AND PASSENGER FROM FLIGHTS
     void terminate();
 
+    // CHECK IF PASSENGER IS ON THE FLIGHT
     bool existFlight(Flight* pFlight);
 
    private:
