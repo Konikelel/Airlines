@@ -27,6 +27,9 @@ class Passenger : public Person {
     // CHECK IF PASSENGER IS ON THE FLIGHT
     bool existFlight(Flight* pFlight);
 
+    // CHECK IF PASSENGER HAVE OTHER FLIGHTS DURING TIME PERIOD
+    bool isBusy(unsigned int timeStart, unsigned int timeEnd);
+
    private:
     std::vector<Flight*> flights;
 };
