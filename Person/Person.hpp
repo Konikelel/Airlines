@@ -8,14 +8,13 @@
 
 class Person {
    public:
-    static std::vector<unsigned int> usedIds;
-
     Person(
         unsigned int id,
         std::string nameFirst,
         std::string nameSecond,
         unsigned int timeBirthday,
         Gender gender);
+
     ~Person();
 
     unsigned int getId() const;
@@ -32,6 +31,7 @@ class Person {
     void setTimeBirthday(const unsigned int time);
 
    private:
+    static std::vector<unsigned int> usedIds;
     // SET ID, CALLED IN CONSTRUCTOR
     void setId(const unsigned int id);
 

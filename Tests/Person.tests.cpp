@@ -5,12 +5,12 @@
 #include "CustomErrors.hpp"
 
 TEST(PersonClass, constructor) {
-    Person person{1, "Victor", "Alb", 1, MALE};
+    Person person{1, "Victor", "Alb", 2, MALE};
 
     EXPECT_EQ(person.getId(), 1);
     EXPECT_EQ(person.getNameFirst(), "Victor");
     EXPECT_EQ(person.getNameSecond(), "Alb");
-    EXPECT_EQ(person.getTimeBirthday(), 1);
+    EXPECT_EQ(person.getTimeBirthday(), 2);
     EXPECT_EQ(person.getGender(), MALE);
 }
 
@@ -23,14 +23,17 @@ TEST(PersonClass, destructor) {
 TEST(PersonClass, setters) {
     Person person1{1, "Victor", "Alb", 1, MALE};
     Person person2{2, "Jacob", "Web", 2, MALE};
-
+    // changeId
     EXPECT_THROW(person2.changeId(1), NonUniqueIDException);
-
+    // setNameFirst
     EXPECT_THROW(person2.setNameFirst(""), InvalidName);
-    EXPECT_THROW(person2.setNameSecond(""), InvalidName);
-
-    person2.setNameFirst("jacob");
-    EXPECT_EQ(person2.getNameFirst(), "Jacob");
-    person2.setNameFirst("web");
-    EXPECT_EQ(person2.getNameSecond(), "Web");
+    person1.setNameFirst("jacob");
+    EXPECT_EQ(person1.getNameFirst(), "Jacob");
+    // setNameSecond
+    EXPECT_THROW(person1.setNameSecond(""), InvalidName);
+    person1.setNameSecond("web");
+    EXPECT_EQ(person1.getNameSecond(), "Web");
+    // setTimeBirthday
+    person2.setTimeBirthday(3);
+    EXPECT_EQ(person2.getTimeBirthday(), 3);
 }
