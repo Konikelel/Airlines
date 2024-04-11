@@ -7,11 +7,13 @@
 
 std::vector<unsigned int> Plane::usedIds = {};
 
-Plane::Plane(unsigned int id,
+Plane::Plane(Company* pCompany,
+             unsigned int id,
              std::string name,
              unsigned int capacityPassengers,
              unsigned int requiredStewardess,
              unsigned int requiredPilots) : flights{{}} {
+    setCompany(pCompany);
     setId(id);
     setName(name);
 
@@ -53,6 +55,13 @@ unsigned int Plane::getRequiredPilots() const {
 
 unsigned int Plane::getCapacityPilots() const {
     return capacityPilots;
+}
+
+void Plane::setCompany(Company* pCompany) {
+    if (!pCompany)
+        throw InvalidPointer("Invalid company object");
+
+    this->pCompany = pCompany;
 }
 
 void Plane::changeId(const unsigned int id) {

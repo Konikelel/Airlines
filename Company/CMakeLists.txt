@@ -1,5 +1,6 @@
 add_library(
     Company
+    Company.cpp
     Company.hpp
 )
 

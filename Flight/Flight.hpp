@@ -5,6 +5,7 @@
 #ifndef FLIGHT_H
 #define FLIGHT_H
 
+class Company;
 class CrewMember;
 class Passenger;
 class Plane;
@@ -12,6 +13,7 @@ class Plane;
 class Flight {
    public:
     Flight(
+        Company* pCompany,
         std::string flightNr,
         Plane* pPlane,
         unsigned int timeDeparture,
@@ -20,6 +22,7 @@ class Flight {
         std::string cityArrival);
 
     Flight(
+        Company* pCompany,
         std::string flightNr,
         unsigned int timeDeparture,
         unsigned int timeArrival,
@@ -32,6 +35,8 @@ class Flight {
     unsigned int getTimeArrival() const;
     std::string getCityDeparture() const;
     std::string getCityArrival() const;
+
+    void setCompany(Company* pCompany);
 
     void setFlightNr(const std::string flightNr);
     // CHANGE PLANE FOR ANOTHER AND CHECK IF PASSENGERS, STEWARDESS, PILOTS ARE WITHIN RANGE
@@ -81,6 +86,7 @@ class Flight {
     void setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival);
     void setDataTime(const unsigned int timeDeparture, const std::string cityDeparture, const unsigned int timeArrival, const std::string cityArrival);
 
+    Company* pCompany;
     std::string flightNr;
     Plane* pPlane;
 

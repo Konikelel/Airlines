@@ -3,6 +3,7 @@
 #include <cctype>
 #include <iostream>
 
+#include "Company.hpp"
 #include "CrewMember.hpp"
 #include "CustomErrors.hpp"
 #include "Passenger.hpp"
@@ -10,16 +11,18 @@
 #include "StringHandler.hpp"
 #include "VectorHandler.hpp"
 
-Flight::Flight(std::string flightNr,
+Flight::Flight(Company* pCompany,
+               std::string flightNr,
                Plane* pPlane,
                unsigned int timeDeparture,
                unsigned int timeArrival,
                std::string cityDeparture,
-               std::string cityArrival) : Flight(flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival) {
+               std::string cityArrival) : Flight(pCompany, flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival) {
     setPlane(pPlane);
 }
 
-Flight::Flight(std::string flightNr,
+Flight::Flight(Company* pCompany,
+               std::string flightNr,
                unsigned int timeDeparture,
                unsigned int timeArrival,
                std::string cityDeparture,
@@ -27,6 +30,7 @@ Flight::Flight(std::string flightNr,
                                           passengers{{}},
                                           stewardesses{{}},
                                           pilots{{}} {
+    setCompany(pCompany);
     setFlightNr(flightNr);
     setDataTime(timeDeparture, cityDeparture, timeArrival, cityArrival);
 }
@@ -53,6 +57,13 @@ std::string Flight::getCityDeparture() const {
 
 std::string Flight::getCityArrival() const {
     return cityArrival;
+}
+
+void Flight::setCompany(Company* pCompany) {
+    if (!pCompany)
+        throw InvalidPointer("Invalid company object");
+
+    this->pCompany = pCompany;
 }
 
 void Flight::setFlightNr(std::string flightNr) {
@@ -147,6 +158,8 @@ bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEn
 
 // PRIVATE
 void Flight::setPlane(Plane* pPlane) {
+    if (!pPlane)
+        throw InvalidPointer("Invalid plane object");
     this->pPlane = pPlane;
 }
 

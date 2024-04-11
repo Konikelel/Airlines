@@ -12,9 +12,9 @@ Passenger::Passenger(unsigned int id,
 }
 
 void Passenger::addFlight(Flight* pFlight) {
-    Passenger* pPassenger = this;
-    if (!pFlight->existPassenger(pPassenger))  // Maybe unnecessary
-        pFlight->addPassenger(pPassenger);
+    if (!pFlight->existPassenger(this))  // Maybe unnecessary
+        pFlight->addPassenger(this);
+
     if (existFlight(pFlight))
         throw DuplicationError("Passenger is already on the flight");
 
@@ -24,8 +24,7 @@ void Passenger::addFlight(Flight* pFlight) {
 bool Passenger::removeFlight(Flight* pFlight) {
     bool success = deleteVector(flights, pFlight);
 
-    Passenger* pPassenger = this;
-    pFlight->removePassenger(pPassenger);
+    pFlight->removePassenger(this);
 
     return success;
 }

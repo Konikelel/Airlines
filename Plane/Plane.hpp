@@ -11,6 +11,7 @@ class Plane {
     static std::vector<unsigned int> usedIds;
 
     Plane(
+        Company* pCompany,
         unsigned int id,
         std::string name,
         unsigned int capacityPassengers,
@@ -26,6 +27,8 @@ class Plane {
     unsigned int getCapacityStewardesses() const;
     unsigned int getRequiredPilots() const;
     unsigned int getCapacityPilots() const;
+
+    void setCompany(Company* pCompany);
 
     // SET ID AND REMOVE OLD ONE FROM VECTOR usedIds
     void changeId(const unsigned int id);
@@ -64,6 +67,7 @@ class Plane {
     unsigned int id;
     std::string name;
 
+    Company* pCompany;
     std::vector<Flight*> flights;
 
     unsigned int capacityPassengers;

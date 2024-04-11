@@ -2,10 +2,13 @@
 
 #include <gtest/gtest.h>
 
+#include "Company.hpp"
 #include "CustomErrors.hpp"
 
 TEST(PlaneClass, constructor) {
-    Plane plane{100, "B737", 100, 3, 2};
+    Company* company = new (Company){"Test1"};
+
+    Plane plane{company, 100, "B737", 100, 3, 2};
 
     EXPECT_EQ(plane.getId(), 100);
     EXPECT_EQ(plane.getName(), "B737");
@@ -15,14 +18,20 @@ TEST(PlaneClass, constructor) {
 }
 
 TEST(PlaneClass, destructor) {
-    Plane plane{101, "B737", 100, 3, 2};
+    Company* company = new (Company){"Test1"};
+
+    Plane plane{company, 101, "B737", 100, 3, 2};
 
     EXPECT_NO_THROW(plane.changeId(100));
 }
 
 TEST(PlaneClass, setters) {
-    Plane plane1{101, "B737", 100, 3, 2};
-    Plane plane2{102, "B737", 150, 4, 3};
+    Company* company = new (Company){"Test1"};
+
+    Plane plane1{company, 101, "B737", 100, 3, 2};
+    Plane plane2{company, 102, "B737", 150, 4, 3};
+
+    EXPECT_THROW(plane1.setCompany(nullptr), InvalidPointer);
 
     EXPECT_THROW(plane2.changeId(101), NonUniqueIDException);
 
@@ -38,7 +47,9 @@ TEST(PlaneClass, setters) {
 }
 
 TEST(PlaneClass, boolFunctions) {
-    Plane plane{101, "B737", 100, 3, 2};
+    Company* company = new (Company){"Test1"};
+
+    Plane plane{company, 101, "B737", 100, 3, 2};
 
     EXPECT_FALSE(plane.inRangePassengers(101));
     EXPECT_TRUE(plane.inRangePassengers(100));

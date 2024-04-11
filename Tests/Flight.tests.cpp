@@ -4,14 +4,17 @@
 
 #include <memory>
 
+#include "Company.hpp"
 #include "CustomErrors.hpp"
 #include "Plane.hpp"
 
 TEST(FlightClass, constructor) {
-    Flight flight1{"RYR120", 1, 2, "Warsaw", "Berlin"};
+    Company* company = new (Company){"Test1"};
 
-    auto pPlane = new (Plane){101, "B737", 100, 4, 2};
-    Flight flight2{"RYR102", pPlane, 1, 2, "Poznan", "Krakow"};
+    Flight flight1{company, "RYR120", 1, 2, "Warsaw", "Berlin"};
+
+    auto pPlane = new (Plane){company, 101, "B737", 100, 4, 2};
+    Flight flight2{company, "RYR102", pPlane, 1, 2, "Poznan", "Krakow"};
 
     EXPECT_EQ(flight1.getFlightNr(), "RYR120");
     EXPECT_EQ(flight1.getTimeDeparture(), 1);
@@ -20,11 +23,15 @@ TEST(FlightClass, constructor) {
     EXPECT_EQ(flight1.getCityArrival(), "Berlin");
 
     EXPECT_EQ(flight2.getPlane(), pPlane);
-    delete pPlane;
+    delete pPlane, company;
 }
 
 TEST(FlightClass, setters) {  // ADD TESTING FOR CREW MEMBERS AND PASSENGERS
-    Flight flight{"RYR120", 1, 2, "Warsaw", "Berlin"};
+    Company* company = new (Company){"Test1"};
+
+    Flight flight{company, "RYR120", 1, 2, "Warsaw", "Berlin"};
+
+    EXPECT_THROW(flight.setCompany(nullptr), InvalidPointer);
 
     EXPECT_THROW(flight.setFlightNr("ryr"), InvalidFlightNr);
     flight.setFlightNr("ryr1");

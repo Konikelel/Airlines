@@ -22,6 +22,7 @@ class CustomException : public std::exception {
     std::string message;
 };
 
+using InvalidPointer = CustomException<std::exception>;
 using InvalidFlightNr = CustomException<std::exception>;
 using InvalidPlane = CustomException<std::exception>;
 using InvalidTime = CustomException<std::exception>;
