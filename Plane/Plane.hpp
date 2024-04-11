@@ -29,6 +29,7 @@ class Plane {
 
     unsigned int getId() const;
     std::string getName() const;
+    Company* getCompany() const;
     unsigned int getCapacityPassengers() const;
     unsigned int getRequiredStewardesses() const;
     unsigned int getCapacityStewardesses() const;

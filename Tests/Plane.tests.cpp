@@ -6,44 +6,59 @@
 #include "CustomErrors.hpp"
 
 TEST(PlaneClass, constructor) {
-    Company* company = new (Company){"Test1"};
+    Company* company = new (Company){"Test"};
 
-    Plane plane{company, 100, "B737", 100, 3, 2};
+    Plane plane1{100, "B737", 100, 3, 2};
+    Plane plane2{company, 101, "B737", 100, 3, 2};
 
-    EXPECT_EQ(plane.getId(), 100);
-    EXPECT_EQ(plane.getName(), "B737");
-    EXPECT_EQ(plane.getCapacityPassengers(), 100);
-    EXPECT_EQ(plane.getRequiredStewardesses(), 3);
-    EXPECT_EQ(plane.getRequiredPilots(), 2);
+    EXPECT_EQ(plane2.getId(), 101);
+    EXPECT_EQ(plane2.getName(), "B737");
+    EXPECT_EQ(plane2.getCapacityPassengers(), 100);
+    EXPECT_EQ(plane2.getRequiredStewardesses(), 3);
+    EXPECT_EQ(plane2.getRequiredPilots(), 2);
+    // OPTIONAL PARAMETER
+    EXPECT_EQ(plane1.getCompany(), nullptr);
+    EXPECT_EQ(plane2.getCompany(), company);
 }
 
 TEST(PlaneClass, destructor) {
-    Company* company = new (Company){"Test1"};
-
-    Plane plane{company, 101, "B737", 100, 3, 2};
+    Plane plane{101, "B737", 100, 3, 2};
 
     EXPECT_NO_THROW(plane.changeId(100));
 }
 
 TEST(PlaneClass, setters) {
-    Company* company = new (Company){"Test1"};
+    Company* company = new (Company){"Test"};
 
-    Plane plane1{company, 101, "B737", 100, 3, 2};
-    Plane plane2{company, 102, "B737", 150, 4, 3};
-
+    Plane plane1{101, "B737", 100, 3, 2};
+    Plane plane2{102, "B737", 150, 4, 3};
+    // setCompany
+    plane1.setCompany(company);
+    EXPECT_EQ(plane1.getCompany(), company);
     EXPECT_THROW(plane1.setCompany(nullptr), InvalidPointer);
-
+    // ADD FLIGHT
+    // EXPECT_THROW(plane1.setCompany(company), CannotPerform);
+    // changeId
+    plane2.changeId(100);
+    EXPECT_EQ(plane2.getId(), 100);
     EXPECT_THROW(plane2.changeId(101), NonUniqueIDException);
-
+    // setName
+    plane2.setName("aBc");
+    EXPECT_EQ(plane2.getName(), "aBc");
     EXPECT_THROW(plane2.setName(""), InvalidName);
-
+    // setCapacityPassengers, setRequiredStewardesses, setRequiredPilots
+    plane2.setCapacityPassengers(200);
+    EXPECT_EQ(plane2.getCapacityPassengers(), 200);
     plane2.setRequiredStewardesses(5);
     EXPECT_EQ(plane2.getRequiredStewardesses(), 5);
     EXPECT_EQ(plane2.getCapacityStewardesses(), 5 * 2);
-
     plane2.setRequiredPilots(4);
     EXPECT_EQ(plane2.getRequiredPilots(), 4);
     EXPECT_EQ(plane2.getCapacityPilots(), 4 * 2);
+    // ADD FLIGHT
+    // EXPECT_THROW(plane2.setCapacityPassengers(5), CannotPerform);
+    // EXPECT_THROW(plane2.setRequiredStewardesses(5), CannotPerform);
+    // EXPECT_THROW(plane2.setRequiredPilots(5), CannotPerform);
 }
 
 TEST(PlaneClass, boolFunctions) {

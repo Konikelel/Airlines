@@ -44,6 +44,10 @@ std::string Plane::getName() const {
     return name;
 }
 
+Company* Plane::getCompany() const {
+    return pCompany;
+}
+
 unsigned int Plane::getCapacityPassengers() const {
     return capacityPassengers;
 }
@@ -65,6 +69,8 @@ unsigned int Plane::getCapacityPilots() const {
 }
 
 void Plane::setCompany(Company* pCompany) {
+    if (flights.size())
+        throw CannotPerform("Cannot modify. Plane is in use");
     if (!pCompany)
         throw InvalidPointer("Invalid company object");
 
@@ -93,15 +99,23 @@ void Plane::setName(std::string name) {
 }
 
 void Plane::setCapacityPassengers(const unsigned int number) {
+    if (flights.size())
+        throw CannotPerform("Cannot modify. Plane is in use");
     this->capacityPassengers = number;
 }
 
 void Plane::setRequiredStewardesses(const unsigned int number) {
+    if (flights.size())
+        throw CannotPerform("Cannot modify. Plane is in use");
+
     this->capacityStewardesses = number * 2;
     this->requiredStewardesses = number;
 }
 
 void Plane::setRequiredPilots(const unsigned int number) {
+    if (flights.size())
+        throw CannotPerform("Cannot modify. Plane is in use");
+
     this->capacityPilots = number * 2;
     this->requiredPilots = number;
 }
