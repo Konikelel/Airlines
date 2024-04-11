@@ -8,8 +8,6 @@
 
 class Plane {
    public:
-    static std::vector<unsigned int> usedIds;
-
     Plane(
         Company* pCompany,
         unsigned int id,
@@ -69,6 +67,7 @@ class Plane {
     void removeFlights();
 
    private:
+    static std::vector<unsigned int> usedIds;
     // SET ID, CALLED IN CONSTRUCTOR
     void setId(const unsigned int id);
 
