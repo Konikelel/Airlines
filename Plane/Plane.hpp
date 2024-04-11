@@ -18,6 +18,13 @@ class Plane {
         unsigned int requiredStewardesses,
         unsigned int requiredPilots);
 
+    Plane(
+        unsigned int id,
+        std::string name,
+        unsigned int capacityPassengers,
+        unsigned int requiredStewardesses,
+        unsigned int requiredPilots);
+
     ~Plane();
 
     unsigned int getId() const;

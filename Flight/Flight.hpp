@@ -29,6 +29,13 @@ class Flight {
         std::string cityDeparture,
         std::string cityArrival);
 
+    Flight(
+        std::string flightNr,
+        unsigned int timeDeparture,
+        unsigned int timeArrival,
+        std::string cityDeparture,
+        std::string cityArrival);
+
     std::string getFlightNr() const;
     Plane* getPlane() const;
     unsigned int getTimeDeparture() const;

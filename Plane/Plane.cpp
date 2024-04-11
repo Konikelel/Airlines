@@ -12,8 +12,15 @@ Plane::Plane(Company* pCompany,
              std::string name,
              unsigned int capacityPassengers,
              unsigned int requiredStewardess,
-             unsigned int requiredPilots) : flights{{}} {
+             unsigned int requiredPilots) : Plane(id, name, capacityPassengers, requiredStewardess, requiredPilots) {
     setCompany(pCompany);
+}
+
+Plane::Plane(unsigned int id,
+             std::string name,
+             unsigned int capacityPassengers,
+             unsigned int requiredStewardess,
+             unsigned int requiredPilots) : flights{{}} {
     setId(id);
     setName(name);
 

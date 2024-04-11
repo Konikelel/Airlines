@@ -18,6 +18,7 @@ CrewMember::CrewMember(CrewRole role,
                        std::string nameSecond,
                        unsigned int timeBirthday,
                        Gender gender) : Person(id, nameFirst, nameSecond, timeBirthday, gender),
+                                        pCompany{nullptr},
                                         flights{{}},
                                         role{role} {
 }
@@ -25,6 +26,6 @@ CrewMember::CrewMember(CrewRole role,
 void CrewMember::setCompany(Company* pCompany) {
     if (!pCompany)
         throw InvalidPointer("Invalid company object");
-
+    // REMOVE ALL FLIGHTS WHERE AS CREW MEMBER
     this->pCompany = pCompany;
 }

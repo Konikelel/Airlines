@@ -26,11 +26,19 @@ Flight::Flight(Company* pCompany,
                unsigned int timeDeparture,
                unsigned int timeArrival,
                std::string cityDeparture,
-               std::string cityArrival) : pPlane{nullptr},
+               std::string cityArrival) : Flight(flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival) {
+    setCompany(pCompany);
+}
+
+Flight::Flight(std::string flightNr,
+               unsigned int timeDeparture,
+               unsigned int timeArrival,
+               std::string cityDeparture,
+               std::string cityArrival) : pCompany{nullptr},
+                                          pPlane{nullptr},
                                           passengers{{}},
                                           stewardesses{{}},
                                           pilots{{}} {
-    setCompany(pCompany);
     setFlightNr(flightNr);
     setDataTime(timeDeparture, cityDeparture, timeArrival, cityArrival);
 }
@@ -80,6 +88,7 @@ void Flight::setFlightNr(std::string flightNr) {
 }
 
 void Flight::changePlane(Plane* pPlane) {
+    // ONLY ALLOW WHEN COMPANY IS SET
     if (!pPlane->inRangePassengers(passengers))
         throw InvalidPlane("Plane cannot accommodate all passengers");
 
@@ -160,6 +169,7 @@ bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEn
 void Flight::setPlane(Plane* pPlane) {
     if (!pPlane)
         throw InvalidPointer("Invalid plane object");
+    // CHECK IF PLANE IS FROM THE SAME COMPANY AS FLIGHT
     this->pPlane = pPlane;
 }
 
