@@ -26,6 +26,6 @@ CrewMember::CrewMember(CrewRole role,
 void CrewMember::setCompany(Company* pCompany) {
     if (!pCompany)
         throw InvalidPointer("Invalid company object");
-    // REMOVE ALL FLIGHTS WHERE AS CREW MEMBER
+    // REMOVE ALL FLIGHTS WHERE CREW MEMBER
     this->pCompany = pCompany;
 }

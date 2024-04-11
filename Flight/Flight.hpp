@@ -78,11 +78,6 @@ class Flight {
     bool existStewardess(CrewMember* pStewardess);
     bool existPilot(CrewMember* pPilot);
 
-    // CHECK IF PASSENGERS, STEWARDESSES, PILOTS ARE WITHIN RANGE
-    bool inRangePassengers();
-    bool inRangeStewardess();
-    bool inRangePilots();
-
     // CHECK FOR FLIGHT TIME OVERLAP WITH TIME PERIOD
     bool timeOverlap(const unsigned int timeStart, const unsigned int timeEnd);
 

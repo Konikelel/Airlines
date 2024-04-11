@@ -63,7 +63,7 @@ class Plane {
     // ADD FLIGHT POINTER TO PLANE, IF PLANE IS NOT ADDED IN FLIGHT, ADD PLANE POINTER TO FLIGHT
     void addFlight(Flight* pFlight);
     // REMOVE FLIGHT POINTER FROM PLANE, IF PLANE IS ADDED IN FLIGHT, REMOVE PLANE POINTER FROM FLIGHT
-    void removeFlight(const Flight* pFlight);
+    void removeFlight(Flight* pFlight);
     // REMOVE ALL FLIGHTS FROM PLANE AND PLANE FROM FLIGHTS
     void removeFlights();
 

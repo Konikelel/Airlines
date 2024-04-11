@@ -70,7 +70,7 @@ std::string Flight::getCityArrival() const {
 void Flight::setCompany(Company* pCompany) {
     if (!pCompany)
         throw InvalidPointer("Invalid company object");
-
+    // REMOVE PLANE, ALL STEWARDESS AND PILOTS
     this->pCompany = pCompany;
 }
 
@@ -132,7 +132,7 @@ void Flight::changeDataArrival(const unsigned int time, const std::string city) 
 }
 
 void Flight::addPassenger(Passenger* const pPassenger) {
-    if (!inRangePassengers())  // FUNCTION HANDLE IF PLANE IS NULLPTR
+    if (pPlane && pPlane->inRangePassengers(passengers))
         throw MaximumCapacity("Maximum capacity for passengers reached");
     if (existPassenger(pPassenger))
         throw DuplicationError("Passenger is already on the flight");
@@ -155,10 +155,6 @@ bool Flight::removePassenger(Passenger* pPassenger) {
 
 bool Flight::existPassenger(Passenger* pPassenger) {
     return existVector(passengers, pPassenger);
-}
-
-bool Flight::inRangePassengers() {
-    return pPlane ? pPlane->inRangePassengers(passengers) : true;
 }
 
 bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) {
