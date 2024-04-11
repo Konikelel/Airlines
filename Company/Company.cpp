@@ -2,10 +2,7 @@
 
 #include "CustomErrors.hpp"
 
-Company::Company(std::string name) : planes{{}},
-                                     flights{{}},
-                                     stewardesses{{}},
-                                     pilots{{}} {
+Company::Company(std::string name) : {
     setName(name);
 }
 
