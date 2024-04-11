@@ -3,7 +3,6 @@ add_library(
     CrewMember.cpp
     CrewMember.hpp
     CrewRole.hpp
-    CrewStatus.hpp
 )
 
 target_include_directories(CrewMember PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")

@@ -2,7 +2,6 @@ add_library(
     Flight
     Flight.cpp
     Flight.hpp
-    FlightStatus.hpp
 )
 
 target_include_directories(Flight PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
