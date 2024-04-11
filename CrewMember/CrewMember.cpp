@@ -19,7 +19,6 @@ CrewMember::CrewMember(CrewRole role,
                        unsigned int timeBirthday,
                        Gender gender) : Person(id, nameFirst, nameSecond, timeBirthday, gender),
                                         pCompany{nullptr},
-                                        flights{{}},
                                         role{role} {
 }
 

@@ -26,19 +26,8 @@ Flight::Flight(Company* pCompany,
                unsigned int timeDeparture,
                unsigned int timeArrival,
                std::string cityDeparture,
-               std::string cityArrival) : Flight(flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival) {
+               std::string cityArrival) : pPlane{nullptr} {
     setCompany(pCompany);
-}
-
-Flight::Flight(std::string flightNr,
-               unsigned int timeDeparture,
-               unsigned int timeArrival,
-               std::string cityDeparture,
-               std::string cityArrival) : pCompany{nullptr},
-                                          pPlane{nullptr},
-                                          passengers{{}},
-                                          stewardesses{{}},
-                                          pilots{{}} {
     setFlightNr(flightNr);
     setDataTime(timeDeparture, cityDeparture, timeArrival, cityArrival);
 }
@@ -67,13 +56,6 @@ std::string Flight::getCityArrival() const {
     return cityArrival;
 }
 
-void Flight::setCompany(Company* pCompany) {
-    if (!pCompany)
-        throw InvalidPointer("Invalid company object");
-    // REMOVE PLANE, ALL STEWARDESS AND PILOTS
-    this->pCompany = pCompany;
-}
-
 void Flight::setFlightNr(std::string flightNr) {
     if (flightNr.size() < 4)
         throw InvalidFlightNr("Flight number must be longer than 3 symbols");
@@ -88,7 +70,7 @@ void Flight::setFlightNr(std::string flightNr) {
 }
 
 void Flight::changePlane(Plane* pPlane) {
-    // ONLY ALLOW WHEN COMPANY IS SET
+    // ONLY ALLOW FROM THE SAME COMPANY
     if (!pPlane->inRangePassengers(passengers))
         throw InvalidPlane("Plane cannot accommodate all passengers");
 
@@ -162,6 +144,13 @@ bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEn
 }
 
 // PRIVATE
+void Flight::setCompany(Company* pCompany) {
+    if (!pCompany)
+        throw InvalidPointer("Invalid company object");
+    // REMOVE PLANE, ALL STEWARDESS AND PILOTS
+    this->pCompany = pCompany;
+}
+
 void Flight::setPlane(Plane* pPlane) {
     if (!pPlane)
         throw InvalidPointer("Invalid plane object");

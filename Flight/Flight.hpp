@@ -29,21 +29,12 @@ class Flight {
         std::string cityDeparture,
         std::string cityArrival);
 
-    Flight(
-        std::string flightNr,
-        unsigned int timeDeparture,
-        unsigned int timeArrival,
-        std::string cityDeparture,
-        std::string cityArrival);
-
     std::string getFlightNr() const;
     Plane* getPlane() const;
     unsigned int getTimeDeparture() const;
     unsigned int getTimeArrival() const;
     std::string getCityDeparture() const;
     std::string getCityArrival() const;
-
-    void setCompany(Company* pCompany);
 
     void setFlightNr(const std::string flightNr);
     // CHANGE PLANE FOR ANOTHER AND CHECK IF PASSENGERS, STEWARDESS, PILOTS ARE WITHIN RANGE
@@ -82,6 +73,7 @@ class Flight {
     bool timeOverlap(const unsigned int timeStart, const unsigned int timeEnd);
 
    private:
+    void setCompany(Company* pCompany);
     // SET PLANE CALLED IN CONSTRUCTOR WITHOUT ANY CHECK ON CAPACITY LIMITS
     void setPlane(Plane* pPlane);
     // SET DATA TIME CALLED IN CONSTRUCTOR VALIDATING ARGUMENTS

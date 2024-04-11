@@ -20,7 +20,7 @@ Plane::Plane(unsigned int id,
              std::string name,
              unsigned int capacityPassengers,
              unsigned int requiredStewardess,
-             unsigned int requiredPilots) : flights{{}} {
+             unsigned int requiredPilots) : pCompany{nullptr} {
     setId(id);
     setName(name);
 

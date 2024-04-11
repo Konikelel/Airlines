@@ -31,8 +31,6 @@ TEST(FlightClass, setters) {  // ADD TESTING FOR CREW MEMBERS AND PASSENGERS
 
     Flight flight{company, "RYR120", 1, 2, "Warsaw", "Berlin"};
 
-    EXPECT_THROW(flight.setCompany(nullptr), InvalidPointer);
-
     EXPECT_THROW(flight.setFlightNr("ryr"), InvalidFlightNr);
     flight.setFlightNr("ryr1");
     EXPECT_EQ(flight.getFlightNr(), "RYR1");
