@@ -10,15 +10,23 @@ TEST(PlaneClass, constructor) {
 
     Plane plane1{100, "B737", 100, 3, 2};
     Plane plane2{company, 101, "B737", 100, 3, 2};
-
+    // getId
     EXPECT_EQ(plane2.getId(), 101);
+    // getName
     EXPECT_EQ(plane2.getName(), "B737");
-    EXPECT_EQ(plane2.getCapacityPassengers(), 100);
-    EXPECT_EQ(plane2.getRequiredStewardesses(), 3);
-    EXPECT_EQ(plane2.getRequiredPilots(), 2);
-    // OPTIONAL PARAMETER
+    // getCompany
     EXPECT_EQ(plane1.getCompany(), nullptr);
     EXPECT_EQ(plane2.getCompany(), company);
+    // getCapacityPassengers
+    EXPECT_EQ(plane2.getCapacityPassengers(), 100);
+    // getRequiredStewardesses
+    EXPECT_EQ(plane2.getRequiredStewardesses(), 3);
+    // getCapacityStewardesses
+    EXPECT_EQ(plane2.getCapacityStewardesses(), 3 * 2);
+    // getRequiredPilots
+    EXPECT_EQ(plane2.getRequiredPilots(), 2);
+    // getCapacityPilots
+    EXPECT_EQ(plane2.getCapacityPilots(), 2 * 2);
 }
 
 TEST(PlaneClass, destructor) {
@@ -65,17 +73,17 @@ TEST(PlaneClass, boolFunctions) {
     Company* company = new (Company){"Test1"};
 
     Plane plane{company, 101, "B737", 100, 3, 2};
-
+    // inRangePassengers
     EXPECT_FALSE(plane.inRangePassengers(101));
     EXPECT_TRUE(plane.inRangePassengers(100));
     EXPECT_TRUE(plane.inRangePassengers(99));
-
+    // inRangeStewardesses
     EXPECT_FALSE(plane.inRangeStewardesses(2));
     EXPECT_TRUE(plane.inRangeStewardesses(3));
     EXPECT_TRUE(plane.inRangeStewardesses(4));
     EXPECT_TRUE(plane.inRangeStewardesses(6));
     EXPECT_FALSE(plane.inRangeStewardesses(7));
-
+    // inRangePilots
     EXPECT_FALSE(plane.inRangePilots(1));
     EXPECT_TRUE(plane.inRangePilots(2));
     EXPECT_TRUE(plane.inRangePilots(3));

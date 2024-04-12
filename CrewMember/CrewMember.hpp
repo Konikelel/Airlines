@@ -27,6 +27,9 @@ class CrewMember : public Person {
         unsigned int timeBirthday,
         Gender gender);
 
+    Company* getCompany();
+    CrewRole getRole();
+
     void setCompany(Company* pCompany);
 
     // ADD FLIGHT POINTER TO CREW MEMBER, IF CREW MEMBER IS NOT ON THE FLIGHT, INVOKE FUNCTION IN FLIGHT TO ADD CREW MEMBER POINTER TO FLIGHT

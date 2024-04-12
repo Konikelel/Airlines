@@ -10,8 +10,11 @@ TEST(CrewMemberClass, constructor) {
 
     CrewMember crewMember1{PILOT, 1, "Victor", "Alb", 1, MALE};
     CrewMember crewMember2{company, PILOT, 2, "Victor", "Alb", 1, MALE};
+    // getCompany
+    EXPECT_EQ(crewMember2.getCompany(), company);
+    // getRole
+    EXPECT_EQ(crewMember1.getRole(), PILOT);
 
-    EXPECT_THROW(crewMember1.setCompany(nullptr), InvalidPointer);
     delete company;
 }
 
@@ -19,7 +22,10 @@ TEST(CrewMemberClass, setters) {
     Company* company = new (Company){"Test1"};
 
     CrewMember crewMember{PILOT, 1, "Victor", "Alb", 1, MALE};
-
+    // setCompany
+    crewMember.setCompany(company);
+    EXPECT_EQ(crewMember.getCompany(), company);
     EXPECT_THROW(crewMember.setCompany(nullptr), InvalidPointer);
+
     delete company;
 }

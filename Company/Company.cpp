@@ -2,7 +2,7 @@
 
 #include "CustomErrors.hpp"
 
-Company::Company(std::string name) : {
+Company::Company(std::string name) {
     setName(name);
 }
 

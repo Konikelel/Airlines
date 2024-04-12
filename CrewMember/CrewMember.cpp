@@ -22,6 +22,14 @@ CrewMember::CrewMember(CrewRole role,
                                         role{role} {
 }
 
+Company* CrewMember::getCompany() {
+    return pCompany;
+}
+
+CrewRole CrewMember::getRole() {
+    return role;
+}
+
 void CrewMember::setCompany(Company* pCompany) {
     if (!pCompany)
         throw InvalidPointer("Invalid company object");

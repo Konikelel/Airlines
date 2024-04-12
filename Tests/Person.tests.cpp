@@ -6,11 +6,15 @@
 
 TEST(PersonClass, constructor) {
     Person person{1, "Victor", "Alb", 2, MALE};
-
+    // getId
     EXPECT_EQ(person.getId(), 1);
+    // getNameFirst
     EXPECT_EQ(person.getNameFirst(), "Victor");
+    // getNameSecond
     EXPECT_EQ(person.getNameSecond(), "Alb");
+    // getTimeBirthday
     EXPECT_EQ(person.getTimeBirthday(), 2);
+    // getGender
     EXPECT_EQ(person.getGender(), MALE);
 }
 
