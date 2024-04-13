@@ -57,4 +57,13 @@ TEST(FlightClass, setters) {  // ADD TESTING FOR CREW MEMBERS AND PASSENGERS
 
     EXPECT_THROW(flight.changeDataDeparture(0, ""), InvalidName);
     EXPECT_THROW(flight.changeDataArrival(3, ""), InvalidName);
+
+    flight.changeDataDeparture(2);
+    flight.changeDataArrival(5);
+    EXPECT_TRUE(flight.timeOverlap(2, 5));
+    EXPECT_TRUE(flight.timeOverlap(1, 5));
+    EXPECT_TRUE(flight.timeOverlap(2, 6));
+    EXPECT_TRUE(flight.timeOverlap(2, 4));
+    EXPECT_FALSE(flight.timeOverlap(0, 1));
+    EXPECT_FALSE(flight.timeOverlap(6, 7));
 }
