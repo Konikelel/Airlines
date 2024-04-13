@@ -4,7 +4,7 @@
 #include "StringHandler.hpp"
 #include "VectorHandler.hpp"
 
-std::vector<unsigned int> Person::usedIds = {};
+std::vector<unsigned int> Person::usedIds;
 
 Person::Person(unsigned int id,
                std::string nameFirst,

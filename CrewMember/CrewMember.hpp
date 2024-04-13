@@ -27,15 +27,18 @@ class CrewMember : public Person {
         unsigned int timeBirthday,
         Gender gender);
 
+    ~CrewMember();
+
     Company* getCompany();
+    std::vector<Flight*>& getFlights();
     CrewRole getRole();
 
-    void setCompany(Company* pCompany);
+    void setCompany(Company*& pCompany);
 
     // ADD FLIGHT POINTER TO CREW MEMBER, IF CREW MEMBER IS NOT ON THE FLIGHT, INVOKE FUNCTION IN FLIGHT TO ADD CREW MEMBER POINTER TO FLIGHT
-    void addFlight(Flight* pFlight);
+    void addFlight(Flight*& pFlight);
     // REMOVE FLIGHT POINTER FROM CREW MEMBER, IF CREW MEMBER IS ON THE FLIGHT, INVOKE FUNCTION IN FLIGHT TO REMOVE CREW MEMBER POINTER
-    void removeFlight(Flight* pFlight);
+    bool removeFlight(Flight*& pFlight);
 
     // REMOVE ALL FLIGHTS FROM CREW MEMBER AND CREW MEMBER POINTERS FROM FLIGHTS
     bool removeFlights();

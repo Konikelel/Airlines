@@ -12,3 +12,10 @@ void Company::setName(std::string name) {
 
     this->name = name;
 }
+
+void Company::addCrewMember(CrewMember*& pCrewMember) {
+    if (pCrewMember->getCompany())
+        pCrewMember->removeFlights();
+
+    pCrewMember->setCompany(this);
+}

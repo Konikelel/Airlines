@@ -8,6 +8,8 @@
 
 class Plane {
    public:
+    static std::vector<unsigned int> usedIds;
+
     Plane(
         Company* pCompany,
         unsigned int id,
@@ -28,6 +30,7 @@ class Plane {
     unsigned int getId() const;
     std::string getName() const;
     Company* getCompany() const;
+    std::vector<Flight*>& getFlights();
     unsigned int getCapacityPassengers() const;
     unsigned int getRequiredStewardesses() const;
     unsigned int getCapacityStewardesses() const;
@@ -46,28 +49,26 @@ class Plane {
 
     // CHECK IF NUMBER OF PASSENGERS IS WITHIN CAPACITY RANGE
     bool inRangePassengers(const unsigned int number) const;
-    bool inRangePassengers(const std::vector<Passenger*>& passengers) const;
 
     // CHECK IF NUMBER OF STEWARDESSES IS BETWEEN REQUIRED AND CAPACITY NUMBER
     bool inRangeStewardesses(const unsigned int number) const;
-    bool inRangeStewardesses(const std::vector<CrewMember*>& stewardesses) const;
+    bool maximumStewardesses(const unsigned int number) const;
 
     // CHECK IF NUMBER OF PILOTS IS BETWEEN REQUIRED AND CAPACITY NUMBER
     bool inRangePilots(const unsigned int number) const;
-    bool inRangePilots(const std::vector<CrewMember*>& pilots) const;
+    bool maximumPilots(const unsigned int number) const;
 
     // CHECK IN RANGE STEWARDESSES AND PILOTS
-    bool inRangeCrew(const std::vector<CrewMember*>& stewardesses, const std::vector<CrewMember*>& pilots) const;
+    bool inRangeCrew(const unsigned int stewardess, const unsigned int pilots) const;
 
     // ADD FLIGHT POINTER TO PLANE, IF PLANE IS NOT ADDED IN FLIGHT, ADD PLANE POINTER TO FLIGHT
     void addFlight(Flight* pFlight);
     // REMOVE FLIGHT POINTER FROM PLANE, IF PLANE IS ADDED IN FLIGHT, REMOVE PLANE POINTER FROM FLIGHT
-    void removeFlight(Flight* pFlight);
+    bool removeFlight(Flight* pFlight);
     // REMOVE ALL FLIGHTS FROM PLANE AND PLANE FROM FLIGHTS
-    void removeFlights();
+    bool removeFlights();
 
    private:
-    static std::vector<unsigned int> usedIds;
     // SET ID, CALLED IN CONSTRUCTOR
     void setId(const unsigned int id);
 

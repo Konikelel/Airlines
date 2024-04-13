@@ -16,16 +16,17 @@ class Passenger : public Person {
         unsigned int timeBirthday,
         Gender gender);
 
+    ~Passenger();
+
+    std::vector<Flight*>& getFlights();  // TEST
+
     // ADD FLIGHT POINTER TO PASSENGER, IF PASSENGER IS NOT ON THE FLIGHT, INVOKE FUNCTION IN FLIGHT TO ADD PASSENGER POINTER
-    void addFlight(Flight* pFlight);
+    void addFlight(Flight* pFlight);  // TEST
     // REMOVE FLIGHT POINTER FROM PASSENGER, IF PASSENGER IS ON THE FLIGHT, INVOKE FUNCTION IN FLIGHT TO REMOVE PASSENGER POINTER
-    bool removeFlight(Flight* pFlight);
+    bool removeFlight(Flight* pFlight);  // TEST
 
     // REMOVE ALL FLIGHTS FROM PASSENGER AND PASSENGER POINTERS FROM FLIGHTS
-    bool removeFlights();
-
-    // CHECK IF PASSENGER IS ON THE FLIGHT
-    bool existFlight(Flight* pFlight);
+    bool removeFlights();  // TEST
 
    private:
     std::vector<Flight*> flights;

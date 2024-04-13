@@ -36,9 +36,14 @@ class Flight {
     std::string getCityDeparture() const;
     std::string getCityArrival() const;
 
+    std::vector<Passenger*>& getPassengers();
+    std::vector<CrewMember*>& getStewardesses();
+    std::vector<CrewMember*>& getPilots();
+
     void setFlightNr(const std::string flightNr);
     // CHANGE PLANE FOR ANOTHER AND CHECK IF PASSENGERS, STEWARDESS, PILOTS ARE WITHIN RANGE
-    void changePlane(Plane* pPlane);
+    void setPlane(Plane* pPlane);
+    bool removePlane();
 
     // CHANGE DATA TIME CALLED IN CONSTRUCTOR VALIDATING ARGUMENTS WITH THIS DATA PARAMETERS
     void changeDataDeparture(const unsigned int time);
@@ -47,35 +52,26 @@ class Flight {
     void changeDataArrival(const unsigned int time, const std::string city);
 
     // ADD PASSENGER POINTER TO FLIGHT, IF PASSENGER IS NOT ON THE FLIGHT ADD FLIGHT POINTER TO PASSENGER
-    void addPassenger(Passenger* pPassenger);
+    void addPassenger(Passenger* pPassenger);  // TEST
     // REMOVE PASSENGER POINTER FROM FLIGHT, IF PASSENGER IS ON THE FLIGHT REMOVE FLIGHT POINTER FROM PASSENGER
-    bool removePassenger(Passenger* pPassenger);
+    bool removePassenger(Passenger* pPassenger);  // TEST
 
     // ADD STEWARDESS POINTER TO FLIGHT, IF STEWARDESS IS NOT ON THE FLIGHT ADD FLIGHT POINTER TO STEWARDESS
-    void addStewardess(CrewMember* pStewardess);
+    void addCrewMember(CrewMember* pCrewMember);  // TEST
     // REMOVE STEWARDESS POINTER FROM FLIGHT, IF STEWARDESS IS ON THE FLIGHT REMOVE FLIGHT POINTER FROM STEWARDESS
-    bool removeStewardess(CrewMember* pStewardess);
-
-    // ADD PILOT POINTER TO FLIGHT, IF PILOT IS NOT ON THE FLIGHT ADD FLIGHT POINTER TO PILOT
-    void addPilots(CrewMember* pPilot);
-    // REMOVE PILOT POINTER FROM FLIGHT, IF PILOT IS ON THE FLIGHT REMOVE FLIGHT POINTER FROM PILOT
-    bool removePilots(CrewMember* pPilot);
+    bool removeCrewMember(CrewMember* pCrewMember);  // TEST
 
     // REMOVE PLANE, ALL PASSENGERS, STEWARDESS, PILOTS FROM FLIGHT AND FLIGHT FROM THEM
-    void terminate();
-
-    // CHECK IF PASSENGER, STEWARDESS, PILOT IS ON THE FLIGHT
-    bool existPassenger(Passenger* pPassenger);
-    bool existStewardess(CrewMember* pStewardess);
-    bool existPilot(CrewMember* pPilot);
+    void terminate();  // TEST
 
     // CHECK FOR FLIGHT TIME OVERLAP WITH TIME PERIOD
-    bool timeOverlap(const unsigned int timeStart, const unsigned int timeEnd);
+    bool timeOverlap(const Flight* pFlight);                                     // TEST
+    bool timeOverlap(const unsigned int timeStart, const unsigned int timeEnd);  // TEST
 
    private:
-    void setCompany(Company* pCompany);
+    void setupCompany(Company* pCompany);
     // SET PLANE CALLED IN CONSTRUCTOR WITHOUT ANY CHECK ON CAPACITY LIMITS
-    void setPlane(Plane* pPlane);
+    void setupPlane(Plane* pPlane);
     // SET DATA TIME CALLED IN CONSTRUCTOR VALIDATING ARGUMENTS
     void setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival);
     void setDataTime(const unsigned int timeDeparture, const std::string cityDeparture, const unsigned int timeArrival, const std::string cityArrival);

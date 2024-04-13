@@ -5,7 +5,7 @@
 #include "CustomErrors.hpp"
 #include "VectorHandler.hpp"
 
-std::vector<unsigned int> Plane::usedIds = {};
+std::vector<unsigned int> Plane::usedIds;
 
 Plane::Plane(Company* pCompany,
              unsigned int id,
@@ -23,7 +23,6 @@ Plane::Plane(unsigned int id,
              unsigned int requiredPilots) : pCompany{nullptr} {
     setId(id);
     setName(name);
-
     setCapacityPassengers(capacityPassengers);
     setRequiredStewardesses(requiredStewardess);
     setRequiredPilots(requiredPilots);
@@ -48,6 +47,10 @@ Company* Plane::getCompany() const {
     return pCompany;
 }
 
+std::vector<Flight*>& Plane::getFlights() {
+    return flights;
+}
+
 unsigned int Plane::getCapacityPassengers() const {
     return capacityPassengers;
 }
@@ -69,10 +72,12 @@ unsigned int Plane::getCapacityPilots() const {
 }
 
 void Plane::setCompany(Company* pCompany) {
-    if (flights.size())
-        throw CannotPerform("Cannot modify. Plane is in use");
     if (!pCompany)
         throw InvalidPointer("Invalid company object");
+    if (flights.size())
+        throw CannotPerform("Cannot modify. Plane is in use");
+    if (this->pCompany == pCompany)
+        return;
 
     this->pCompany = pCompany;
 }
@@ -92,7 +97,7 @@ void Plane::setId(const unsigned int id) {
 }
 
 void Plane::setName(std::string name) {
-    if (name.size() == 0)
+    if (!name.size())
         throw InvalidName("Name must contain any character");
 
     this->name = name;
@@ -101,12 +106,17 @@ void Plane::setName(std::string name) {
 void Plane::setCapacityPassengers(const unsigned int number) {
     if (flights.size())
         throw CannotPerform("Cannot modify. Plane is in use");
+    if (!number)
+        throw InvalidNumber("Number of passengers cannot be 0");
+
     this->capacityPassengers = number;
 }
 
 void Plane::setRequiredStewardesses(const unsigned int number) {
     if (flights.size())
         throw CannotPerform("Cannot modify. Plane is in use");
+    if (!number)
+        throw InvalidNumber("Number of stewardess cannot be 0");
 
     this->capacityStewardesses = number * 2;
     this->requiredStewardesses = number;
@@ -115,6 +125,8 @@ void Plane::setRequiredStewardesses(const unsigned int number) {
 void Plane::setRequiredPilots(const unsigned int number) {
     if (flights.size())
         throw CannotPerform("Cannot modify. Plane is in use");
+    if (!number)
+        throw InvalidNumber("Number of pilots cannot be 0");
 
     this->capacityPilots = number * 2;
     this->requiredPilots = number;
@@ -124,26 +136,44 @@ bool Plane::inRangePassengers(unsigned int number) const {
     return capacityPassengers >= number;
 }
 
-bool Plane::inRangePassengers(const std::vector<Passenger*>& passengers) const {
-    return inRangePassengers(passengers.size());
-}
-
 bool Plane::inRangeStewardesses(unsigned int number) const {
     return requiredStewardesses <= number && number <= capacityStewardesses;
 }
 
-bool Plane::inRangeStewardesses(const std::vector<CrewMember*>& stewardesses) const {
-    return inRangeStewardesses(stewardesses.size());
+bool Plane::maximumStewardesses(const unsigned int number) const {
+    return number > capacityStewardesses;
 }
 
 bool Plane::inRangePilots(unsigned int number) const {
     return requiredPilots <= number && number <= capacityPilots;
 }
 
-bool Plane::inRangePilots(const std::vector<CrewMember*>& pilots) const {
-    return inRangePilots(pilots.size());
+bool Plane::maximumPilots(const unsigned int number) const {
+    return number > capacityStewardesses;
 }
 
-bool Plane::inRangeCrew(const std::vector<CrewMember*>& stewardesses, const std::vector<CrewMember*>& pilots) const {
-    return inRangeStewardesses(stewardesses) && inRangePilots(pilots);
+bool Plane::inRangeCrew(const unsigned int stewardess, const unsigned int pilots) const {
+    return inRangeStewardesses(stewardess) && inRangePilots(pilots);
+}
+
+void Plane::addFlight(Flight* pFlight) {
+    if (!pFlight)
+        throw InvalidPointer("Invalid flight object");
+
+    pFlight->setPlane(this);
+}
+
+bool Plane::removeFlight(Flight* pFlight) {
+    if (pFlight->getPlane() != this)
+        throw InvalidPlane("Plane is not used in the flight");
+
+    return pFlight->removePlane();
+}
+
+bool Plane::removeFlights() {
+    bool success = false;
+    for (auto pFlight : flights)
+        success = removeFlight(pFlight) && success;
+
+    return success;
 }

@@ -20,11 +20,8 @@ class Company {
     void addFlight(Flight* pFlight);
     bool removeFlight(Flight* pFlight);
 
-    void addStewardess(CrewMember* pStewardess);
-    bool removeStewardess(CrewMember* pStewardess);
-
-    void addPilot(CrewMember* pPilot);
-    bool removePilot(CrewMember* pPilot);
+    void addCrewMember(CrewMember*& pCrewMember);
+    void removeCrewMember(CrewMember*& pCrewMember);
 
     // DELETE ALL FLIGHTS, COMPANY'S PLANES AND MAKE CREW MEMBERS UNEMPLOYED
     void terminate();

@@ -10,24 +10,33 @@ Passenger::Passenger(unsigned int id,
                      Gender gender) : Person(id, nameFirst, nameSecond, timeBirthday, gender) {
 }
 
+Passenger::~Passenger() {
+    removeFlights();
+}
+
+std::vector<Flight*>& Passenger::getFlights() {
+    return flights;
+}
+
 void Passenger::addFlight(Flight* pFlight) {
-    if (!pFlight->existPassenger(this))  // Maybe unnecessary
-        pFlight->addPassenger(this);
+    if (!pFlight)
+        throw InvalidPointer("Invalid flight object");
 
-    if (existFlight(pFlight))
-        throw DuplicationError("Passenger is already on the flight");
-
-    flights.push_back(pFlight);
+    pFlight->addPassenger(this);
 }
 
 bool Passenger::removeFlight(Flight* pFlight) {
-    bool success = deleteVector(flights, pFlight);
+    if (!pFlight)
+        throw InvalidPointer("Invalid flight object");
 
-    pFlight->removePassenger(this);
-
-    return success;
+    return pFlight->removePassenger(this);
 }
 
-bool Passenger::existFlight(Flight* pFlight) {
-    return existVector(flights, pFlight);
+bool Passenger::removeFlights() {
+    bool success = false;
+
+    for (auto pFlight : flights)
+        success = removeFlight(pFlight) && success;
+
+    return success;
 }
