@@ -2,24 +2,18 @@
     "configurations": [
         {
             "name": "Test debug",
+            "cwd": "${workspaceRoot}",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\build\\Tests\\Tests.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": true,
-            "MIMode": "gdb",
-            "miDebuggerPath": "${env:debuggerPath}",
+            "program": "${cmake.testProgram} ",
+            "args": ["${cmake.testArgs}"],
             "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "cmake build"
+                // {
+                //     "description": "Enable break on all exceptions",
+                //     "text": "catch throw",
+                //     "ignoreFailures": true
+                // }
+            ]
         },
         {
             "name": "Airlines debug",
@@ -38,12 +32,12 @@
                     "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
+                },
+                {
+                    "description": "Enable break on all exceptions",
+                    "text": "catch throw",
+                    "ignoreFailures": true
                 }
-                // {
-                //     "description": "Enable break on all exceptions",
-                //     "text": "catch throw",
-                //     "ignoreFailures": true
-                // }
             ],
             "preLaunchTask": "cmake build"
         }
