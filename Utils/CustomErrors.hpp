@@ -28,8 +28,11 @@ using InvalidPlane = CustomException<std::exception>;
 using InvalidTime = CustomException<std::exception>;
 using InvalidCrew = CustomException<std::exception>;
 using InvalidName = CustomException<std::exception>;
+using InvalidNumber = CustomException<std::exception>;
 using MaximumCapacity = CustomException<std::exception>;
+using MinimumCapacity = CustomException<std::exception>;
 using DuplicationError = CustomException<std::exception>;
 using CannotPerform = CustomException<std::exception>;
+using TimeOverlap = CustomException<std::exception>;
 
 #endif
