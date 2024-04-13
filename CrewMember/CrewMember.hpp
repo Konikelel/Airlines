@@ -43,8 +43,6 @@ class CrewMember : public Person {
 
     // INVOKE FOR ALL FLIGHTS FUNCTION removeFlight
     bool removeFlights();
-    // CALLED IN DESTRUCTOR REMOVE ALL FLIGHTS AND CREW MEMBER FROM COMPANY
-    void terminate();
 
    private:
     Company* pCompany;

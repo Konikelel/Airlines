@@ -40,10 +40,10 @@ CrewRole CrewMember::getRole() const {
 }
 
 void CrewMember::setCompany(Company* pCompany) {
-    if (!pCompany)
-        throw InvalidPointer("Invalid company object");
-
-    pCompany->addCrewMember(*this);
+    if (pCompany)
+        pCompany->addCrewMember(*this);
+    else if (this->pCompany)
+        this->pCompany->removeCrewMember(*this);
 }
 
 void CrewMember::addFlight(Flight& flight) {
@@ -60,8 +60,4 @@ bool CrewMember::removeFlights() {
         success = removeFlight(flight) && success;
 
     return success;
-}
-
-void CrewMember::terminate() {
-    setCompany(nullptr);
 }

@@ -115,6 +115,9 @@ void Flight::setPlane(Plane* pPlane) {
 }
 
 bool Flight::removePlane() {
+    if (!pPlane)
+        return false;
+
     bool success = deleteVector(pPlane->getFlights(), *this);
     pPlane = nullptr;
     return success;

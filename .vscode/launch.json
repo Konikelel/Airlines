@@ -8,11 +8,11 @@
             "program": "${cmake.testProgram} ",
             "args": ["${cmake.testArgs}"],
             "setupCommands": [
-                // {
-                //     "description": "Enable break on all exceptions",
-                //     "text": "catch throw",
-                //     "ignoreFailures": true
-                // }
+                {
+                    "description": "Enable break on all exceptions",
+                    "text": "catch throw",
+                    "ignoreFailures": true
+                }
             ]
         },
         {

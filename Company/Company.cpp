@@ -33,6 +33,8 @@ std::vector<std::reference_wrapper<CrewMember>>& Company::getPilots() {
 void Company::addPlane(Plane& plane) {
     Company*& pCompany = plane.getCompany();
 
+    if (pCompany == this)
+        return;
     if (pCompany)
         pCompany->removePlane(plane);
 
@@ -55,6 +57,8 @@ bool Company::removePlane(Plane& plane) {
 void Company::addCrewMember(CrewMember& crewMember) {
     Company*& pCompany = crewMember.getCompany();
 
+    if (pCompany == this)
+        return;
     if (pCompany)
         pCompany->removeCrewMember(crewMember);
 

@@ -25,16 +25,16 @@ TEST(CrewMemberClass, destructor) {
     Company* pCompany = new (Company){"Test1"};
     Flight flight1{pCompany, "RYR123", 1, 2, "Warsaw", "Berlin"};
     Flight flight2{pCompany, "RYR123", 3, 4, "Warsaw", "Berlin"};
-    // terminate
-    CrewMember crewMember{pCompany, PILOT, 1, "Victor", "Alb", 1, MALE};
-    crewMember.addFlight(flight1);
-    crewMember.addFlight(flight2);
 
-    crewMember.terminate();
-    EXPECT_EQ(crewMember.getFlights().size(), 0);
-    EXPECT_EQ(crewMember.getCompany(), nullptr);
-    // CHECK IF CREW MEMBER ALSO DELETED FROM COMPANY
+    {
+        CrewMember crewMember{pCompany, PILOT, 1, "Victor", "Alb", 1, MALE};
+        crewMember.addFlight(flight1);
+        crewMember.addFlight(flight2);
+    }
 
+    EXPECT_EQ(flight1.getPilots().size(), 0);
+    EXPECT_EQ(flight2.getPilots().size(), 0);
+    EXPECT_EQ(pCompany->getStewardesses().size(), 0);
     delete pCompany;
 }
 
@@ -46,16 +46,33 @@ TEST(CrewMemberClass, setters) {
 
     CrewMember crewMember{PILOT, 1, "Victor", "Alb", 1, MALE};
     // setCompany
+    // SETTING ONLY COMPANY WITHOUT FLIGHTS
     crewMember.setCompany(pCompany1);
     EXPECT_EQ(crewMember.getCompany(), pCompany1);
-    EXPECT_THROW(crewMember.setCompany(nullptr), InvalidPointer);
+    EXPECT_TRUE(existVector(pCompany1->getPilots(), crewMember));
+    EXPECT_EQ(crewMember.getFlights().size(), 0);
+    // ADD FLIGHTS AND CHANGE TO THE SAME COMPANY
+    crewMember.setCompany(pCompany1);
     crewMember.addFlight(flight1);
     crewMember.addFlight(flight2);
     crewMember.setCompany(pCompany1);
     EXPECT_EQ(crewMember.getFlights().size(), 2);
+    EXPECT_TRUE(existVector(pCompany1->getPilots(), crewMember));
+    EXPECT_TRUE(existVector(flight1.getPilots(), crewMember));
+    EXPECT_TRUE(existVector(flight2.getPilots(), crewMember));
+    // SET TO OTHER COMPANY
     crewMember.setCompany(pCompany2);
     EXPECT_EQ(crewMember.getFlights().size(), 0);
     EXPECT_EQ(crewMember.getCompany(), pCompany2);
+    EXPECT_FALSE(existVector(pCompany1->getPilots(), crewMember));
+    EXPECT_TRUE(existVector(pCompany2->getPilots(), crewMember));
+    // SET COMPANY TO NULLPTR
+    crewMember.setCompany(pCompany1);
+    crewMember.addFlight(flight1);
+    crewMember.setCompany(nullptr);
+    EXPECT_EQ(crewMember.getFlights().size(), 0);
+    EXPECT_FALSE(existVector(pCompany1->getPilots(), crewMember));
+    EXPECT_FALSE(existVector(flight1.getPilots(), crewMember));
 
     delete pCompany1, pCompany2;
 }
