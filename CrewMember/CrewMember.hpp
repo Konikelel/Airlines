@@ -1,5 +1,5 @@
+#include <functional>
 #include <vector>
-
 #ifndef CREW_MEMBER_H
 #define CREW_MEMBER_H
 
@@ -29,26 +29,26 @@ class CrewMember : public Person {
 
     ~CrewMember();
 
-    Company* getCompany();
-    std::vector<Flight*>& getFlights();
-    CrewRole getRole();
+    Company*& getCompany();
+    std::vector<std::reference_wrapper<Flight>>& getFlights();
+    CrewRole getRole() const;
 
-    void setCompany(Company*& pCompany);
+    // INVOKE FUNCTION FROM COMPANY TO ADD CREW MEMBER
+    void setCompany(Company* pCompany);
 
-    // ADD FLIGHT POINTER TO CREW MEMBER, IF CREW MEMBER IS NOT ON THE FLIGHT, INVOKE FUNCTION IN FLIGHT TO ADD CREW MEMBER POINTER TO FLIGHT
-    void addFlight(Flight*& pFlight);
-    // REMOVE FLIGHT POINTER FROM CREW MEMBER, IF CREW MEMBER IS ON THE FLIGHT, INVOKE FUNCTION IN FLIGHT TO REMOVE CREW MEMBER POINTER
-    bool removeFlight(Flight*& pFlight);
+    // INVOKE FUNCTION FROM FLIGHT TO ADD CREW MEMBER
+    void addFlight(Flight& flight);
+    // INVOKE FUNCTION FROM FLIGHT TO REMOVE CREW MEMBER
+    bool removeFlight(Flight& flight);
 
-    // REMOVE ALL FLIGHTS FROM CREW MEMBER AND CREW MEMBER POINTERS FROM FLIGHTS
+    // INVOKE FOR ALL FLIGHTS FUNCTION removeFlight
     bool removeFlights();
-
     // CALLED IN DESTRUCTOR REMOVE ALL FLIGHTS AND CREW MEMBER FROM COMPANY
     void terminate();
 
    private:
     Company* pCompany;
-    std::vector<Flight*> flights;
+    std::vector<std::reference_wrapper<Flight>> flights;
 
     CrewRole role;
 };

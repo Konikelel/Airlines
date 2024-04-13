@@ -1,5 +1,5 @@
-#ifndef GENDER_H
-#define GENDER_H
+#ifndef FLIGHT_STATUS_H
+#define FLIGHT_STATUS_H
 
 enum FlightStatus {
     AS_PLANNED,

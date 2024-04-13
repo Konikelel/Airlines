@@ -23,44 +23,45 @@ CrewMember::CrewMember(CrewRole role,
 }
 
 CrewMember::~CrewMember() {
-    // INVOKE FUNCTION FROM COMPANY TO REMOVE CREW MEMBER IF CREW MEMBER IS EMPLOYED
+    if (pCompany)
+        pCompany->removeCrewMember(*this);
 }
 
-Company* CrewMember::getCompany() {
+Company*& CrewMember::getCompany() {
     return pCompany;
 }
 
-std::vector<Flight*>& CrewMember::getFlights() {
+std::vector<std::reference_wrapper<Flight>>& CrewMember::getFlights() {
     return flights;
 }
 
-CrewRole CrewMember::getRole() {
+CrewRole CrewMember::getRole() const {
     return role;
 }
 
-void CrewMember::setCompany(Company*& pCompany) {
-    if (this->pCompany == pCompany)
-        return;
+void CrewMember::setCompany(Company* pCompany) {
+    if (!pCompany)
+        throw InvalidPointer("Invalid company object");
 
-    // INVOKE FUNCTION FROM COMPANY TO ADD CREW MEMBER
+    pCompany->addCrewMember(*this);
 }
 
-void CrewMember::addFlight(Flight*& pFlight) {
-    pFlight->addCrewMember(this);
+void CrewMember::addFlight(Flight& flight) {
+    flight.addCrewMember(*this);
 }
 
-bool CrewMember::removeFlight(Flight*& pFlight) {
-    return pFlight->removeCrewMember(this);
+bool CrewMember::removeFlight(Flight& flight) {
+    return flight.removeCrewMember(*this);
 }
 
 bool CrewMember::removeFlights() {
-    bool success = false;
-    for (auto pFlight : flights)
-        success = removeFlight(pFlight) && success;
+    bool success = true;
+    for (auto flight : flights)
+        success = removeFlight(flight) && success;
 
     return success;
 }
 
 void CrewMember::terminate() {
-    // INVOKE FUNCTION FROM COMPANY TO REMOVE CREW MEMBER
+    setCompany(nullptr);
 }

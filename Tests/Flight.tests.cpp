@@ -9,12 +9,12 @@
 #include "Plane.hpp"
 
 TEST(FlightClass, constructor) {
-    Company* company = new (Company){"Test1"};
+    Company* pCompany = new (Company){"Test1"};
 
-    Flight flight1{company, "RYR120", 1, 2, "Warsaw", "Berlin"};
+    Flight flight1{pCompany, "RYR120", 1, 2, "Warsaw", "Berlin"};
 
-    auto pPlane = new (Plane){company, 101, "B737", 100, 4, 2};
-    Flight flight2{company, "RYR102", pPlane, 1, 2, "Poznan", "Krakow"};
+    auto pPlane = new (Plane){pCompany, 101, "B737", 100, 4, 2};
+    Flight flight2{pCompany, "RYR102", pPlane, 1, 2, "Poznan", "Krakow"};
 
     EXPECT_EQ(flight1.getFlightNr(), "RYR120");
     EXPECT_EQ(flight1.getTimeDeparture(), 1);
@@ -23,13 +23,13 @@ TEST(FlightClass, constructor) {
     EXPECT_EQ(flight1.getCityArrival(), "Berlin");
 
     EXPECT_EQ(flight2.getPlane(), pPlane);
-    delete pPlane, company;
+    delete pPlane, pCompany;
 }
 
 TEST(FlightClass, setters) {  // ADD TESTING FOR CREW MEMBERS AND PASSENGERS
-    Company* company = new (Company){"Test1"};
+    Company* pCompany = new (Company){"Test1"};
 
-    Flight flight{company, "RYR120", 1, 2, "Warsaw", "Berlin"};
+    Flight flight{pCompany, "RYR120", 1, 2, "Warsaw", "Berlin"};
 
     EXPECT_THROW(flight.setFlightNr("ryr"), InvalidFlightNr);
     flight.setFlightNr("ryr1");
@@ -66,4 +66,6 @@ TEST(FlightClass, setters) {  // ADD TESTING FOR CREW MEMBERS AND PASSENGERS
     EXPECT_TRUE(flight.timeOverlap(2, 4));
     EXPECT_FALSE(flight.timeOverlap(0, 1));
     EXPECT_FALSE(flight.timeOverlap(6, 7));
+
+    delete pCompany;
 }

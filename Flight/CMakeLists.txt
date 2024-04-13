@@ -5,4 +5,4 @@ add_library(
 )
 
 target_include_directories(Flight PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
-target_link_libraries(Flight PUBLIC CrewMember Passenger Plane Utils Company)
+target_link_libraries(Flight PUBLIC Utils CrewMember Passenger Plane Company)

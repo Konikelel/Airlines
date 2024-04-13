@@ -33,6 +33,9 @@ Plane::Plane(unsigned int id,
 
 Plane::~Plane() {
     deleteVector(usedIds, id);
+
+    if (pCompany)
+        pCompany->removePlane(*this);
 }
 
 unsigned int Plane::getId() const {
@@ -43,11 +46,11 @@ std::string Plane::getName() const {
     return name;
 }
 
-Company* Plane::getCompany() const {
+Company*& Plane::getCompany() {
     return pCompany;
 }
 
-std::vector<Flight*>& Plane::getFlights() {
+std::vector<std::reference_wrapper<Flight>>& Plane::getFlights() {
     return flights;
 }
 
@@ -156,22 +159,16 @@ bool Plane::inRangeCrew(const unsigned int stewardess, const unsigned int pilots
     return inRangeStewardesses(stewardess) && inRangePilots(pilots);
 }
 
-void Plane::addFlight(Flight* pFlight) {
-    if (!pFlight)
-        throw InvalidPointer("Invalid flight object");
-
-    pFlight->setPlane(this);
+void Plane::addFlight(Flight& flight) {
+    flight.setPlane(this);
 }
 
-bool Plane::removeFlight(Flight* pFlight) {
-    if (pFlight->getPlane() != this)
-        throw InvalidPlane("Plane is not used in the flight");
-
-    return pFlight->removePlane();
+bool Plane::removeFlight(Flight& flight) {
+    return flight.removePlane();
 }
 
 bool Plane::removeFlights() {
-    bool success = false;
+    bool success = true;
     for (auto pFlight : flights)
         success = removeFlight(pFlight) && success;
 

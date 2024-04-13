@@ -14,26 +14,20 @@ Passenger::~Passenger() {
     removeFlights();
 }
 
-std::vector<Flight*>& Passenger::getFlights() {
+std::vector<std::reference_wrapper<Flight>>& Passenger::getFlights() {
     return flights;
 }
 
-void Passenger::addFlight(Flight* pFlight) {
-    if (!pFlight)
-        throw InvalidPointer("Invalid flight object");
-
-    pFlight->addPassenger(this);
+void Passenger::addFlight(Flight& flight) {
+    flight.addPassenger(*this);
 }
 
-bool Passenger::removeFlight(Flight* pFlight) {
-    if (!pFlight)
-        throw InvalidPointer("Invalid flight object");
-
-    return pFlight->removePassenger(this);
+bool Passenger::removeFlight(Flight& flight) {
+    return flight.removePassenger(*this);
 }
 
 bool Passenger::removeFlights() {
-    bool success = false;
+    bool success = true;
 
     for (auto pFlight : flights)
         success = removeFlight(pFlight) && success;

@@ -1,3 +1,4 @@
+#include <functional>
 #include <string>
 #include <vector>
 
@@ -18,18 +19,18 @@ class Passenger : public Person {
 
     ~Passenger();
 
-    std::vector<Flight*>& getFlights();  // TEST
+    std::vector<std::reference_wrapper<Flight>>& getFlights();
 
-    // ADD FLIGHT POINTER TO PASSENGER, IF PASSENGER IS NOT ON THE FLIGHT, INVOKE FUNCTION IN FLIGHT TO ADD PASSENGER POINTER
-    void addFlight(Flight* pFlight);  // TEST
-    // REMOVE FLIGHT POINTER FROM PASSENGER, IF PASSENGER IS ON THE FLIGHT, INVOKE FUNCTION IN FLIGHT TO REMOVE PASSENGER POINTER
-    bool removeFlight(Flight* pFlight);  // TEST
+    // INVOKE FUNCTION FROM FLIGHT TO ADD PASSENGER
+    void addFlight(Flight& flight);
+    // INVOKE FUNCTION FROM FLIGHT TO REMOVE PASSENGER
+    bool removeFlight(Flight& flight);
 
-    // REMOVE ALL FLIGHTS FROM PASSENGER AND PASSENGER POINTERS FROM FLIGHTS
-    bool removeFlights();  // TEST
+    // INVOKE FOR ALL FLIGHTS FUNCTION removeFlight
+    bool removeFlights();
 
    private:
-    std::vector<Flight*> flights;
+    std::vector<std::reference_wrapper<Flight>> flights;
 };
 
 #endif

@@ -1,9 +1,12 @@
+#include <functional>
 #include <memory>
 #include <string>
 #include <vector>
 
 #ifndef FLIGHT_H
 #define FLIGHT_H
+
+#include "FlightStatus.hpp"
 
 class Company;
 class CrewMember;
@@ -29,6 +32,9 @@ class Flight {
         std::string cityDeparture,
         std::string cityArrival);
 
+    ~Flight();
+
+    Company*& getCompany();
     std::string getFlightNr() const;
     Plane* getPlane() const;
     unsigned int getTimeDeparture() const;
@@ -36,9 +42,9 @@ class Flight {
     std::string getCityDeparture() const;
     std::string getCityArrival() const;
 
-    std::vector<Passenger*>& getPassengers();
-    std::vector<CrewMember*>& getStewardesses();
-    std::vector<CrewMember*>& getPilots();
+    std::vector<std::reference_wrapper<Passenger>>& getPassengers();
+    std::vector<std::reference_wrapper<CrewMember>>& getStewardesses();
+    std::vector<std::reference_wrapper<CrewMember>>& getPilots();
 
     void setFlightNr(const std::string flightNr);
     // CHANGE PLANE FOR ANOTHER AND CHECK IF PASSENGERS, STEWARDESS, PILOTS ARE WITHIN RANGE
@@ -51,24 +57,24 @@ class Flight {
     void changeDataDeparture(const unsigned int time, const std::string city);
     void changeDataArrival(const unsigned int time, const std::string city);
 
-    // ADD PASSENGER POINTER TO FLIGHT, IF PASSENGER IS NOT ON THE FLIGHT ADD FLIGHT POINTER TO PASSENGER
-    void addPassenger(Passenger* pPassenger);  // TEST
-    // REMOVE PASSENGER POINTER FROM FLIGHT, IF PASSENGER IS ON THE FLIGHT REMOVE FLIGHT POINTER FROM PASSENGER
-    bool removePassenger(Passenger* pPassenger);  // TEST
+    // ADD PASSENGER TO FLIGHT,ADD FLIGHT TO PASSENGER
+    void addPassenger(Passenger& passenger);
+    // REMOVE PASSENGER FROM FLIGHT, REMOVE FLIGHT FROM PASSENGER
+    bool removePassenger(Passenger& passenger);
+    bool removePassengers();
 
-    // ADD STEWARDESS POINTER TO FLIGHT, IF STEWARDESS IS NOT ON THE FLIGHT ADD FLIGHT POINTER TO STEWARDESS
-    void addCrewMember(CrewMember* pCrewMember);  // TEST
-    // REMOVE STEWARDESS POINTER FROM FLIGHT, IF STEWARDESS IS ON THE FLIGHT REMOVE FLIGHT POINTER FROM STEWARDESS
-    bool removeCrewMember(CrewMember* pCrewMember);  // TEST
-
-    // REMOVE PLANE, ALL PASSENGERS, STEWARDESS, PILOTS FROM FLIGHT AND FLIGHT FROM THEM
-    void terminate();  // TEST
+    // ADD CREW MEMBER TO FLIGHT, ADD FLIGHT TO CREW MEMBER
+    void addCrewMember(CrewMember& crewMember);
+    // REMOVE CREW MEMBER FROM FLIGHT, REMOVE FLIGHT FROM CREW MEMBER
+    bool removeCrewMember(CrewMember& crewMember);
+    bool removeCrewMembers();
 
     // CHECK FOR FLIGHT TIME OVERLAP WITH TIME PERIOD
-    bool timeOverlap(const Flight* pFlight);                                     // TEST
-    bool timeOverlap(const unsigned int timeStart, const unsigned int timeEnd);  // TEST
+    bool timeOverlap(const Flight& flight) const;
+    bool timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) const;
 
    private:
+    void setStatus();
     void setupCompany(Company* pCompany);
     // SET PLANE CALLED IN CONSTRUCTOR WITHOUT ANY CHECK ON CAPACITY LIMITS
     void setupPlane(Plane* pPlane);
@@ -78,6 +84,7 @@ class Flight {
 
     Company* pCompany;
     std::string flightNr;
+    FlightStatus status;
     Plane* pPlane;
 
     unsigned int timeDeparture;  // time in miliseconds
@@ -85,9 +92,9 @@ class Flight {
     std::string cityDeparture;
     std::string cityArrival;
 
-    std::vector<Passenger*> passengers;
-    std::vector<CrewMember*> stewardesses;
-    std::vector<CrewMember*> pilots;
+    std::vector<std::reference_wrapper<Passenger>> passengers;
+    std::vector<std::reference_wrapper<CrewMember>> stewardesses;
+    std::vector<std::reference_wrapper<CrewMember>> pilots;
 };
 
 #endif

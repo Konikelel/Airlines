@@ -26,10 +26,22 @@ Flight::Flight(Company* pCompany,
                unsigned int timeDeparture,
                unsigned int timeArrival,
                std::string cityDeparture,
-               std::string cityArrival) : pPlane{nullptr} {
+               std::string cityArrival) : pPlane{nullptr},
+                                          status{INCOMPLETE} {
     setupCompany(pCompany);
     setFlightNr(flightNr);
     setDataTime(timeDeparture, cityDeparture, timeArrival, cityArrival);
+}
+
+Flight::~Flight() {
+    removePlane();
+    removePassengers();
+    removeCrewMembers();
+    deleteVector(pCompany->getFlights(), *this);
+}
+
+Company*& Flight::getCompany() {
+    return pCompany;
 }
 
 std::string Flight::getFlightNr() const {
@@ -56,15 +68,15 @@ std::string Flight::getCityArrival() const {
     return cityArrival;
 }
 
-std::vector<Passenger*>& Flight::getPassengers() {
+std::vector<std::reference_wrapper<Passenger>>& Flight::getPassengers() {
     return passengers;
 }
 
-std::vector<CrewMember*>& Flight::getStewardesses() {
+std::vector<std::reference_wrapper<CrewMember>>& Flight::getStewardesses() {
     return stewardesses;
 }
 
-std::vector<CrewMember*>& Flight::getPilots() {
+std::vector<std::reference_wrapper<CrewMember>>& Flight::getPilots() {
     return pilots;
 }
 
@@ -94,8 +106,8 @@ void Flight::setPlane(Plane* pPlane) {
     if (!pPlane->inRangePilots(pilots.size()))
         throw InvalidPlane("Plane cannot operate with the current number of pilots");
 
-    for (auto pFlight : pPlane->getFlights())
-        if (timeOverlap(pFlight))
+    for (auto flight : pPlane->getFlights())
+        if (timeOverlap(flight))
             throw TimeOverlap("Passenger is on other flight. Cannot add flight");
 
     removePlane();
@@ -103,7 +115,7 @@ void Flight::setPlane(Plane* pPlane) {
 }
 
 bool Flight::removePlane() {
-    bool success = deleteVector(pPlane->getFlights(), this);
+    bool success = deleteVector(pPlane->getFlights(), *this);
     pPlane = nullptr;
     return success;
 }
@@ -132,56 +144,83 @@ void Flight::changeDataArrival(const unsigned int time, const std::string city) 
     this->cityArrival = city;
 }
 
-void Flight::addPassenger(Passenger* pPassenger) {
+void Flight::addPassenger(Passenger& passenger) {
     if (pPlane && !pPlane->inRangePassengers(passengers.size() + 1))
         throw MaximumCapacity("Maximum capacity for passengers reached");
-    if (existVector(passengers, pPassenger))
+    if (existVector(passengers, passenger))
         throw DuplicationError("Passenger is already on the flight");
 
-    for (auto pFlight : pPassenger->getFlights())
-        if (timeOverlap(pFlight))
+    for (auto flight : passenger.getFlights())
+        if (timeOverlap(flight))
             throw TimeOverlap("Passenger is on other flight. Cannot add flight");
 
-    passengers.push_back(pPassenger);
-    pPassenger->getFlights().push_back(this);
+    passengers.push_back(passenger);
+    passenger.getFlights().push_back(*this);
 }
 
-bool Flight::removePassenger(Passenger* pPassenger) {
-    return deleteVector(passengers, pPassenger) && deleteVector(pPassenger->getFlights(), this);
+bool Flight::removePassenger(Passenger& passenger) {
+    return deleteVector(passengers, passenger) && deleteVector(passenger.getFlights(), *this);
 }
 
-void Flight::addCrewMember(CrewMember* pCrewMember) {
-    CrewRole role = pCrewMember->getRole();
-    if (pCrewMember->getCompany() != pCompany)
+bool Flight::removePassengers() {
+    bool success = true;
+    for (auto passenger : passengers)
+        success = removePassenger(passenger) && success;
+    return success;
+}
+
+void Flight::addCrewMember(CrewMember& crewMember) {
+    CrewRole role = crewMember.getRole();
+
+    if (crewMember.getCompany() != pCompany)
         throw InvalidCrew("CrewMember must be in the same company as flight");
-    if (pPlane && !(role ? pPlane->inRangeStewardesses(stewardesses.size() + 1) : pPlane->inRangePilots(pilots.size() + 1)))
+
+    if (pPlane && (role ? pPlane->maximumStewardesses(stewardesses.size() + 1) : pPlane->maximumPilots(pilots.size() + 1)))
         throw MaximumCapacity("Maximum capacity for crewMember reached");
-    if (existVector(role ? stewardesses : pilots, pCrewMember))
+
+    if (existVector(role ? stewardesses : pilots, crewMember))
         throw DuplicationError("CrewMember is already on the flight");
 
-    for (auto pFlight : pCrewMember->getFlights())
+    for (auto pFlight : crewMember.getFlights())
         if (timeOverlap(pFlight))
             throw TimeOverlap("CrewMember is on other flight. Cannot add flight");
 
-    role ? stewardesses.push_back(pCrewMember) : pilots.push_back(pCrewMember);
-    pCrewMember->getFlights().push_back(this);
+    role ? stewardesses.push_back(crewMember) : pilots.push_back(crewMember);
+    crewMember.getFlights().push_back(*this);
+    setStatus();
 }
 
-bool Flight::removeCrewMember(CrewMember* pCrewMember) {
-    CrewRole role = pCrewMember->getRole();
+bool Flight::removeCrewMember(CrewMember& crewMember) {
+    CrewRole role = crewMember.getRole();
 
     if (pPlane && !(role ? pPlane->inRangeStewardesses(stewardesses.size() - 1) : pPlane->inRangePilots(pilots.size() - 1)))
         throw MinimumCapacity("Cannot remove crewMember. Required number to operate flight reached");
 
-    return deleteVector(role ? stewardesses : pilots, pCrewMember) && deleteVector(pCrewMember->getFlights(), this);
+    setStatus();
+    return deleteVector(role ? stewardesses : pilots, crewMember) && deleteVector(crewMember.getFlights(), *this);
 }
 
-bool Flight::timeOverlap(const Flight* pFlight) {
-    return timeOverlap(pFlight->getTimeDeparture(), pFlight->getTimeArrival());
+bool Flight::removeCrewMembers() {
+    bool success = true;
+
+    for (auto crewMember : stewardesses)
+        success = removeCrewMember(crewMember) && success;
+
+    for (auto crewMember : pilots)
+        success = removeCrewMember(crewMember) && success;
+    return success;
 }
 
-bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) {
+bool Flight::timeOverlap(const Flight& flight) const {
+    return timeOverlap(flight.getTimeDeparture(), flight.getTimeArrival());
+}
+
+bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) const {
     return !(timeDeparture > timeEnd || timeArrival < timeStart);
+}
+
+void Flight::setStatus() {
+    status = (pPlane && pPlane->inRangeCrew(stewardesses.size(), pilots.size())) ? AS_PLANNED : INCOMPLETE;
 }
 
 // PRIVATE
@@ -192,7 +231,7 @@ void Flight::setupCompany(Company* pCompany) {
         throw InvalidPlane("Plane must be from the same company");
 
     this->pCompany = pCompany;
-    // pPlane->getFlights().push_back(this);
+    pCompany->getFlights().push_back(*this);
 }
 
 void Flight::setupPlane(Plane* pPlane) {
@@ -202,7 +241,8 @@ void Flight::setupPlane(Plane* pPlane) {
         throw InvalidPlane("Plane must be from the same company");
 
     this->pPlane = pPlane;
-    pPlane->getFlights().push_back(this);
+    pPlane->getFlights().push_back(*this);
+    setStatus();
 }
 
 void Flight::setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival) {
