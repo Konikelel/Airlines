@@ -29,11 +29,13 @@ TEST(passenger, flight) {
     EXPECT_TRUE(passenger.removeFlight(flight1));
 
     EXPECT_EQ(passenger.getFlights().size(), 1);
-    // !EXCEPTION!
-    EXPECT_EQ(flight1.getPassengers().size(), 1);
-    // !EXCEPTION!
     EXPECT_FALSE(existVector(passenger.getFlights(), flight1));
+
+    EXPECT_EQ(flight1.getPassengers().size(), 0);
     EXPECT_FALSE(existVector(flight1.getPassengers(), passenger));
+
+    EXPECT_EQ(flight2.getPassengers().size(), 1);
+    EXPECT_TRUE(existVector(flight2.getPassengers(), passenger));
     // removeFlights
     passenger.addFlight(flight1);
     EXPECT_TRUE(passenger.removeFlights());
