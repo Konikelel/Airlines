@@ -86,7 +86,6 @@ TEST(crewMember, flight) {
     Company* pCompany = new (Company){"Test1"};
     Flight& flight1 = pCompany->createFlight("RYR123", 1, 2, "Warsaw", "Berlin");
     Flight& flight2 = pCompany->createFlight("RYR123", 3, 4, "Warsaw", "Berlin");
-    Flight& flight3 = pCompany->createFlight("RYR123", 5, 6, "Warsaw", "Berlin");
 
     CrewMember crewMember{pCompany, PILOT, 1, "Victor", "Alb", 1, MALE};
     // addFlight
@@ -99,10 +98,7 @@ TEST(crewMember, flight) {
     EXPECT_TRUE(existVector(flight1.getPilots(), crewMember));
     // removeFlight
     crewMember.addFlight(flight2);
-    crewMember.addFlight(flight3);
-    auto last = crewMember.getFlights().end();
     EXPECT_TRUE(crewMember.removeFlight(flight1));
-    last = crewMember.getFlights().end();
 
     EXPECT_EQ(crewMember.getFlights().size(), 1);
     EXPECT_EQ(flight1.getPilots().size(), 0);
