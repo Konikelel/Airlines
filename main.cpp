@@ -14,6 +14,8 @@ int main() {
 
     auto result4 = deleteVector(example, 2);
     vecEnd = example.end();
+    result2 = existVector(example, 2);
+    result2 = existVector(example, 4);
 
     return 0;
 }
