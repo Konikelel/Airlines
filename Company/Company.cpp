@@ -57,8 +57,8 @@ bool Company::removePlane(Plane& plane) {
     if (pCompany != this)
         return false;
 
-    pCompany = nullptr;
     plane.removeFlights();
+    pCompany = nullptr;
 
     return deleteVector(planes, plane);
 }
@@ -93,8 +93,8 @@ bool Company::removeCrewMember(CrewMember& crewMember) {
     if (pCompany != this)
         return false;
 
-    pCompany = nullptr;
     crewMember.removeFlights();
+    pCompany = nullptr;
 
     return deleteVector(crewMember.getRole() ? stewardesses : pilots, crewMember);
 }
@@ -135,7 +135,7 @@ bool Company::removeFlight(Flight& flight) {
     if (pCompany != this)
         return false;
 
-    return flight.removePlane() && flight.removePassengers() && flight.removeCrewMembers() && deleteList(flights, flight);
+    return deleteList(flights, flight);
 }
 
 bool Company::removeFlights() {

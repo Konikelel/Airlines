@@ -1,5 +1,7 @@
 #include "CrewMember.hpp"
 
+#include <iostream>
+
 #include "CustomErrors.hpp"
 
 CrewMember::CrewMember(Company* pCompany,
@@ -56,6 +58,7 @@ bool CrewMember::removeFlight(Flight& flight) {  // TESTED
 
 bool CrewMember::removeFlights() {  // TESTED
     bool success = true;
+
     for (auto flight : flights)
         success = removeFlight(flight) && success;
 
