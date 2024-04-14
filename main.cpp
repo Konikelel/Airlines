@@ -1,10 +1,19 @@
+#include <vector>
+
 #include "Person.hpp"
+#include "VectorHandler.hpp"
 
 int main() {
-    {
-        Person person1{1, "W", "A", 2, MALE};
-    }
-    Person person2{1, "W", "A", 2, MALE};
+    std::vector<int> example = {1, 2, 3, 4};
+
+    auto vecEnd = example.end();
+
+    auto result1 = findVector(example, 2);
+    bool result2 = existVector(example, 2);
+    vecEnd = example.end();
+
+    auto result4 = deleteVector(example, 2);
+    vecEnd = example.end();
 
     return 0;
 }
