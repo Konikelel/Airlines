@@ -5,7 +5,7 @@
             "cwd": "${workspaceRoot}",
             "type": "cppdbg",
             "request": "launch",
-            "externalConsole": true,
+            "externalConsole": false,
             "program": "${cmake.testProgram} ",
             "args": ["${cmake.testArgs}"],
             "setupCommands": [

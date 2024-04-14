@@ -12,6 +12,8 @@ Company::Company(std::string name) {
 
 Company::~Company() {
     removeFlights();
+    removePlanes();
+    removeCrewMembers();
 }
 
 void Company::setName(std::string name) {
@@ -21,12 +23,12 @@ void Company::setName(std::string name) {
     this->name = name;
 }
 
-std::vector<std::reference_wrapper<Plane>>& Company::getPlanes() {
-    return planes;
-}
-
 std::list<Flight>& Company::getFlights() {
     return flights;
+}
+
+std::vector<std::reference_wrapper<Plane>>& Company::getPlanes() {
+    return planes;
 }
 
 std::vector<std::reference_wrapper<CrewMember>>& Company::getStewardesses() {
@@ -55,10 +57,19 @@ bool Company::removePlane(Plane& plane) {
     if (pCompany != this)
         return false;
 
-    plane.removeFlights();
     pCompany = nullptr;
+    plane.removeFlights();
 
     return deleteVector(planes, plane);
+}
+
+bool Company::removePlanes() {
+    bool success = true;
+
+    for (auto plane : planes)
+        success = removePlane(plane) && success;
+
+    return success;
 }
 
 void Company::addCrewMember(CrewMember& crewMember) {
@@ -82,10 +93,21 @@ bool Company::removeCrewMember(CrewMember& crewMember) {
     if (pCompany != this)
         return false;
 
-    crewMember.removeFlights();
     pCompany = nullptr;
+    crewMember.removeFlights();
 
     return deleteVector(crewMember.getRole() ? stewardesses : pilots, crewMember);
+}
+
+bool Company::removeCrewMembers() {
+    bool success = true;
+
+    for (auto stewardess : stewardesses)
+        success = removeCrewMember(stewardess) && success;
+    for (auto pilot : pilots)
+        success = removeCrewMember(pilot) && success;
+
+    return success;
 }
 
 Flight& Company::createFlight(std::string flightNr,
@@ -113,10 +135,7 @@ bool Company::removeFlight(Flight& flight) {
     if (pCompany != this)
         return false;
 
-    deleteList(flights, flight);
-    flight.removeCrewMembers();
-    flight.removePassengers();
-    return true;
+    return flight.removePlane() && flight.removePassengers() && flight.removeCrewMembers() && deleteList(flights, flight);
 }
 
 bool Company::removeFlights() {
