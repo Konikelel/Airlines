@@ -8,7 +8,7 @@
 #include "CustomErrors.hpp"
 #include "Plane.hpp"
 
-TEST(FlightClass, constructor) {
+TEST(flight, constructor) {
     Company* pCompany = new (Company){"Test1"};
 
     Flight flight1 = pCompany->createFlight("RYR120", 1, 2, "Warsaw", "Berlin");
@@ -26,7 +26,7 @@ TEST(FlightClass, constructor) {
     delete pCompany;
 }
 
-TEST(FlightClass, setters) {
+TEST(flight, setters) {
     Company* pCompany = new (Company){"Test1"};
 
     Flight flight = pCompany->createFlight("RYR120", 1, 2, "Warsaw", "Berlin");

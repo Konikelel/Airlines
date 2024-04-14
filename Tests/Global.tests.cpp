@@ -7,5 +7,5 @@
 #include "Plane.hpp"
 #include "VectorHandler.hpp"
 
-TEST(Global, passengerFlight) {
+TEST(global, passengerFlight) {
 }
