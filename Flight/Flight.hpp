@@ -15,28 +15,9 @@ class Plane;
 
 class Flight {
    public:
-    Flight(
-        Company* pCompany,
-        std::string flightNr,
-        Plane* pPlane,
-        unsigned int timeDeparture,
-        unsigned int timeArrival,
-        std::string cityDeparture,
-        std::string cityArrival);
-
-    Flight(
-        Company* pCompany,
-        std::string flightNr,
-        unsigned int timeDeparture,
-        unsigned int timeArrival,
-        std::string cityDeparture,
-        std::string cityArrival);
-
-    ~Flight();
-
     Company*& getCompany();
     std::string getFlightNr() const;
-    Plane* getPlane() const;
+    Plane& getPlane() const;
     unsigned int getTimeDeparture() const;
     unsigned int getTimeArrival() const;
     std::string getCityDeparture() const;
@@ -48,7 +29,7 @@ class Flight {
 
     void setFlightNr(const std::string flightNr);
     // CHANGE PLANE FOR ANOTHER AND CHECK IF PASSENGERS, STEWARDESS, PILOTS ARE WITHIN RANGE
-    void setPlane(Plane* pPlane);
+    void setPlane(Plane& plane);
     bool removePlane();
 
     // CHANGE DATA TIME CALLED IN CONSTRUCTOR VALIDATING ARGUMENTS WITH THIS DATA PARAMETERS
@@ -74,10 +55,27 @@ class Flight {
     bool timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) const;
 
    private:
+    Flight(
+        Company* pCompany,
+        std::string flightNr,
+        Plane& plane,
+        unsigned int timeDeparture,
+        unsigned int timeArrival,
+        std::string cityDeparture,
+        std::string cityArrival);
+
+    Flight(
+        Company* pCompany,
+        std::string flightNr,
+        unsigned int timeDeparture,
+        unsigned int timeArrival,
+        std::string cityDeparture,
+        std::string cityArrival);
+
     void setStatus();
     void setupCompany(Company* pCompany);
     // SET PLANE CALLED IN CONSTRUCTOR WITHOUT ANY CHECK ON CAPACITY LIMITS
-    void setupPlane(Plane* pPlane);
+    void setupPlane(Plane& plane);
     // SET DATA TIME CALLED IN CONSTRUCTOR VALIDATING ARGUMENTS
     void setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival);
     void setDataTime(const unsigned int timeDeparture, const std::string cityDeparture, const unsigned int timeArrival, const std::string cityArrival);
@@ -95,6 +93,8 @@ class Flight {
     std::vector<std::reference_wrapper<Passenger>> passengers;
     std::vector<std::reference_wrapper<CrewMember>> stewardesses;
     std::vector<std::reference_wrapper<CrewMember>> pilots;
+
+    friend Company;
 };
 
 #endif

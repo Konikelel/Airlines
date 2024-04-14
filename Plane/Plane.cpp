@@ -160,7 +160,7 @@ bool Plane::inRangeCrew(const unsigned int stewardess, const unsigned int pilots
 }
 
 void Plane::addFlight(Flight& flight) {
-    flight.setPlane(this);
+    flight.setPlane(*this);
 }
 
 bool Plane::removeFlight(Flight& flight) {

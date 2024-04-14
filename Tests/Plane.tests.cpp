@@ -7,7 +7,7 @@
 #include "CustomErrors.hpp"
 #include "VectorHandler.hpp"
 
-TEST(PlaneClass, constructor) {
+TEST(plane, constructor) {
     Company* pCompany = new (Company){"Test"};
 
     Plane plane1{100, "B737", 100, 3, 2};
@@ -33,13 +33,13 @@ TEST(PlaneClass, constructor) {
     delete pCompany;
 }
 
-TEST(PlaneClass, destructor) {
+TEST(plane, destructor) {
     Plane plane{101, "B737", 100, 3, 2};
 
     EXPECT_NO_THROW(plane.changeId(100));
 }
 
-TEST(PlaneClass, setters) {
+TEST(plane, setters) {
     Company* pCompany = new (Company){"Test"};
 
     Plane plane1{101, "B737", 100, 3, 2};
@@ -78,7 +78,7 @@ TEST(PlaneClass, setters) {
     delete pCompany;
 }
 
-TEST(PlaneClass, boolFunctions) {
+TEST(plane, boolFunctions) {
     Company* pCompany = new (Company){"Test1"};
 
     Plane plane{pCompany, 101, "B737", 100, 3, 2};
@@ -102,7 +102,7 @@ TEST(PlaneClass, boolFunctions) {
     delete pCompany;
 }
 
-TEST(PlaneClass, flightClassWorkCheck) {
+TEST(plane, flight) {
     // Company* pCompany = new (Company){"Test1"};
 
     // Flight* pFlight1 = new (Flight){pCompany, "RYR123", 1, 2, "Warsaw", "Berlin"};

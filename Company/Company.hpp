@@ -1,4 +1,5 @@
 #include <functional>
+#include <list>
 #include <string>
 #include <vector>
 
@@ -13,10 +14,12 @@ class Company {
    public:
     Company(std::string name);
 
+    ~Company();
+
     void setName(std::string name);
 
     std::vector<std::reference_wrapper<Plane>>& getPlanes();
-    std::vector<std::reference_wrapper<Flight>>& getFlights();
+    std::list<Flight>& getFlights();
     std::vector<std::reference_wrapper<CrewMember>>& getStewardesses();
     std::vector<std::reference_wrapper<CrewMember>>& getPilots();
     // ADD PLANE TO COMPANY AND SET PLANE'S COMPANY
@@ -28,11 +31,27 @@ class Company {
     void addCrewMember(CrewMember& crewMember);
     // REMOVE CREW MEMBER FROM COMPANY AND REMOVES CREW MEMBER'S COMPANY
     bool removeCrewMember(CrewMember& crewMember);
+    // CRETE FLIGHT IN COMPANY
+    Flight& createFlight(std::string flightNr,
+                         Plane& plane,
+                         unsigned int timeDeparture,
+                         unsigned int timeArrival,
+                         std::string cityDeparture,
+                         std::string cityArrival);
+
+    Flight& createFlight(std::string flightNr,
+                         unsigned int timeDeparture,
+                         unsigned int timeArrival,
+                         std::string cityDeparture,
+                         std::string cityArrival);
+    // REMOVE FLIGHT, DELETE FROM ALL CLASSES
+    bool removeFlight(Flight& flight);
+    bool removeFlights();
 
    private:
     std::string name;
+    std::list<Flight> flights;
     std::vector<std::reference_wrapper<Plane>> planes;
-    std::vector<std::reference_wrapper<Flight>> flights;
     std::vector<std::reference_wrapper<CrewMember>> stewardesses;
     std::vector<std::reference_wrapper<CrewMember>> pilots;
 };

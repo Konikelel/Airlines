@@ -5,7 +5,7 @@
 #include "CustomErrors.hpp"
 #include "VectorHandler.hpp"
 
-TEST(PersonClass, constructor) {
+TEST(person, constructor) {
     Person person{1, "Victor", "Alb", 2, MALE};
     // getId
     EXPECT_EQ(person.getId(), 1);
@@ -19,13 +19,13 @@ TEST(PersonClass, constructor) {
     EXPECT_EQ(person.getGender(), MALE);
 }
 
-TEST(PersonClass, destructor) {
+TEST(person, destructor) {
     Person person{2, "Victor", "Alb", 1, MALE};
 
     EXPECT_NO_THROW(person.changeId(1));
 }
 
-TEST(PersonClass, setters) {
+TEST(person, setters) {
     Person person1{1, "Victor", "Alb", 1, MALE};
     Person person2{2, "Jacob", "Web", 2, MALE};
     // changeId

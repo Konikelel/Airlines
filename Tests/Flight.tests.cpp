@@ -11,10 +11,10 @@
 TEST(FlightClass, constructor) {
     Company* pCompany = new (Company){"Test1"};
 
-    Flight flight1{pCompany, "RYR120", 1, 2, "Warsaw", "Berlin"};
+    Flight flight1 = pCompany->createFlight("RYR120", 1, 2, "Warsaw", "Berlin");
 
-    auto pPlane = new (Plane){pCompany, 101, "B737", 100, 4, 2};
-    Flight flight2{pCompany, "RYR102", pPlane, 1, 2, "Poznan", "Krakow"};
+    Plane plane{pCompany, 101, "B737", 100, 4, 2};
+    Flight flight2 = pCompany->createFlight("RYR102", plane, 1, 2, "Poznan", "Krakow");
 
     EXPECT_EQ(flight1.getFlightNr(), "RYR120");
     EXPECT_EQ(flight1.getTimeDeparture(), 1);
@@ -22,14 +22,14 @@ TEST(FlightClass, constructor) {
     EXPECT_EQ(flight1.getCityDeparture(), "Warsaw");
     EXPECT_EQ(flight1.getCityArrival(), "Berlin");
 
-    EXPECT_EQ(flight2.getPlane(), pPlane);
-    delete pPlane, pCompany;
+    EXPECT_EQ(flight2.getPlane().getId(), plane.getId());
+    delete pCompany;
 }
 
-TEST(FlightClass, setters) {  // ADD TESTING FOR CREW MEMBERS AND PASSENGERS
+TEST(FlightClass, setters) {
     Company* pCompany = new (Company){"Test1"};
 
-    Flight flight{pCompany, "RYR120", 1, 2, "Warsaw", "Berlin"};
+    Flight flight = pCompany->createFlight("RYR120", 1, 2, "Warsaw", "Berlin");
 
     EXPECT_THROW(flight.setFlightNr("ryr"), InvalidFlightNr);
     flight.setFlightNr("ryr1");

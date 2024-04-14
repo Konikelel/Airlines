@@ -1,10 +1,17 @@
 #include "Company.hpp"
 
+#include <iostream>
+
 #include "CustomErrors.hpp"
+#include "ListHandler.hpp"
 #include "VectorHandler.hpp"
 
 Company::Company(std::string name) {
     setName(name);
+}
+
+Company::~Company() {
+    removeFlights();
 }
 
 void Company::setName(std::string name) {
@@ -18,7 +25,7 @@ std::vector<std::reference_wrapper<Plane>>& Company::getPlanes() {
     return planes;
 }
 
-std::vector<std::reference_wrapper<Flight>>& Company::getFlights() {
+std::list<Flight>& Company::getFlights() {
     return flights;
 }
 
@@ -79,4 +86,44 @@ bool Company::removeCrewMember(CrewMember& crewMember) {
     pCompany = nullptr;
 
     return deleteVector(crewMember.getRole() ? stewardesses : pilots, crewMember);
+}
+
+Flight& Company::createFlight(std::string flightNr,
+                              Plane& plane,
+                              unsigned int timeDeparture,
+                              unsigned int timeArrival,
+                              std::string cityDeparture,
+                              std::string cityArrival) {
+    flights.push_back((Flight){this, flightNr, plane, timeDeparture, timeArrival, cityDeparture, cityArrival});
+    return flights.back();
+}
+
+Flight& Company::createFlight(std::string flightNr,
+                              unsigned int timeDeparture,
+                              unsigned int timeArrival,
+                              std::string cityDeparture,
+                              std::string cityArrival) {
+    flights.push_back((Flight){this, flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival});
+    return flights.back();
+}
+
+bool Company::removeFlight(Flight& flight) {
+    Company*& pCompany = flight.getCompany();
+
+    if (pCompany != this)
+        return false;
+
+    deleteList(flights, flight);
+    flight.removeCrewMembers();
+    flight.removePassengers();
+    return true;
+}
+
+bool Company::removeFlights() {
+    bool success = true;
+
+    for (auto flight : flights)
+        success = removeFlight(flight) && success;
+
+    return success;
 }

@@ -26,8 +26,9 @@ TEST(crewMember, constructor) {
 
 TEST(crewMember, destructor) {
     Company* pCompany = new (Company){"Test1"};
-    Flight flight1{pCompany, "RYR123", 1, 2, "Warsaw", "Berlin"};
-    Flight flight2{pCompany, "RYR123", 3, 4, "Warsaw", "Berlin"};
+
+    Flight& flight1 = pCompany->createFlight("RYR123", 1, 2, "Warsaw", "Berlin");
+    Flight& flight2 = pCompany->createFlight("RYR123", 3, 4, "Warsaw", "Berlin");
 
     {
         CrewMember crewMember{pCompany, PILOT, 1, "Victor", "Alb", 1, MALE};
