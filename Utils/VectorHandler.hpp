@@ -28,6 +28,7 @@ bool deleteVector(std::vector<VecType>& vec, const T& target) {
         return false;
 
     vec.erase(targetElement);
+    vec.shrink_to_fit();
     return true;
 }
 
