@@ -23,23 +23,23 @@ CrewMember::CrewMember(CrewRole role,
 }
 
 CrewMember::~CrewMember() {
-    if (pCompany)
+    if (pCompany)  // TESTED
         pCompany->removeCrewMember(*this);
 }
 
-Company*& CrewMember::getCompany() {
+Company*& CrewMember::getCompany() {  // TESTED
     return pCompany;
 }
 
-std::vector<std::reference_wrapper<Flight>>& CrewMember::getFlights() {
+std::vector<std::reference_wrapper<Flight>>& CrewMember::getFlights() {  // TESTED
     return flights;
 }
 
-CrewRole CrewMember::getRole() const {
+CrewRole CrewMember::getRole() const {  // TESTED
     return role;
 }
 
-void CrewMember::setCompany(Company* pCompany) {
+void CrewMember::setCompany(Company* pCompany) {  // TESTED
     if (pCompany)
         pCompany->addCrewMember(*this);
     else if (this->pCompany)
