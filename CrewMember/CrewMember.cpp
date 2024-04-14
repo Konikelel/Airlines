@@ -46,15 +46,15 @@ void CrewMember::setCompany(Company* pCompany) {  // TESTED
         this->pCompany->removeCrewMember(*this);
 }
 
-void CrewMember::addFlight(Flight& flight) {
+void CrewMember::addFlight(Flight& flight) {  // TESTED
     flight.addCrewMember(*this);
 }
 
-bool CrewMember::removeFlight(Flight& flight) {
+bool CrewMember::removeFlight(Flight& flight) {  // TESTED
     return flight.removeCrewMember(*this);
 }
 
-bool CrewMember::removeFlights() {
+bool CrewMember::removeFlights() {  // TESTED
     bool success = true;
     for (auto flight : flights)
         success = removeFlight(flight) && success;
