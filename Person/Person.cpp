@@ -17,37 +17,37 @@ Person::Person(unsigned int id,
     setTimeBirthday(timeBirthday);
 }
 
-Person::~Person() {
+Person::~Person() {  // TESTED
     deleteVector(usedIds, id);
 }
 
-unsigned int Person::getId() const {
+unsigned int Person::getId() const {  // TESTED
     return id;
 }
 
-std::string Person::getNameFirst() const {
+std::string Person::getNameFirst() const {  // TESTED
     return nameFirst;
 }
 
-std::string Person::getNameSecond() const {
+std::string Person::getNameSecond() const {  // TESTED
     return nameSecond;
 }
 
-unsigned int Person::getTimeBirthday() const {
+unsigned int Person::getTimeBirthday() const {  // TESTED
     return timeBirthday;
 }
 
-Gender Person::getGender() const {
+Gender Person::getGender() const {  // TESTED
     return gender;
 }
 
-void Person::changeId(const unsigned int id) {
+void Person::changeId(const unsigned int id) {  // TESTED
     unsigned int oldId = this->id;
     setId(id);
     deleteVector(usedIds, oldId);
 }
 
-void Person::setId(const unsigned int id) {
+void Person::setId(const unsigned int id) {  // TESTED
     if (existVector(usedIds, id))
         throw NonUniqueIDException();
 
@@ -55,21 +55,21 @@ void Person::setId(const unsigned int id) {
     this->id = id;
 }
 
-void Person::setNameFirst(std::string name) {
+void Person::setNameFirst(std::string name) {  // TESTED
     if (!name.size())
         throw InvalidName("First name must contain any character");
 
     this->nameFirst = toTitle(name);
 }
 
-void Person::setNameSecond(std::string name) {
+void Person::setNameSecond(std::string name) {  // TESTED
     if (!name.size())
         throw InvalidName("Second name must contain any character");
 
     this->nameSecond = toTitle(name);
 }
 
-void Person::setTimeBirthday(const unsigned int time) {
+void Person::setTimeBirthday(const unsigned int time) {  // TESTED
     // CHECK IF IN FUTURE, RAISE ERROR
     this->timeBirthday = time;
 }
