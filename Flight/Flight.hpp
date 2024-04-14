@@ -15,8 +15,11 @@ class Plane;
 
 class Flight {
    public:
+    ~Flight();
+
     Company*& getCompany();
     std::string getFlightNr() const;
+    FlightStatus getStatus() const;
     Plane& getPlane() const;
     unsigned int getTimeDeparture() const;
     unsigned int getTimeArrival() const;

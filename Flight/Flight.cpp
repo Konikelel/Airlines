@@ -34,12 +34,22 @@ Flight::Flight(Company* pCompany,
     setDataTime(timeDeparture, cityDeparture, timeArrival, cityArrival);
 }
 
+Flight::~Flight() {
+    removePlane();
+    removePassengers();
+    removeCrewMembers();
+}
+
 Company*& Flight::getCompany() {
     return pCompany;
 }
 
 std::string Flight::getFlightNr() const {
     return flightNr;
+}
+
+FlightStatus Flight::getStatus() const {
+    return status;
 }
 
 Plane& Flight::getPlane() const {
@@ -91,11 +101,11 @@ void Flight::setPlane(Plane& plane) {
     if (!plane.inRangePassengers(passengers.size()))
         throw InvalidPlane("Plane cannot accommodate all passengers");
 
-    if (!plane.inRangeStewardesses(stewardesses.size()))
-        throw InvalidPlane("Plane cannot operate with the current number of stewardess");
+    if (plane.maximumStewardesses(stewardesses.size()))
+        throw InvalidPlane("Plane cannot accommodate all stewardesses");
 
-    if (!plane.inRangePilots(pilots.size()))
-        throw InvalidPlane("Plane cannot operate with the current number of pilots");
+    if (plane.maximumPilots(pilots.size()))
+        throw InvalidPlane("Plane cannot accommodate all pilots");
 
     for (auto flight : plane.getFlights())
         if (timeOverlap(flight))
