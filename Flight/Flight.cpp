@@ -198,9 +198,6 @@ void Flight::addCrewMember(CrewMember& crewMember) {
 bool Flight::removeCrewMember(CrewMember& crewMember) {
     CrewRole role = crewMember.getRole();
 
-    if (pPlane && !(role ? pPlane->inRangeStewardesses(stewardesses.size() - 1) : pPlane->inRangePilots(pilots.size() - 1)))
-        throw MinimumCapacity("Cannot remove crewMember. Required number to operate flight reached");
-
     setStatus();
     return deleteVector(role ? stewardesses : pilots, crewMember) && deleteVector(crewMember.getFlights(), *this);
 }
