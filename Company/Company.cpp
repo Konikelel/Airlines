@@ -48,7 +48,7 @@ void Company::addPlane(Plane& plane) {
         pCompany->removePlane(plane);
 
     pCompany = this;
-    planes.push_back(plane);
+    addVector(planes, plane);
 }
 
 bool Company::removePlane(Plane& plane) {
@@ -81,10 +81,7 @@ void Company::addCrewMember(CrewMember& crewMember) {
         pCompany->removeCrewMember(crewMember);
 
     pCompany = this;
-    if (crewMember.getRole())
-        stewardesses.push_back(crewMember);
-    else
-        pilots.push_back(crewMember);
+    addVector(crewMember.getRole() ? stewardesses : pilots, crewMember);
 }
 
 bool Company::removeCrewMember(CrewMember& crewMember) {
@@ -116,8 +113,7 @@ Flight& Company::createFlight(std::string flightNr,
                               unsigned int timeArrival,
                               std::string cityDeparture,
                               std::string cityArrival) {
-    flights.push_back((Flight){this, flightNr, plane, timeDeparture, timeArrival, cityDeparture, cityArrival});
-    return flights.back();
+    return addList(flights, (Flight){this, flightNr, plane, timeDeparture, timeArrival, cityDeparture, cityArrival});
 }
 
 Flight& Company::createFlight(std::string flightNr,
@@ -125,8 +121,7 @@ Flight& Company::createFlight(std::string flightNr,
                               unsigned int timeArrival,
                               std::string cityDeparture,
                               std::string cityArrival) {
-    flights.push_back((Flight){this, flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival});
-    return flights.back();
+    return addList(flights, (Flight){this, flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival});
 }
 
 bool Company::removeFlight(Flight& flight) {

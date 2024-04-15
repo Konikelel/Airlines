@@ -8,15 +8,23 @@
 #ifndef VECTOR_HANDLER_H
 #define VECTOR_HANDLER_H
 
+// ADD ELEMENT TO THE END OF THE VECTOR
+template <typename VecType, typename T>
+T& addVector(std::vector<VecType>& vec, T& target) {
+    vec.push_back(target);
+    return vec.back();
+}
+
 // RETURN ITERATOR OF FOUND ELEMENT OR VEC.END()
 template <typename VecType, typename T>
 typename std::vector<VecType>::iterator findVector(std::vector<VecType>& vec, const T& target) {
     return std::find(vec.begin(), vec.end(), target);
 }
+
 // RETURN BOOL IF ELEMENT EXIST IN VECTOR
 template <typename VecType, typename T>
 bool existVector(std::vector<VecType>& vec, const T& target) {
-    return findVector(vec, target) != vec.end();
+    return findVector<VecType, T>(vec, target) != vec.end();
 }
 
 // RETURN BOOL IF ELEMENT WAS DELETED

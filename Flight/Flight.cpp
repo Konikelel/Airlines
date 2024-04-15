@@ -159,8 +159,8 @@ void Flight::addPassenger(Passenger& passenger) {
         if (timeOverlap(flight))
             throw TimeOverlap("Passenger is on other flight. Cannot add flight");
 
-    passengers.push_back(passenger);
-    passenger.getFlights().push_back(*this);
+    addVector(passengers, passenger);
+    addVector(passenger.getFlights(), *this);
 }
 
 bool Flight::removePassenger(Passenger& passenger) {
@@ -190,8 +190,8 @@ void Flight::addCrewMember(CrewMember& crewMember) {
         if (timeOverlap(pFlight))
             throw TimeOverlap("CrewMember is on other flight. Cannot add flight");
 
-    role ? stewardesses.push_back(crewMember) : pilots.push_back(crewMember);
-    crewMember.getFlights().push_back(*this);
+    addVector(role ? stewardesses : pilots, crewMember);
+    addVector(crewMember.getFlights(), *this);
     setStatus();
 }
 
@@ -238,7 +238,7 @@ void Flight::setupPlane(Plane& plane) {
         throw InvalidPlane("Plane must be from the same company");
 
     this->pPlane = &plane;
-    plane.getFlights().push_back(*this);
+    addVector(plane.getFlights(), *this);
     setStatus();
 }
 

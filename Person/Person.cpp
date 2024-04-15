@@ -51,7 +51,7 @@ void Person::setId(const unsigned int id) {  // TESTED
     if (existVector(usedIds, id))
         throw NonUniqueIDException();
 
-    usedIds.push_back(id);
+    addVector(usedIds, id);
     this->id = id;
 }
 
