@@ -14,6 +14,7 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(
   Tests
+  "${CMAKE_CURRENT_SOURCE_DIR}/Utils.tests.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/Person.tests.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/Plane.tests.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/Passenger.tests.cpp"
