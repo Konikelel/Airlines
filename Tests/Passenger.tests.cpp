@@ -27,8 +27,8 @@ TEST(passenger, destructor) {
         EXPECT_EQ(flight2.getPassengers().size(), 1);
         EXPECT_EQ(passenger.getFlights().size(), 2);
 
-        EXPECT_TRUE(existVector(flight1.getPilots(), passenger));
-        EXPECT_TRUE(existVector(flight2.getPilots(), passenger));
+        EXPECT_TRUE(existVector(flight1.getPassengers(), passenger));
+        EXPECT_TRUE(existVector(flight2.getPassengers(), passenger));
         EXPECT_TRUE(existVector(passenger.getFlights(), flight1));
         EXPECT_TRUE(existVector(passenger.getFlights(), flight2));
     }
