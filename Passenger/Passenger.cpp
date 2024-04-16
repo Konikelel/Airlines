@@ -29,8 +29,8 @@ bool Passenger::removeFlight(Flight& flight) {
 bool Passenger::removeFlights() {
     bool success = true;
 
-    for (auto pFlight : flights)
-        success = removeFlight(pFlight) && success;
+    for (auto flight : flights)
+        success = removeFlight(flight) && success;
 
     return success;
 }

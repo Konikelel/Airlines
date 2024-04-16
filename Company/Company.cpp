@@ -134,10 +134,6 @@ bool Company::removeFlight(Flight& flight) {
 }
 
 bool Company::removeFlights() {
-    bool success = true;
-
-    for (auto flight : flights)
-        success = removeFlight(flight) && success;
-
-    return success;
+    flights.clear();
+    return true;
 }
