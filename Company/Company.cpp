@@ -66,7 +66,7 @@ bool Company::removePlane(Plane& plane) {
 bool Company::removePlanes() {
     bool success = true;
 
-    for (auto plane : planes)
+    for (Plane& plane : planes)
         success = removePlane(plane) && success;
 
     return success;
@@ -99,9 +99,9 @@ bool Company::removeCrewMember(CrewMember& crewMember) {
 bool Company::removeCrewMembers() {
     bool success = true;
 
-    for (auto stewardess : stewardesses)
+    for (CrewMember& stewardess : stewardesses)
         success = removeCrewMember(stewardess) && success;
-    for (auto pilot : pilots)
+    for (CrewMember& pilot : pilots)
         success = removeCrewMember(pilot) && success;
 
     return success;
@@ -125,7 +125,7 @@ Flight& Company::createFlight(std::string flightNr,
 }
 
 bool Company::removeFlight(Flight& flight) {
-    Company*& pCompany = flight.getCompany();
+    Company* pCompany = flight.getCompany();
 
     if (pCompany != this)
         return false;

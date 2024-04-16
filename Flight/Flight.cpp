@@ -40,7 +40,7 @@ Flight::~Flight() {
     removeCrewMembers();
 }
 
-Company*& Flight::getCompany() {
+Company* Flight::getCompany() {
     return pCompany;
 }
 
@@ -52,8 +52,8 @@ FlightStatus Flight::getStatus() const {
     return status;
 }
 
-Plane& Flight::getPlane() const {
-    return *pPlane;
+Plane* Flight::getPlane() const {
+    return pPlane;
 }
 
 unsigned int Flight::getTimeDeparture() const {
@@ -90,7 +90,7 @@ void Flight::setFlightNr(std::string flightNr) {
     if (flightNr.size() > 7)
         throw InvalidFlightNr("Flight number must be shorter than 8 symbols");
 
-    for (auto& symbol : flightNr.substr(0, 3))
+    for (char& symbol : flightNr.substr(0, 3))
         if (!std::isalpha(symbol))
             throw InvalidFlightNr("First three symbols in flight number must be letters");
 
@@ -107,7 +107,7 @@ void Flight::setPlane(Plane& plane) {
     if (plane.maximumPilots(pilots.size()))
         throw InvalidPlane("Plane cannot accommodate all pilots");
 
-    for (auto flight : plane.getFlights())
+    for (Flight& flight : plane.getFlights())
         if (timeOverlap(flight))
             throw TimeOverlap("Passenger is on other flight. Cannot add flight");
 
@@ -155,7 +155,7 @@ void Flight::addPassenger(Passenger& passenger) {
     if (existVector(passengers, passenger))
         throw DuplicationError("Passenger is already on the flight");
 
-    for (auto flight : passenger.getFlights())
+    for (Flight& flight : passenger.getFlights())
         if (timeOverlap(flight))
             throw TimeOverlap("Passenger is on other flight. Cannot add flight");
 
@@ -169,7 +169,7 @@ bool Flight::removePassenger(Passenger& passenger) {
 
 bool Flight::removePassengers() {
     bool success = true;
-    for (auto passenger : passengers)
+    for (Passenger& passenger : passengers)
         success = removePassenger(passenger) && success;
     return success;
 }
@@ -186,8 +186,8 @@ void Flight::addCrewMember(CrewMember& crewMember) {
     if (existVector(role ? stewardesses : pilots, crewMember))
         throw DuplicationError("CrewMember is already on the flight");
 
-    for (auto pFlight : crewMember.getFlights())
-        if (timeOverlap(pFlight))
+    for (Flight& flight : crewMember.getFlights())
+        if (timeOverlap(flight))
             throw TimeOverlap("CrewMember is on other flight. Cannot add flight");
 
     addVector(role ? stewardesses : pilots, crewMember);
@@ -205,10 +205,10 @@ bool Flight::removeCrewMember(CrewMember& crewMember) {
 bool Flight::removeCrewMembers() {
     bool success = true;
 
-    for (auto crewMember : stewardesses)
+    for (CrewMember& crewMember : stewardesses)
         success = removeCrewMember(crewMember) && success;
 
-    for (auto crewMember : pilots)
+    for (CrewMember& crewMember : pilots)
         success = removeCrewMember(crewMember) && success;
     return success;
 }

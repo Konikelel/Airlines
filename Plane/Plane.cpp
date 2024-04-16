@@ -169,8 +169,8 @@ bool Plane::removeFlight(Flight& flight) {
 
 bool Plane::removeFlights() {
     bool success = true;
-    for (auto pFlight : flights)
-        success = removeFlight(pFlight) && success;
+    for (Flight& flight : flights)
+        success = removeFlight(flight) && success;
 
     return success;
 }

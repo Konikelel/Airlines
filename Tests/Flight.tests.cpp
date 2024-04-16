@@ -22,7 +22,7 @@ TEST(flight, constructor) {
     EXPECT_EQ(flight1.getCityDeparture(), "Warsaw");
     EXPECT_EQ(flight1.getCityArrival(), "Berlin");
 
-    EXPECT_EQ(flight2.getPlane().getId(), plane.getId());
+    EXPECT_EQ(flight2.getPlane()->getId(), plane.getId());
     delete pCompany;
 }
 

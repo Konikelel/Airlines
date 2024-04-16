@@ -59,7 +59,7 @@ bool CrewMember::removeFlight(Flight& flight) {  // TESTED
 bool CrewMember::removeFlights() {  // TESTED
     bool success = true;
 
-    for (auto flight : flights)
+    for (Flight& flight : flights)
         success = removeFlight(flight) && success;
 
     return success;

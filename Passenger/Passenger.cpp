@@ -29,7 +29,7 @@ bool Passenger::removeFlight(Flight& flight) {  // TESTED
 bool Passenger::removeFlights() {  // TESTED
     bool success = true;
 
-    for (auto flight : flights)
+    for (Flight& flight : flights)
         success = removeFlight(flight) && success;
 
     return success;

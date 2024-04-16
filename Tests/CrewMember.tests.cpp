@@ -50,6 +50,7 @@ TEST(crewMember, destructor) {
     EXPECT_EQ(flight1.getPilots().size(), 0);
     EXPECT_EQ(flight2.getPilots().size(), 0);
     EXPECT_EQ(pCompany->getPilots().size(), 0);
+
     delete pCompany;
 }
 
