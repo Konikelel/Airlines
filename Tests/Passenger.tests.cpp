@@ -8,6 +8,34 @@
 
 TEST(passenger, constructor) {
     Passenger passenger{1, "Victor", "Alb", 1, MALE};
+    // getFlights
+    EXPECT_EQ(passenger.getFlights().size(), 0);
+}
+
+TEST(passenger, destructor) {
+    Company* pCompany = new (Company){"Test1"};
+
+    Flight& flight1 = pCompany->createFlight("RYR123", 1, 2, "Warsaw", "Berlin");
+    Flight& flight2 = pCompany->createFlight("RYR123", 3, 4, "Warsaw", "Berlin");
+
+    {
+        Passenger passenger{1, "Victor", "Alb", 1, MALE};
+        passenger.addFlight(flight1);
+        passenger.addFlight(flight2);
+
+        EXPECT_EQ(flight1.getPassengers().size(), 1);
+        EXPECT_EQ(flight2.getPassengers().size(), 1);
+        EXPECT_EQ(passenger.getFlights().size(), 2);
+
+        EXPECT_TRUE(existVector(flight1.getPilots(), passenger));
+        EXPECT_TRUE(existVector(flight2.getPilots(), passenger));
+        EXPECT_TRUE(existVector(passenger.getFlights(), flight1));
+        EXPECT_TRUE(existVector(passenger.getFlights(), flight2));
+    }
+
+    EXPECT_EQ(flight1.getPassengers().size(), 0);
+    EXPECT_EQ(flight2.getPassengers().size(), 0);
+    delete pCompany;
 }
 
 TEST(passenger, flight) {
@@ -29,13 +57,12 @@ TEST(passenger, flight) {
     EXPECT_TRUE(passenger.removeFlight(flight1));
 
     EXPECT_EQ(passenger.getFlights().size(), 1);
-    EXPECT_FALSE(existVector(passenger.getFlights(), flight1));
-
     EXPECT_EQ(flight1.getPassengers().size(), 0);
-    EXPECT_FALSE(existVector(flight1.getPassengers(), passenger));
-
     EXPECT_EQ(flight2.getPassengers().size(), 1);
-    EXPECT_TRUE(existVector(flight2.getPassengers(), passenger));
+
+    EXPECT_FALSE(existVector(flight1.getPassengers(), passenger));
+    EXPECT_FALSE(existVector(passenger.getFlights(), flight1));
+    EXPECT_TRUE(existVector(passenger.getFlights(), flight2));
     // removeFlights
     passenger.addFlight(flight1);
     EXPECT_TRUE(passenger.removeFlights());

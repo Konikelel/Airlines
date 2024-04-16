@@ -10,23 +10,23 @@ Passenger::Passenger(unsigned int id,
                      Gender gender) : Person(id, nameFirst, nameSecond, timeBirthday, gender) {
 }
 
-Passenger::~Passenger() {
+Passenger::~Passenger() {  // TESTED
     removeFlights();
 }
 
-std::vector<std::reference_wrapper<Flight>>& Passenger::getFlights() {
+std::vector<std::reference_wrapper<Flight>>& Passenger::getFlights() {  // TESTED
     return flights;
 }
 
-void Passenger::addFlight(Flight& flight) {
+void Passenger::addFlight(Flight& flight) {  // TESTED
     flight.addPassenger(*this);
 }
 
-bool Passenger::removeFlight(Flight& flight) {
+bool Passenger::removeFlight(Flight& flight) {  // TESTED
     return flight.removePassenger(*this);
 }
 
-bool Passenger::removeFlights() {
+bool Passenger::removeFlights() {  // TESTED
     bool success = true;
 
     for (auto flight : flights)
