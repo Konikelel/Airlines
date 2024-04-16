@@ -11,9 +11,9 @@ Company::Company(std::string name) {
 }
 
 Company::~Company() {
-    removeFlights();
     removePlanes();
     removeCrewMembers();
+    removeFlights();
 }
 
 void Company::setName(std::string name) {
@@ -113,7 +113,9 @@ Flight& Company::createFlight(std::string flightNr,
                               unsigned int timeArrival,
                               std::string cityDeparture,
                               std::string cityArrival) {
-    return addList(flights, (Flight){this, flightNr, plane, timeDeparture, timeArrival, cityDeparture, cityArrival});
+    Flight& newElement = addList(flights, (Flight){this, flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival});
+    newElement.setPlane(plane);
+    return newElement;
 }
 
 Flight& Company::createFlight(std::string flightNr,
@@ -130,6 +132,9 @@ bool Company::removeFlight(Flight& flight) {
     if (pCompany != this)
         return false;
 
+    flight.removePlane();
+    flight.removePassengers();
+    flight.removeCrewMembers();
     return deleteList(flights, flight);
 }
 
