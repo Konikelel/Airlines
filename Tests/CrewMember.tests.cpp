@@ -24,7 +24,7 @@ TEST(crewMember, constructor) {
     delete company;
 }
 
-TEST(crewMember, destructor) {  // ERROR
+TEST(crewMember, destructor) {
     Company* pCompany = new (Company){"Test1"};
 
     Flight& flight1 = pCompany->createFlight("RYR123", 1, 2, "Warsaw", "Berlin");
