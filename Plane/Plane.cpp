@@ -82,7 +82,7 @@ void Plane::setCompany(Company* pCompany) {
     if (this->pCompany == pCompany)
         return;
 
-    this->pCompany = pCompany;
+    pCompany->addPlane(*this);
 }
 
 void Plane::changeId(const unsigned int id) {
