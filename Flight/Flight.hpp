@@ -15,8 +15,6 @@ class Plane;
 
 class Flight {
    public:
-    ~Flight();
-
     Company* getCompany();
     std::string getFlightNr() const;
     FlightStatus getStatus() const;
@@ -58,15 +56,6 @@ class Flight {
     bool timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) const;
 
    private:
-    Flight(
-        Company* pCompany,
-        std::string flightNr,
-        Plane& plane,
-        unsigned int timeDeparture,
-        unsigned int timeArrival,
-        std::string cityDeparture,
-        std::string cityArrival);
-
     Flight(
         Company* pCompany,
         std::string flightNr,

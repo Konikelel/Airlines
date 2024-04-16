@@ -14,16 +14,6 @@
 
 Flight::Flight(Company* pCompany,
                std::string flightNr,
-               Plane& plane,
-               unsigned int timeDeparture,
-               unsigned int timeArrival,
-               std::string cityDeparture,
-               std::string cityArrival) : Flight(pCompany, flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival) {
-    setupPlane(plane);
-}
-
-Flight::Flight(Company* pCompany,
-               std::string flightNr,
                unsigned int timeDeparture,
                unsigned int timeArrival,
                std::string cityDeparture,
@@ -32,12 +22,6 @@ Flight::Flight(Company* pCompany,
     setupCompany(pCompany);
     setFlightNr(flightNr);
     setDataTime(timeDeparture, cityDeparture, timeArrival, cityArrival);
-}
-
-Flight::~Flight() {
-    removePlane();
-    removePassengers();
-    removeCrewMembers();
 }
 
 Company* Flight::getCompany() {
