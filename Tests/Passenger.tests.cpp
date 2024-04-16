@@ -35,6 +35,7 @@ TEST(passenger, destructor) {
 
     EXPECT_EQ(flight1.getPassengers().size(), 0);
     EXPECT_EQ(flight2.getPassengers().size(), 0);
+
     delete pCompany;
 }
 

@@ -34,9 +34,31 @@ TEST(plane, constructor) {
 }
 
 TEST(plane, destructor) {
-    Plane plane{101, "B737", 100, 3, 2};
+    Company* pCompany = new (Company){"Test1"};
 
-    EXPECT_NO_THROW(plane.changeId(100));
+    Flight& flight1 = pCompany->createFlight("RYR123", 1, 2, "Warsaw", "Berlin");
+    Flight& flight2 = pCompany->createFlight("RYR123", 3, 4, "Warsaw", "Berlin");
+
+    {
+        Plane plane{pCompany, 101, "B737", 100, 3, 2};
+        flight1.setPlane(plane);
+        flight2.setPlane(plane);
+
+        EXPECT_EQ(*flight1.getPlane(), plane);
+        EXPECT_EQ(*flight2.getPlane(), plane);
+        EXPECT_EQ(pCompany->getPlanes().size(), 1);
+        EXPECT_EQ(plane.getFlights().size(), 2);
+
+        EXPECT_TRUE(existVector(pCompany->getPlanes(), plane));
+        EXPECT_TRUE(existVector(plane.getFlights(), flight1));
+        EXPECT_TRUE(existVector(plane.getFlights(), flight2));
+    }
+
+    EXPECT_EQ(flight1.getPlane(), nullptr);
+    EXPECT_EQ(flight2.getPlane(), nullptr);
+    EXPECT_EQ(pCompany->getPlanes().size(), 0);
+
+    delete pCompany;
 }
 
 TEST(plane, setters) {
