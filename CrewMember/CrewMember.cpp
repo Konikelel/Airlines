@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "CustomErrors.hpp"
+#include "VectorHandler.hpp"
 
 CrewMember::CrewMember(Company* pCompany,
                        CrewRole role,
@@ -59,8 +60,11 @@ bool CrewMember::removeFlight(Flight& flight) {  // TESTED
 bool CrewMember::removeFlights() {  // TESTED
     bool success = true;
 
-    for (Flight& flight : flights)
-        success = removeFlight(flight) && success;
+    for (Flight& flight : flights) {
+        success = deleteVector(role ? flight.getStewardesses() : flight.getPilots(), *this) && success;
+        flight.setStatus();
+    }
 
+    flights.clear();
     return success;
 }

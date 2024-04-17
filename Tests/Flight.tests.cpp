@@ -145,12 +145,14 @@ TEST(flight, plane) {
 
     CrewMember pilot1{pCompany1, PILOT, 1, "Vic", "Ay", 1, MALE};
     CrewMember pilot2{pCompany1, PILOT, 2, "Val", "Ro", 1, MALE};
+    CrewMember pilot3{pCompany1, PILOT, 3, "Val", "Ro", 1, MALE};
 
-    CrewMember stewardess1{pCompany1, STEWARDESS, 3, "Ki", "Be", 1, FEMALE};
-    CrewMember stewardess2{pCompany1, STEWARDESS, 4, "Jo", "Qa", 1, FEMALE};
+    CrewMember stewardess1{pCompany1, STEWARDESS, 4, "Ki", "Be", 1, FEMALE};
+    CrewMember stewardess2{pCompany1, STEWARDESS, 5, "Jo", "Qa", 1, FEMALE};
+    CrewMember stewardess3{pCompany1, STEWARDESS, 6, "Jo", "Qa", 1, FEMALE};
 
-    Passenger passenger1{5, "Ew", "Ao", 1, MALE};
-    Passenger passenger2{6, "Ow", "Co", 2, FEMALE};
+    Passenger passenger1{7, "Ew", "Ao", 1, MALE};
+    Passenger passenger2{8, "Ow", "Co", 2, FEMALE};
 
     Flight& flight1 = pCompany1->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
     Flight& flight2 = pCompany1->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
@@ -171,6 +173,8 @@ TEST(flight, plane) {
     flight1.addPassenger(passenger1);
     flight1.addCrewMember(stewardess1);
     flight1.addCrewMember(pilot1);
+    flight1.addCrewMember(stewardess3);
+    flight1.addCrewMember(pilot3);
 
     flight1.setPlane(plane1);
 

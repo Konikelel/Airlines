@@ -153,8 +153,11 @@ bool Flight::removePassenger(Passenger& passenger) {
 
 bool Flight::removePassengers() {
     bool success = true;
+
     for (Passenger& passenger : passengers)
-        success = removePassenger(passenger) && success;
+        success = deleteVector(passenger.getFlights(), *this) && success;
+    passengers.clear();
+
     return success;
 }
 
@@ -188,12 +191,13 @@ bool Flight::removeCrewMember(CrewMember& crewMember) {
 
 bool Flight::removeCrewMembers() {
     bool success = true;
+    status = INCOMPLETE;
 
     for (CrewMember& crewMember : stewardesses)
-        success = removeCrewMember(crewMember) && success;
+        success = deleteVector(crewMember.getFlights(), *this) && success;
 
-    for (CrewMember& crewMember : pilots)
-        success = removeCrewMember(crewMember) && success;
+    stewardesses.clear();
+    pilots.clear();
     return success;
 }
 
@@ -205,10 +209,10 @@ bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEn
     return !(timeDeparture > timeEnd || timeArrival < timeStart);
 }
 
-// PRIVATE
 void Flight::setStatus() {  // TESTED
     status = (pPlane && pPlane->inRangeCrew(stewardesses.size(), pilots.size())) ? AS_PLANNED : INCOMPLETE;
 }
+// PRIVATE
 
 void Flight::setupPlane(Plane& plane) {  // TESTED
     if (plane.getCompany() != pCompany)

@@ -64,9 +64,12 @@ bool Company::removePlane(Plane& plane) {
 bool Company::removePlanes() {
     bool success = true;
 
-    for (Plane& plane : planes)
-        success = removePlane(plane) && success;
+    for (Plane& plane : planes) {
+        success = plane.removeFlights() && success;
+        plane.pCompany = nullptr;
+    }
 
+    planes.clear();
     return success;
 }
 
@@ -95,11 +98,17 @@ bool Company::removeCrewMember(CrewMember& crewMember) {
 bool Company::removeCrewMembers() {
     bool success = true;
 
-    for (CrewMember& stewardess : stewardesses)
-        success = removeCrewMember(stewardess) && success;
-    for (CrewMember& pilot : pilots)
-        success = removeCrewMember(pilot) && success;
+    for (CrewMember& stewardess : stewardesses) {
+        success = stewardess.removeFlights() && success;
+        stewardess.pCompany = nullptr;
+    }
+    for (CrewMember& pilot : pilots) {
+        success = pilot.removeFlights() && success;
+        pilot.pCompany = nullptr;
+    }
 
+    stewardesses.clear();
+    pilots.clear();
     return success;
 }
 

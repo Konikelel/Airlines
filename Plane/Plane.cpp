@@ -164,9 +164,11 @@ bool Plane::removeFlight(Flight& flight) {  // TESTED
 }
 
 bool Plane::removeFlights() {  // TESTED
-    bool success = true;
-    for (Flight& flight : flights)
-        success = removeFlight(flight) && success;
+    for (Flight& flight : flights) {
+        flight.pPlane = nullptr;
+        flight.setStatus();
+    }
 
-    return success;
+    flights.clear();
+    return true;
 }

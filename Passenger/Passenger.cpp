@@ -30,7 +30,8 @@ bool Passenger::removeFlights() {  // TESTED
     bool success = true;
 
     for (Flight& flight : flights)
-        success = removeFlight(flight) && success;
+        success = deleteVector(flight.getPassengers(), *this) && success;
 
+    flights.clear();
     return success;
 }

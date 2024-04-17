@@ -28,6 +28,7 @@ class Flight {
     std::vector<std::reference_wrapper<CrewMember>>& getStewardesses();
     std::vector<std::reference_wrapper<CrewMember>>& getPilots();
 
+    void setStatus();
     void setFlightNr(const std::string flightNr);
     // CHANGE PLANE FOR ANOTHER AND CHECK IF PASSENGERS, STEWARDESS, PILOTS ARE WITHIN RANGE
     void setPlane(Plane& plane);
@@ -64,7 +65,6 @@ class Flight {
         std::string cityDeparture,
         std::string cityArrival);
 
-    void setStatus();
     // SET PLANE CALLED IN CONSTRUCTOR WITHOUT ANY CHECK ON CAPACITY LIMITS
     void setupPlane(Plane& plane);
     // SET DATA TIME CALLED IN CONSTRUCTOR VALIDATING ARGUMENTS
@@ -86,6 +86,7 @@ class Flight {
     std::vector<std::reference_wrapper<CrewMember>> pilots;
 
     friend Company;
+    friend Plane;
 };
 
 #endif
