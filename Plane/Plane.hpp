@@ -80,6 +80,8 @@ class Plane {
 
     unsigned int capacityStewardesses;
     unsigned int capacityPilots;
+
+    friend Company;
 };
 
 #endif

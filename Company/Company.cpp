@@ -47,19 +47,17 @@ void Company::addPlane(Plane& plane) {
     if (pCompany)
         pCompany->removePlane(plane);
 
-    pCompany = this;
+    plane.pCompany = this;
     addVector(planes, plane);
 }
 
 bool Company::removePlane(Plane& plane) {
-    Company*& pCompany = plane.getCompany();
-
-    if (pCompany != this)
+    if (plane.pCompany != this)
         return false;
 
     plane.removeFlights();
-    pCompany = nullptr;
 
+    plane.pCompany = nullptr;
     return deleteVector(planes, plane);
 }
 
@@ -85,14 +83,12 @@ void Company::addCrewMember(CrewMember& crewMember) {
 }
 
 bool Company::removeCrewMember(CrewMember& crewMember) {
-    Company*& pCompany = crewMember.getCompany();
-
-    if (pCompany != this)
+    if (crewMember.pCompany != this)
         return false;
 
     crewMember.removeFlights();
-    pCompany = nullptr;
 
+    crewMember.pCompany = nullptr;
     return deleteVector(crewMember.getRole() ? stewardesses : pilots, crewMember);
 }
 
@@ -127,14 +123,14 @@ Flight& Company::createFlight(std::string flightNr,
 }
 
 bool Company::removeFlight(Flight& flight) {
-    Company* pCompany = flight.getCompany();
-
-    if (pCompany != this)
+    if (flight.pCompany != this)
         return false;
 
     flight.removePlane();
     flight.removePassengers();
     flight.removeCrewMembers();
+
+    flight.pCompany = nullptr;
     return deleteList(flights, flight);
 }
 

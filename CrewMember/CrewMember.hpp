@@ -49,6 +49,8 @@ class CrewMember : public Person {
     std::vector<std::reference_wrapper<Flight>> flights;
 
     CrewRole role;
+
+    friend Company;
 };
 
 #endif

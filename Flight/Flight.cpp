@@ -17,9 +17,9 @@ Flight::Flight(Company* pCompany,
                unsigned int timeDeparture,
                unsigned int timeArrival,
                std::string cityDeparture,
-               std::string cityArrival) : pPlane{nullptr},
+               std::string cityArrival) : pCompany{pCompany},
+                                          pPlane{nullptr},
                                           status{INCOMPLETE} {
-    setupCompany(pCompany);
     setFlightNr(flightNr);
     setDataTime(timeDeparture, cityDeparture, timeArrival, cityArrival);
 }
@@ -81,7 +81,7 @@ void Flight::setFlightNr(std::string flightNr) {  // TESTED
     this->flightNr = toUpper(flightNr);
 }
 
-void Flight::setPlane(Plane& plane) {
+void Flight::setPlane(Plane& plane) {  // TESTED
     if (!plane.inRangePassengers(passengers.size()))
         throw InvalidPlane("Plane cannot accommodate all passengers");
 
@@ -93,13 +93,13 @@ void Flight::setPlane(Plane& plane) {
 
     for (Flight& flight : plane.getFlights())
         if (timeOverlap(flight))
-            throw TimeOverlap("Passenger is on other flight. Cannot add flight");
+            throw TimeOverlap("Plane is on other flight. Cannot add flight");
 
     removePlane();
     setupPlane(plane);
 }
 
-bool Flight::removePlane() {
+bool Flight::removePlane() {  // TESTED
     bool success = false;
 
     if (pPlane)
@@ -109,15 +109,15 @@ bool Flight::removePlane() {
     return success;
 }
 
-void Flight::changeDataDeparture(const unsigned int time) {
+void Flight::changeDataDeparture(const unsigned int time) {  // TESTED
     setDataTime(time, timeArrival);
 }
 
-void Flight::changeDataArrival(const unsigned int time) {
+void Flight::changeDataArrival(const unsigned int time) {  // TESTED
     setDataTime(timeDeparture, time);
 }
 
-void Flight::changeDataDeparture(const unsigned int time, const std::string city) {
+void Flight::changeDataDeparture(const unsigned int time, const std::string city) {  // TESTED
     if (!city.size())
         throw InvalidName("City departure must contain any character");
 
@@ -125,7 +125,7 @@ void Flight::changeDataDeparture(const unsigned int time, const std::string city
     this->cityDeparture = city;
 }
 
-void Flight::changeDataArrival(const unsigned int time, const std::string city) {
+void Flight::changeDataArrival(const unsigned int time, const std::string city) {  // TESTED
     if (!city.size())
         throw InvalidName("City arrival must contain any character");
 
@@ -197,27 +197,20 @@ bool Flight::removeCrewMembers() {
     return success;
 }
 
-bool Flight::timeOverlap(const Flight& flight) const {
+bool Flight::timeOverlap(const Flight& flight) const {  // TESTED
     return timeOverlap(flight.getTimeDeparture(), flight.getTimeArrival());
 }
 
-bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) const {
+bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) const {  // TESTED
     return !(timeDeparture > timeEnd || timeArrival < timeStart);
 }
 
-void Flight::setStatus() {
+// PRIVATE
+void Flight::setStatus() {  // TESTED
     status = (pPlane && pPlane->inRangeCrew(stewardesses.size(), pilots.size())) ? AS_PLANNED : INCOMPLETE;
 }
 
-// PRIVATE
-void Flight::setupCompany(Company* pCompany) {
-    if (pPlane && pPlane->getCompany() != pCompany)
-        throw InvalidPlane("Plane must be from the same company");
-
-    this->pCompany = pCompany;
-}
-
-void Flight::setupPlane(Plane& plane) {
+void Flight::setupPlane(Plane& plane) {  // TESTED
     if (plane.getCompany() != pCompany)
         throw InvalidPlane("Plane must be from the same company");
 
@@ -226,7 +219,7 @@ void Flight::setupPlane(Plane& plane) {
     setStatus();
 }
 
-void Flight::setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival) {
+void Flight::setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival) {  // TESTED
     if (passengers.size() || stewardesses.size() || pilots.size())
         throw CannotPerform("Flight is already booked");
     if (timeArrival <= timeDeparture)
@@ -236,7 +229,7 @@ void Flight::setDataTime(const unsigned int timeDeparture, const unsigned int ti
     this->timeArrival = timeArrival;
 }
 
-void Flight::setDataTime(const unsigned int timeDeparture, const std::string cityDeparture, const unsigned int timeArrival, const std::string cityArrival) {
+void Flight::setDataTime(const unsigned int timeDeparture, const std::string cityDeparture, const unsigned int timeArrival, const std::string cityArrival) {  // TESTED
     if (!cityDeparture.size())
         throw InvalidName("City departure must contain any character");
     if (!cityArrival.size())

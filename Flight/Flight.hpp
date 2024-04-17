@@ -65,7 +65,6 @@ class Flight {
         std::string cityArrival);
 
     void setStatus();
-    void setupCompany(Company* pCompany);
     // SET PLANE CALLED IN CONSTRUCTOR WITHOUT ANY CHECK ON CAPACITY LIMITS
     void setupPlane(Plane& plane);
     // SET DATA TIME CALLED IN CONSTRUCTOR VALIDATING ARGUMENTS
