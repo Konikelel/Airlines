@@ -24,51 +24,51 @@ Flight::Flight(Company* pCompany,
     setDataTime(timeDeparture, cityDeparture, timeArrival, cityArrival);
 }
 
-Company* Flight::getCompany() {
+Company* Flight::getCompany() {  // TESTED
     return pCompany;
 }
 
-std::string Flight::getFlightNr() const {
+std::string Flight::getFlightNr() const {  // TESTED
     return flightNr;
 }
 
-FlightStatus Flight::getStatus() const {
+FlightStatus Flight::getStatus() const {  // TESTED
     return status;
 }
 
-Plane* Flight::getPlane() const {
+Plane* Flight::getPlane() const {  // TESTED
     return pPlane;
 }
 
-unsigned int Flight::getTimeDeparture() const {
+unsigned int Flight::getTimeDeparture() const {  // TESTED
     return timeDeparture;
 }
 
-unsigned int Flight::getTimeArrival() const {
+unsigned int Flight::getTimeArrival() const {  // TESTED
     return timeArrival;
 }
 
-std::string Flight::getCityDeparture() const {
+std::string Flight::getCityDeparture() const {  // TESTED
     return cityDeparture;
 }
 
-std::string Flight::getCityArrival() const {
+std::string Flight::getCityArrival() const {  // TESTED
     return cityArrival;
 }
 
-std::vector<std::reference_wrapper<Passenger>>& Flight::getPassengers() {
+std::vector<std::reference_wrapper<Passenger>>& Flight::getPassengers() {  // TESTED
     return passengers;
 }
 
-std::vector<std::reference_wrapper<CrewMember>>& Flight::getStewardesses() {
+std::vector<std::reference_wrapper<CrewMember>>& Flight::getStewardesses() {  // TESTED
     return stewardesses;
 }
 
-std::vector<std::reference_wrapper<CrewMember>>& Flight::getPilots() {
+std::vector<std::reference_wrapper<CrewMember>>& Flight::getPilots() {  // TESTED
     return pilots;
 }
 
-void Flight::setFlightNr(std::string flightNr) {
+void Flight::setFlightNr(std::string flightNr) {  // TESTED
     if (flightNr.size() < 4)
         throw InvalidFlightNr("Flight number must be longer than 3 symbols");
     if (flightNr.size() > 7)

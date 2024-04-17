@@ -15,14 +15,31 @@ TEST(flight, constructor) {
 
     Plane plane{pCompany, 101, "B737", 100, 4, 2};
     Flight flight2 = pCompany->createFlight("RYR102", plane, 1, 2, "Poznan", "Krakow");
-
+    // getCompany
+    EXPECT_EQ(flight1.getCompany(), pCompany);
+    // getFlightNr
     EXPECT_EQ(flight1.getFlightNr(), "RYR120");
+    // getStatus
+    EXPECT_EQ(flight1.getStatus(), INCOMPLETE);
+    // getPlane
+    EXPECT_EQ(flight1.getPlane(), nullptr);
+    EXPECT_EQ(flight2.getPlane(), &plane);
+    // getTimeDeparture
     EXPECT_EQ(flight1.getTimeDeparture(), 1);
+    // getTimeArrival
     EXPECT_EQ(flight1.getTimeArrival(), 2);
+    // getCityDepartures
     EXPECT_EQ(flight1.getCityDeparture(), "Warsaw");
+    // getCityArrival
     EXPECT_EQ(flight1.getCityArrival(), "Berlin");
 
-    EXPECT_EQ(flight2.getPlane()->getId(), plane.getId());
+    // getPassengers
+    EXPECT_EQ(flight1.getPassengers().size(), 0);
+    // getStewardesses
+    EXPECT_EQ(flight1.getStewardesses().size(), 0);
+    // getPilots
+    EXPECT_EQ(flight1.getPilots().size(), 0);
+
     delete pCompany;
 }
 
@@ -30,7 +47,7 @@ TEST(flight, setters) {
     Company* pCompany = new (Company){"Test1"};
 
     Flight flight = pCompany->createFlight("RYR120", 1, 2, "Warsaw", "Berlin");
-
+    // setFlightNr
     EXPECT_THROW(flight.setFlightNr("ryr"), InvalidFlightNr);
     flight.setFlightNr("ryr1");
     EXPECT_EQ(flight.getFlightNr(), "RYR1");
@@ -39,7 +56,7 @@ TEST(flight, setters) {
     EXPECT_THROW(flight.setFlightNr("rYr12012"), InvalidFlightNr);
     EXPECT_THROW(flight.setFlightNr("RY120"), InvalidFlightNr);
     EXPECT_THROW(flight.setFlightNr("R120"), InvalidFlightNr);
-
+    // changeDataDeparture
     EXPECT_THROW(flight.changeDataDeparture(2), InvalidTime);
     EXPECT_THROW(flight.changeDataDeparture(3), InvalidTime);
     flight.changeDataDeparture(1);
