@@ -57,22 +57,26 @@ TEST(crewMember, destructor) {
 TEST(crewMember, company) {
     Company* pCompany1 = new (Company){"Test1"};
     Company* pCompany2 = new (Company){"Test2"};
+    Flight& flight = pCompany1->createFlight("RYR123", 1, 2, "Warsaw", "Berlin");
 
-    CrewMember crewMember{PILOT, 1, "Victor", "Alb", 1, MALE};
+    CrewMember crewMember{pCompany1, PILOT, 1, "Victor", "Alb", 1, MALE};
     // setCompany
     // SETTING NULLPTR, PREVIOUS NULLPTR
     EXPECT_NO_THROW(crewMember.setCompany(nullptr));
     EXPECT_EQ(crewMember.getCompany(), nullptr);
     // SETTING COMPANY, PREVIOUS NULLPTR
     crewMember.setCompany(pCompany1);
+    crewMember.addFlight(flight);
 
     EXPECT_EQ(crewMember.getCompany(), pCompany1);
     EXPECT_EQ(pCompany1->getPilots().size(), 1);
+    EXPECT_EQ(crewMember.getFlights().size(), 1);
     EXPECT_TRUE(existVector(pCompany1->getPilots(), crewMember));
     // SETTING COMPANY, PREVIOUS COMPANY
     crewMember.setCompany(pCompany2);
 
     EXPECT_EQ(pCompany1->getPilots().size(), 0);
+    EXPECT_EQ(crewMember.getFlights().size(), 0);
 
     EXPECT_EQ(crewMember.getCompany(), pCompany2);
     EXPECT_EQ(pCompany2->getPilots().size(), 1);
