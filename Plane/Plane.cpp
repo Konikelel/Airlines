@@ -155,15 +155,15 @@ bool Plane::inRangeCrew(const unsigned int stewardess, const unsigned int pilots
     return inRangeStewardesses(stewardess) && inRangePilots(pilots);
 }
 
-void Plane::addFlight(Flight& flight) {
+void Plane::addFlight(Flight& flight) {  // TESTED
     flight.setPlane(*this);
 }
 
-bool Plane::removeFlight(Flight& flight) {
+bool Plane::removeFlight(Flight& flight) {  // TESTED
     return flight.removePlane();
 }
 
-bool Plane::removeFlights() {
+bool Plane::removeFlights() {  // TESTED
     bool success = true;
     for (Flight& flight : flights)
         success = removeFlight(flight) && success;

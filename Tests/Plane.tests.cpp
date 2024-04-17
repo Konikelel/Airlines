@@ -181,8 +181,7 @@ TEST(plane, flight) {
     EXPECT_EQ(plane.getFlights().size(), 1);
     EXPECT_TRUE(existVector(plane.getFlights(), flight1));
 
-    EXPECT_FALSE(flight1.getPlane() == nullptr);
-    EXPECT_EQ(*flight1.getPlane(), plane);
+    EXPECT_EQ(flight1.getPlane(), &plane);
     // removeFlight
     plane.addFlight(flight2);
     EXPECT_TRUE(plane.removeFlight(flight1));
@@ -192,8 +191,7 @@ TEST(plane, flight) {
     EXPECT_TRUE(existVector(plane.getFlights(), flight2));
 
     EXPECT_EQ(flight1.getPlane(), nullptr);
-    EXPECT_FALSE(flight2.getPlane() == nullptr);
-    EXPECT_EQ(*flight2.getPlane(), plane);
+    EXPECT_EQ(flight2.getPlane(), &plane);
 
     // removeFlights
     plane.addFlight(flight1);
