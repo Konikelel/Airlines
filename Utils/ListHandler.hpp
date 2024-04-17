@@ -38,4 +38,11 @@ bool deleteList(std::list<T>& list, const T& target) {
     return true;
 }
 
+// COMPARISON OPERATOR
+bool operator==(const Person& one, const Person& other);
+
+bool operator==(const Flight& one, const Flight& other);
+
+bool operator==(const Plane& one, const Plane& other);
+
 #endif
