@@ -4,8 +4,9 @@ add_library(
     CustomErrors.hpp
     StringHandler.cpp
     StringHandler.hpp
-    VectorHandler.cpp
     VectorHandler.hpp
+    ListHandler.hpp
+    Comparisons.cpp
 )
 
 target_include_directories(Utils INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}")
