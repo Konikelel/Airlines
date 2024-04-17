@@ -3,9 +3,9 @@
 #include <gtest/gtest.h>
 
 #include "Company.hpp"
-#include "CrewMember.hpp"
 #include "CustomErrors.hpp"
 #include "VectorHandler.hpp"
+#include "plane.hpp"
 
 TEST(plane, constructor) {
     Company* pCompany = new (Company){"Test"};
@@ -19,7 +19,9 @@ TEST(plane, constructor) {
     // getCompany
     EXPECT_EQ(plane1.getCompany(), nullptr);
     EXPECT_EQ(plane2.getCompany(), pCompany);
-    // getCapacityPassengers
+    // getFlights
+    EXPECT_EQ(plane2.getFlights().size(), 0);
+    //  getCapacityPassengers
     EXPECT_EQ(plane2.getCapacityPassengers(), 100);
     // getRequiredStewardesses
     EXPECT_EQ(plane2.getRequiredStewardesses(), 3);
@@ -52,6 +54,8 @@ TEST(plane, destructor) {
         EXPECT_TRUE(existVector(pCompany->getPlanes(), plane));
         EXPECT_TRUE(existVector(plane.getFlights(), flight1));
         EXPECT_TRUE(existVector(plane.getFlights(), flight2));
+
+        EXPECT_NO_THROW(plane.changeId(100));
     }
 
     EXPECT_EQ(flight1.getPlane(), nullptr);
@@ -63,15 +67,11 @@ TEST(plane, destructor) {
 
 TEST(plane, setters) {
     Company* pCompany = new (Company){"Test"};
+    Flight& flight = pCompany->createFlight("RYR123", 1, 2, "Warsaw", "Berlin");
 
-    Plane plane1{101, "B737", 100, 3, 2};
+    Plane plane1{pCompany, 101, "B737", 100, 3, 2};
     Plane plane2{102, "B737", 150, 4, 3};
-    // setCompany
-    plane1.setCompany(pCompany);
-    EXPECT_EQ(plane1.getCompany(), pCompany);
-    EXPECT_THROW(plane1.setCompany(nullptr), InvalidPointer);
-    // ADD FLIGHT
-    // EXPECT_THROW(plane1.setCompany(company), CannotPerform);
+    plane1.addFlight(flight);
     // changeId
     plane2.changeId(100);
     EXPECT_EQ(plane2.getId(), 100);
@@ -80,22 +80,23 @@ TEST(plane, setters) {
     plane2.setName("aBc");
     EXPECT_EQ(plane2.getName(), "aBc");
     EXPECT_THROW(plane2.setName(""), InvalidName);
-    // setCapacityPassengers, setRequiredStewardesses, setRequiredPilots
+    // setCapacityPassengers
     plane2.setCapacityPassengers(200);
     EXPECT_EQ(plane2.getCapacityPassengers(), 200);
     EXPECT_THROW(plane2.setCapacityPassengers(0), InvalidNumber);
+    EXPECT_THROW(plane1.setCapacityPassengers(200), CannotPerform);
+    // setRequiredStewardesses
     plane2.setRequiredStewardesses(5);
     EXPECT_EQ(plane2.getRequiredStewardesses(), 5);
     EXPECT_EQ(plane2.getCapacityStewardesses(), 5 * 2);
     EXPECT_THROW(plane2.setRequiredStewardesses(0), InvalidNumber);
+    EXPECT_THROW(plane1.setRequiredStewardesses(5), CannotPerform);
+    // setRequiredPilots
     plane2.setRequiredPilots(4);
     EXPECT_EQ(plane2.getRequiredPilots(), 4);
     EXPECT_EQ(plane2.getCapacityPilots(), 4 * 2);
     EXPECT_THROW(plane2.setRequiredPilots(0), InvalidNumber);
-    // ADD FLIGHT
-    // EXPECT_THROW(plane2.setCapacityPassengers(5), CannotPerform);
-    // EXPECT_THROW(plane2.setRequiredStewardesses(5), CannotPerform);
-    // EXPECT_THROW(plane2.setRequiredPilots(5), CannotPerform);
+    EXPECT_THROW(plane1.setRequiredPilots(4), CannotPerform);
 
     delete pCompany;
 }
@@ -114,40 +115,96 @@ TEST(plane, boolFunctions) {
     EXPECT_TRUE(plane.inRangeStewardesses(4));
     EXPECT_TRUE(plane.inRangeStewardesses(6));
     EXPECT_FALSE(plane.inRangeStewardesses(7));
+    // maximumStewardesses
+    EXPECT_FALSE(plane.maximumStewardesses(3 * 2 - 1));
+    EXPECT_FALSE(plane.maximumStewardesses(3 * 2));
+    EXPECT_TRUE(plane.maximumStewardesses(3 * 2 + 1));
     // inRangePilots
     EXPECT_FALSE(plane.inRangePilots(1));
     EXPECT_TRUE(plane.inRangePilots(2));
     EXPECT_TRUE(plane.inRangePilots(3));
     EXPECT_TRUE(plane.inRangePilots(4));
     EXPECT_FALSE(plane.inRangePilots(5));
+    // maximumPilots
+    EXPECT_FALSE(plane.maximumPilots(2 * 2 - 1));
+    EXPECT_FALSE(plane.maximumPilots(2 * 2));
+    EXPECT_TRUE(plane.maximumPilots(2 * 2 + 1));
 
     delete pCompany;
 }
 
+TEST(plane, company) {
+    Company* pCompany1 = new (Company){"Test1"};
+    Company* pCompany2 = new (Company){"Test2"};
+    Flight& flight = pCompany1->createFlight("RYR123", 1, 2, "Warsaw", "Berlin");
+
+    Plane plane{pCompany1, 101, "B737", 100, 3, 2};
+    // setCompany
+    // SETTING NULLPTR, PREVIOUS NULLPTR
+    EXPECT_NO_THROW(plane.setCompany(nullptr));
+    EXPECT_EQ(plane.getCompany(), nullptr);
+    // SETTING COMPANY, PREVIOUS NULLPTR
+    plane.setCompany(pCompany1);
+    plane.addFlight(flight);
+
+    EXPECT_EQ(plane.getCompany(), pCompany1);
+    EXPECT_EQ(pCompany1->getPlanes().size(), 1);
+    EXPECT_EQ(plane.getFlights().size(), 1);
+    EXPECT_TRUE(existVector(pCompany1->getPlanes(), plane));
+    // SETTING COMPANY, PREVIOUS COMPANY
+    plane.setCompany(pCompany2);
+
+    EXPECT_EQ(pCompany1->getPlanes().size(), 0);
+    EXPECT_EQ(plane.getFlights().size(), 0);
+
+    EXPECT_EQ(plane.getCompany(), pCompany2);
+    EXPECT_EQ(pCompany2->getPlanes().size(), 1);
+    EXPECT_TRUE(existVector(pCompany2->getPlanes(), plane));
+    // SETTING NULLPTR, PREVIOUS COMPANY
+    plane.setCompany(nullptr);
+
+    EXPECT_EQ(pCompany2->getPlanes().size(), 0);
+    EXPECT_EQ(plane.getCompany(), nullptr);
+
+    delete pCompany1, pCompany2;
+}
+
 TEST(plane, flight) {
-    // Company* pCompany = new (Company){"Test1"};
+    Company* pCompany = new (Company){"Test1"};
+    Flight& flight1 = pCompany->createFlight("RYR123", 1, 2, "Warsaw", "Berlin");
+    Flight& flight2 = pCompany->createFlight("RYR123", 3, 4, "Warsaw", "Berlin");
 
-    // Flight* pFlight1 = new (Flight){pCompany, "RYR123", 1, 2, "Warsaw", "Berlin"};
-    // Flight* pFlight2 = new (Flight){pCompany, "RYR123", 3, 4, "Warsaw", "Berlin"};
+    Plane plane{pCompany, 101, "B737", 100, 3, 2};
+    // addFlight
+    plane.addFlight(flight1);
 
-    // Plane* pPlane = new (Plane){pCompany, 101, "B737", 100, 1, 1};
-    // // Test only if works
-    // //  addFlight
-    // pPlane->addFlight(pFlight1);
-    // EXPECT_TRUE(existVector(pPlane->getFlights(), pFlight1));
-    // EXPECT_EQ(pFlight1->getPlane(), pPlane);
-    // EXPECT_EQ(pPlane->getFlights().size(), 1);
-    // // removeFlight
-    // pPlane->removeFlight(pFlight1);
-    // EXPECT_FALSE(existVector(pPlane->getFlights(), pFlight1));
-    // EXPECT_EQ(pFlight1->getPlane(), nullptr);
-    // EXPECT_EQ(pPlane->getFlights().size(), 0);
-    // // removeFlights
-    // pPlane->addFlight(pFlight1);
-    // pPlane->addFlight(pFlight2);
-    // pPlane->removeFlights();
-    // EXPECT_EQ(pFlight1->getPlane(), nullptr);
-    // EXPECT_EQ(pPlane->getFlights().size(), 0);
+    EXPECT_EQ(plane.getFlights().size(), 1);
+    EXPECT_TRUE(existVector(plane.getFlights(), flight1));
 
-    // delete pCompany, pFlight1, pFlight2, pPlane;
+    EXPECT_FALSE(flight1.getPlane() == nullptr);
+    EXPECT_EQ(*flight1.getPlane(), plane);
+    // removeFlight
+    plane.addFlight(flight2);
+    EXPECT_TRUE(plane.removeFlight(flight1));
+
+    EXPECT_EQ(plane.getFlights().size(), 1);
+    EXPECT_FALSE(existVector(plane.getFlights(), flight1));
+    EXPECT_TRUE(existVector(plane.getFlights(), flight2));
+
+    EXPECT_EQ(flight1.getPlane(), nullptr);
+    EXPECT_FALSE(flight2.getPlane() == nullptr);
+    EXPECT_EQ(*flight2.getPlane(), plane);
+
+    // removeFlights
+    plane.addFlight(flight1);
+    EXPECT_TRUE(plane.removeFlights());
+
+    EXPECT_EQ(plane.getFlights().size(), 0);
+    EXPECT_FALSE(existVector(plane.getFlights(), flight1));
+    EXPECT_FALSE(existVector(plane.getFlights(), flight2));
+
+    EXPECT_EQ(flight1.getPlane(), nullptr);
+    EXPECT_EQ(flight2.getPlane(), nullptr);
+
+    delete pCompany;
 }
