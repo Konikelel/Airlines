@@ -338,7 +338,7 @@ TEST(flight, crewMember) {
     EXPECT_EQ(stewardess1.getFlights().size(), 1);
     EXPECT_EQ(stewardess2.getFlights().size(), 1);
 
-    EXPECT_TRUE(flight2.removePassengers());
+    EXPECT_TRUE(flight2.removeCrewMembers());
 
     EXPECT_EQ(flight2.getPilots().size(), 0);
     EXPECT_EQ(flight2.getStewardesses().size(), 0);
@@ -351,4 +351,26 @@ TEST(flight, crewMember) {
 }
 
 TEST(flight, status) {
+    Company* pCompany = new (Company){"Test1"};
+
+    Plane plane{pCompany, 1, "B737", 1, 1, 1};
+
+    CrewMember pilot1{pCompany, PILOT, 1, "Vic", "Ay", 1, MALE};
+    CrewMember pilot2{pCompany, PILOT, 2, "Val", "Ro", 1, MALE};
+
+    CrewMember stewardess1{pCompany, STEWARDESS, 4, "Ki", "Be", 1, FEMALE};
+    CrewMember stewardess2{pCompany, STEWARDESS, 5, "Jo", "Qa", 1, FEMALE};
+
+    Flight& flight = pCompany->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
+
+    flight.setPlane(plane);
+    EXPECT_EQ(flight.getStatus(), INCOMPLETE);
+
+    flight.addCrewMember(pilot1);
+    flight.addCrewMember(stewardess1);
+    EXPECT_EQ(flight.getStatus(), INCOMPLETE);
+
+    flight.addCrewMember(pilot2);
+
+    delete pCompany;
 }

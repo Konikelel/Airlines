@@ -195,6 +195,8 @@ bool Flight::removeCrewMembers() {  // TESTED
 
     for (CrewMember& crewMember : stewardesses)
         success = deleteVector(crewMember.getFlights(), *this) && success;
+    for (CrewMember& crewMember : pilots)
+        success = deleteVector(crewMember.getFlights(), *this) && success;
 
     stewardesses.clear();
     pilots.clear();
