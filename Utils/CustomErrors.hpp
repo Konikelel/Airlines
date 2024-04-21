@@ -9,7 +9,6 @@ class NonUniqueIDException : public std::exception {
     const char* what() const noexcept override;
 };
 
-template <typename T>
 class CustomException : public std::exception {
    public:
     CustomException(const std::string& msg) : message(msg) {}
@@ -22,17 +21,38 @@ class CustomException : public std::exception {
     std::string message;
 };
 
-using InvalidPointer = CustomException<std::exception>;
-using InvalidFlightNr = CustomException<std::exception>;
-using InvalidPlane = CustomException<std::exception>;
-using InvalidTime = CustomException<std::exception>;
-using InvalidCrew = CustomException<std::exception>;
-using InvalidName = CustomException<std::exception>;
-using InvalidNumber = CustomException<std::exception>;
-using MaximumCapacity = CustomException<std::exception>;
-using MinimumCapacity = CustomException<std::exception>;
-using DuplicationError = CustomException<std::exception>;
-using CannotPerform = CustomException<std::exception>;
-using TimeOverlap = CustomException<std::exception>;
+class InvalidPointer : public CustomException {
+    using CustomException::CustomException;
+};
+class InvalidFlightNr : public CustomException {
+    using CustomException::CustomException;
+};
+class InvalidPlane : public CustomException {
+    using CustomException::CustomException;
+};
+class InvalidTime : public CustomException {
+    using CustomException::CustomException;
+};
+class InvalidCrew : public CustomException {
+    using CustomException::CustomException;
+};
+class InvalidName : public CustomException {
+    using CustomException::CustomException;
+};
+class InvalidNumber : public CustomException {
+    using CustomException::CustomException;
+};
+class MaximumCapacity : public CustomException {
+    using CustomException::CustomException;
+};
+class DuplicationError : public CustomException {
+    using CustomException::CustomException;
+};
+class CannotPerform : public CustomException {
+    using CustomException::CustomException;
+};
+class TimeOverlap : public CustomException {
+    using CustomException::CustomException;
+};
 
 #endif
