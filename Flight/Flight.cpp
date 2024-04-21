@@ -133,7 +133,7 @@ void Flight::changeDataArrival(const unsigned int time, const std::string city) 
     this->cityArrival = city;
 }
 
-void Flight::addPassenger(Passenger& passenger) {
+void Flight::addPassenger(Passenger& passenger) {  // TESTED
     if (pPlane && !pPlane->inRangePassengers(passengers.size() + 1))
         throw MaximumCapacity("Maximum capacity for passengers reached");
     if (existVector(passengers, passenger))
@@ -147,11 +147,11 @@ void Flight::addPassenger(Passenger& passenger) {
     addVector(passenger.getFlights(), *this);
 }
 
-bool Flight::removePassenger(Passenger& passenger) {
+bool Flight::removePassenger(Passenger& passenger) {  // TESTED
     return deleteVector(passengers, passenger) && deleteVector(passenger.getFlights(), *this);
 }
 
-bool Flight::removePassengers() {
+bool Flight::removePassengers() {  // TESTED
     bool success = true;
 
     for (Passenger& passenger : passengers)
@@ -161,7 +161,7 @@ bool Flight::removePassengers() {
     return success;
 }
 
-void Flight::addCrewMember(CrewMember& crewMember) {
+void Flight::addCrewMember(CrewMember& crewMember) {  // TESTED
     CrewRole role = crewMember.getRole();
 
     if (crewMember.getCompany() != pCompany)
@@ -182,14 +182,14 @@ void Flight::addCrewMember(CrewMember& crewMember) {
     setStatus();
 }
 
-bool Flight::removeCrewMember(CrewMember& crewMember) {
+bool Flight::removeCrewMember(CrewMember& crewMember) {  // TESTED
     CrewRole role = crewMember.getRole();
 
     setStatus();
     return deleteVector(role ? stewardesses : pilots, crewMember) && deleteVector(crewMember.getFlights(), *this);
 }
 
-bool Flight::removeCrewMembers() {
+bool Flight::removeCrewMembers() {  // TESTED
     bool success = true;
     status = INCOMPLETE;
 

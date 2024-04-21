@@ -181,7 +181,7 @@ TEST(flight, plane) {
     EXPECT_EQ(flight1.getPlane(), &plane1);
     EXPECT_EQ(plane1.getFlights().size(), 1);
     EXPECT_TRUE(existVector(plane1.getFlights(), flight1));
-
+    // removePlane
     flight1.setPlane(plane2);
 
     EXPECT_EQ(flight1.getPlane(), &plane2);
@@ -190,7 +190,7 @@ TEST(flight, plane) {
     EXPECT_TRUE(existVector(plane2.getFlights(), flight1));
 
     flight1.removePlane();
-
+    // CHECK FOR CAPACITY LIMITS
     flight1.addCrewMember(pilot2);
 
     EXPECT_THROW(flight1.setPlane(plane1), InvalidPlane);
@@ -214,7 +214,141 @@ TEST(flight, plane) {
 }
 
 TEST(flight, passenger) {
+    Company* pCompany = new (Company){"Test1"};
+
+    Plane plane{pCompany, 3, "B737", 1, 1, 1};
+
+    Passenger passenger1{7, "Ew", "Ao", 1, MALE};
+    Passenger passenger2{8, "Ow", "Co", 2, FEMALE};
+
+    Flight& flight1 = pCompany->createFlight("RYR120", plane, 2, 5, "Warsaw", "Berlin");
+    Flight& flight2 = pCompany->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
+    // addPassenger
+    flight1.addPassenger(passenger1);
+
+    EXPECT_EQ(flight1.getPassengers().size(), 1);
+    EXPECT_TRUE(existVector(flight1.getPassengers(), passenger1));
+
+    EXPECT_EQ(passenger1.getFlights().size(), 1);
+    EXPECT_TRUE(existVector(passenger1.getFlights(), flight1));
+
+    // TIME OVERLAP
+    EXPECT_THROW(flight2.addPassenger(passenger1), TimeOverlap);
+    // DUPLICATION
+    flight2.addPassenger(passenger2);
+    EXPECT_THROW(flight2.addPassenger(passenger2), DuplicationError);
+    // CAPACITY
+    EXPECT_THROW(flight1.addPassenger(passenger2), MaximumCapacity);
+
+    // removePassenger
+    EXPECT_TRUE(flight1.removePassenger(passenger1));
+
+    EXPECT_EQ(flight1.getPassengers().size(), 0);
+    EXPECT_EQ(passenger1.getFlights().size(), 0);
+
+    // removePassengers
+    flight2.addPassenger(passenger1);
+
+    EXPECT_EQ(flight2.getPassengers().size(), 2);
+    EXPECT_EQ(passenger1.getFlights().size(), 1);
+    EXPECT_EQ(passenger2.getFlights().size(), 1);
+
+    EXPECT_TRUE(existVector(flight2.getPassengers(), passenger1));
+    EXPECT_TRUE(existVector(flight2.getPassengers(), passenger2));
+    EXPECT_TRUE(existVector(passenger1.getFlights(), flight2));
+    EXPECT_TRUE(existVector(passenger2.getFlights(), flight2));
+
+    EXPECT_TRUE(flight2.removePassengers());
+
+    EXPECT_EQ(flight2.getPassengers().size(), 0);
+    EXPECT_EQ(passenger1.getFlights().size(), 0);
+    EXPECT_EQ(passenger2.getFlights().size(), 0);
+
+    delete pCompany;
 }
 
 TEST(flight, crewMember) {
+    Company* pCompany1 = new (Company){"Test1"};
+    Company* pCompany2 = new (Company){"Test1"};
+
+    Plane plane{pCompany1, 1, "B737", 1, 1, 1};
+
+    CrewMember pilot1{pCompany1, PILOT, 1, "Vic", "Ay", 1, MALE};
+    CrewMember pilot2{pCompany1, PILOT, 2, "Val", "Ro", 1, MALE};
+    CrewMember pilot3{pCompany2, PILOT, 3, "Val", "Ro", 1, MALE};
+
+    CrewMember stewardess1{pCompany1, STEWARDESS, 4, "Ki", "Be", 1, FEMALE};
+    CrewMember stewardess2{pCompany1, STEWARDESS, 5, "Jo", "Qa", 1, FEMALE};
+    CrewMember stewardess3{pCompany2, STEWARDESS, 6, "Jo", "Qa", 1, FEMALE};
+
+    Flight& flight1 = pCompany1->createFlight("RYR120", plane, 2, 5, "Warsaw", "Berlin");
+    Flight& flight2 = pCompany1->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
+    // addCrewMember
+    flight1.addCrewMember(pilot1);
+
+    EXPECT_EQ(flight1.getPilots().size(), 1);
+    EXPECT_EQ(flight1.getStewardesses().size(), 0);
+
+    flight1.addCrewMember(stewardess1);
+
+    EXPECT_EQ(flight1.getPilots().size(), 1);
+    EXPECT_EQ(flight1.getStewardesses().size(), 1);
+
+    EXPECT_TRUE(existVector(flight1.getPilots(), pilot1));
+    EXPECT_TRUE(existVector(flight1.getStewardesses(), stewardess1));
+    EXPECT_TRUE(existVector(pilot1.getFlights(), flight1));
+    EXPECT_TRUE(existVector(stewardess1.getFlights(), flight1));
+
+    // TIME OVERLAP
+    EXPECT_THROW(flight2.addCrewMember(pilot1), TimeOverlap);
+    EXPECT_THROW(flight2.addCrewMember(stewardess1), TimeOverlap);
+    // DUPLICATION
+    flight2.addCrewMember(pilot2);
+    flight2.addCrewMember(stewardess2);
+
+    EXPECT_THROW(flight2.addCrewMember(pilot2), DuplicationError);
+    EXPECT_THROW(flight2.addCrewMember(stewardess2), DuplicationError);
+    // CAPACITY
+    EXPECT_THROW(flight1.addCrewMember(pilot2), MaximumCapacity);
+    EXPECT_THROW(flight1.addCrewMember(stewardess2), MaximumCapacity);
+    // COMPANY MISMATCH
+    EXPECT_THROW(flight2.addCrewMember(pilot3), InvalidCrew);
+    EXPECT_THROW(flight2.addCrewMember(stewardess3), InvalidCrew);
+
+    // removeCrewMember
+    EXPECT_TRUE(flight1.removeCrewMember(pilot1));
+
+    EXPECT_EQ(flight1.getPilots().size(), 0);
+    EXPECT_EQ(pilot1.getFlights().size(), 0);
+    EXPECT_EQ(flight1.getStewardesses().size(), 1);
+
+    EXPECT_TRUE(flight1.removeCrewMember(stewardess1));
+
+    EXPECT_EQ(flight1.getStewardesses().size(), 0);
+    EXPECT_EQ(stewardess1.getFlights().size(), 0);
+
+    // removeCrewMembers
+    flight2.addCrewMember(pilot1);
+    flight2.addCrewMember(stewardess1);
+
+    EXPECT_EQ(flight2.getPilots().size(), 2);
+    EXPECT_EQ(flight2.getStewardesses().size(), 2);
+    EXPECT_EQ(pilot1.getFlights().size(), 1);
+    EXPECT_EQ(pilot2.getFlights().size(), 1);
+    EXPECT_EQ(stewardess1.getFlights().size(), 1);
+    EXPECT_EQ(stewardess2.getFlights().size(), 1);
+
+    EXPECT_TRUE(flight2.removePassengers());
+
+    EXPECT_EQ(flight2.getPilots().size(), 0);
+    EXPECT_EQ(flight2.getStewardesses().size(), 0);
+    EXPECT_EQ(pilot1.getFlights().size(), 0);
+    EXPECT_EQ(pilot2.getFlights().size(), 0);
+    EXPECT_EQ(stewardess1.getFlights().size(), 0);
+    EXPECT_EQ(stewardess2.getFlights().size(), 0);
+
+    delete pCompany1, pCompany2;
+}
+
+TEST(flight, status) {
 }
