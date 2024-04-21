@@ -275,11 +275,13 @@ TEST(flight, crewMember) {
 
     CrewMember pilot1{pCompany1, PILOT, 1, "Vic", "Ay", 1, MALE};
     CrewMember pilot2{pCompany1, PILOT, 2, "Val", "Ro", 1, MALE};
-    CrewMember pilot3{pCompany2, PILOT, 3, "Val", "Ro", 1, MALE};
+    CrewMember pilot3{pCompany1, PILOT, 3, "Val", "Ro", 1, MALE};
+    CrewMember pilot4{pCompany2, PILOT, 4, "Val", "Ro", 1, MALE};
 
-    CrewMember stewardess1{pCompany1, STEWARDESS, 4, "Ki", "Be", 1, FEMALE};
-    CrewMember stewardess2{pCompany1, STEWARDESS, 5, "Jo", "Qa", 1, FEMALE};
-    CrewMember stewardess3{pCompany2, STEWARDESS, 6, "Jo", "Qa", 1, FEMALE};
+    CrewMember stewardess1{pCompany1, STEWARDESS, 5, "Ki", "Be", 1, FEMALE};
+    CrewMember stewardess2{pCompany1, STEWARDESS, 6, "Jo", "Qa", 1, FEMALE};
+    CrewMember stewardess3{pCompany1, STEWARDESS, 7, "Jo", "Qa", 1, FEMALE};
+    CrewMember stewardess4{pCompany2, STEWARDESS, 8, "Jo", "Qa", 1, FEMALE};
 
     Flight& flight1 = pCompany1->createFlight("RYR120", plane, 2, 5, "Warsaw", "Berlin");
     Flight& flight2 = pCompany1->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
@@ -308,28 +310,41 @@ TEST(flight, crewMember) {
 
     EXPECT_THROW(flight2.addCrewMember(pilot2), DuplicationError);
     EXPECT_THROW(flight2.addCrewMember(stewardess2), DuplicationError);
+
+    flight2.removeCrewMembers();
     // CAPACITY
-    EXPECT_THROW(flight1.addCrewMember(pilot2), MaximumCapacity);
-    EXPECT_THROW(flight1.addCrewMember(stewardess2), MaximumCapacity);
+    flight1.addCrewMember(pilot2);
+    flight1.addCrewMember(stewardess2);
+
+    EXPECT_THROW(flight1.addCrewMember(pilot3), MaximumCapacity);
+    EXPECT_THROW(flight1.addCrewMember(stewardess3), MaximumCapacity);
+
     // COMPANY MISMATCH
-    EXPECT_THROW(flight2.addCrewMember(pilot3), InvalidCrew);
-    EXPECT_THROW(flight2.addCrewMember(stewardess3), InvalidCrew);
+    EXPECT_THROW(flight2.addCrewMember(pilot4), InvalidCrew);
+    EXPECT_THROW(flight2.addCrewMember(stewardess4), InvalidCrew);
 
     // removeCrewMember
     EXPECT_TRUE(flight1.removeCrewMember(pilot1));
 
-    EXPECT_EQ(flight1.getPilots().size(), 0);
+    EXPECT_EQ(flight1.getPilots().size(), 1);
+    EXPECT_FALSE(existVector(flight1.getPilots(), pilot1));
     EXPECT_EQ(pilot1.getFlights().size(), 0);
-    EXPECT_EQ(flight1.getStewardesses().size(), 1);
+    EXPECT_EQ(flight1.getStewardesses().size(), 2);
 
     EXPECT_TRUE(flight1.removeCrewMember(stewardess1));
 
-    EXPECT_EQ(flight1.getStewardesses().size(), 0);
+    EXPECT_EQ(flight1.getStewardesses().size(), 1);
+    EXPECT_EQ(flight1.getPilots().size(), 1);
+    EXPECT_FALSE(existVector(flight1.getStewardesses(), stewardess1));
     EXPECT_EQ(stewardess1.getFlights().size(), 0);
 
+    flight1.removeCrewMember(pilot2);
+    flight1.removeCrewMember(stewardess2);
     // removeCrewMembers
     flight2.addCrewMember(pilot1);
     flight2.addCrewMember(stewardess1);
+    flight2.addCrewMember(pilot2);
+    flight2.addCrewMember(stewardess2);
 
     EXPECT_EQ(flight2.getPilots().size(), 2);
     EXPECT_EQ(flight2.getStewardesses().size(), 2);
