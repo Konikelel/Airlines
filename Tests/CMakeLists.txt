@@ -20,7 +20,7 @@ add_executable(
   "${CMAKE_CURRENT_SOURCE_DIR}/Passenger.tests.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/CrewMember.tests.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/Flight.tests.cpp"
-  "${CMAKE_CURRENT_SOURCE_DIR}/Global.tests.cpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/Company.tests.cpp"
 )
 target_link_libraries(Tests PRIVATE gtest_main Person Plane Passenger CrewMember Flight Company)
 

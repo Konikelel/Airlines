@@ -16,6 +16,10 @@ Company::~Company() {
     removeFlights();
 }
 
+std::string Company::getName() {
+    return name;
+}
+
 void Company::setName(std::string name) {
     if (!name.size())
         throw InvalidName("First name must contain any character");

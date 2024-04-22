@@ -16,12 +16,13 @@ class Company {
 
     ~Company();
 
-    void setName(std::string name);
-
+    std::string getName();
     std::list<Flight>& getFlights();
     std::vector<std::reference_wrapper<Plane>>& getPlanes();
     std::vector<std::reference_wrapper<CrewMember>>& getStewardesses();
     std::vector<std::reference_wrapper<CrewMember>>& getPilots();
+
+    void setName(std::string name);
     // ADD PLANE TO COMPANY AND SET PLANE'S COMPANY
     void addPlane(Plane& plane);
     // REMOVE PLANE FROM COMPANY AND REMOVES PLANE'S COMPANY
