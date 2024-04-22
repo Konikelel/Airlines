@@ -382,10 +382,25 @@ TEST(flight, status) {
     EXPECT_EQ(flight.getStatus(), INCOMPLETE);
 
     flight.addCrewMember(pilot1);
-    flight.addCrewMember(stewardess1);
     EXPECT_EQ(flight.getStatus(), INCOMPLETE);
+    flight.addCrewMember(stewardess1);
+    EXPECT_EQ(flight.getStatus(), AS_PLANNED);
 
     flight.addCrewMember(pilot2);
+    EXPECT_EQ(flight.getStatus(), AS_PLANNED);
+    flight.addCrewMember(stewardess2);
+    EXPECT_EQ(flight.getStatus(), AS_PLANNED);
+
+    flight.removePlane();
+    EXPECT_EQ(flight.getStatus(), INCOMPLETE);
+    flight.removeCrewMember(pilot2);
+    flight.removeCrewMember(stewardess2);
+
+    flight.setPlane(plane);
+    EXPECT_EQ(flight.getStatus(), AS_PLANNED);
+
+    flight.removeCrewMember(pilot1);
+    EXPECT_EQ(flight.getStatus(), INCOMPLETE);
 
     delete pCompany;
 }

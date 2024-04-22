@@ -105,6 +105,7 @@ bool Flight::removePlane() {  // TESTED
     if (pPlane)
         success = deleteVector(pPlane->getFlights(), *this);
 
+    status = INCOMPLETE;
     pPlane = nullptr;
     return success;
 }
@@ -185,8 +186,9 @@ void Flight::addCrewMember(CrewMember& crewMember) {  // TESTED
 bool Flight::removeCrewMember(CrewMember& crewMember) {  // TESTED
     CrewRole role = crewMember.getRole();
 
+    bool success = deleteVector(role ? stewardesses : pilots, crewMember) && deleteVector(crewMember.getFlights(), *this);
     setStatus();
-    return deleteVector(role ? stewardesses : pilots, crewMember) && deleteVector(crewMember.getFlights(), *this);
+    return success;
 }
 
 bool Flight::removeCrewMembers() {  // TESTED
