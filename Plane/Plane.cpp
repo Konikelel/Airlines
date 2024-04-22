@@ -140,7 +140,7 @@ bool Plane::inRangeStewardesses(unsigned int number) const {  // TESTED
 }
 
 bool Plane::maximumStewardesses(const unsigned int number) const {  // TESTED
-    return number >= capacityStewardesses;
+    return number > capacityStewardesses;
 }
 
 bool Plane::inRangePilots(unsigned int number) const {  // TESTED
@@ -148,7 +148,7 @@ bool Plane::inRangePilots(unsigned int number) const {  // TESTED
 }
 
 bool Plane::maximumPilots(const unsigned int number) const {  // TESTED
-    return number >= capacityPilots;
+    return number > capacityPilots;
 }
 
 bool Plane::inRangeCrew(const unsigned int stewardess, const unsigned int pilots) const {  // TESTED

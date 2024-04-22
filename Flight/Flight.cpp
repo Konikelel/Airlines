@@ -167,7 +167,7 @@ void Flight::addCrewMember(CrewMember& crewMember) {  // TESTED
     if (crewMember.getCompany() != pCompany)
         throw InvalidCrew("CrewMember must be in the same company as flight");
 
-    if (pPlane && (role ? pPlane->maximumStewardesses(stewardesses.size()) : pPlane->maximumPilots(pilots.size())))
+    if (pPlane && (role ? pPlane->maximumStewardesses(stewardesses.size() + 1) : pPlane->maximumPilots(pilots.size() + 1)))
         throw MaximumCapacity("Maximum capacity for crewMember reached");
 
     if (existVector(role ? stewardesses : pilots, crewMember))
