@@ -35,7 +35,6 @@ class CrewMember : public Person {
 
     // INVOKE FUNCTION FROM COMPANY TO ADD CREW MEMBER
     void setCompany(Company* pCompany);
-    void removeCompany();
 
     // INVOKE FUNCTION FROM FLIGHT TO ADD CREW MEMBER
     void addFlight(Flight& flight);
@@ -50,6 +49,8 @@ class CrewMember : public Person {
     std::vector<std::reference_wrapper<Flight>> flights;
 
     CrewRole role;
+
+    friend Company;
 };
 
 #endif
