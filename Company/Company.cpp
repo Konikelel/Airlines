@@ -65,7 +65,7 @@ bool Company::removePlane(Plane& plane) {  // TESTED
     return deleteVector(planes, plane);
 }
 
-bool Company::removePlanes() {
+bool Company::removePlanes() {  // TESTED
     bool success = true;
 
     for (Plane& plane : planes) {
@@ -77,7 +77,7 @@ bool Company::removePlanes() {
     return success;
 }
 
-void Company::addCrewMember(CrewMember& crewMember) {
+void Company::addCrewMember(CrewMember& crewMember) {  // TESTED
     Company*& pCompany = crewMember.getCompany();
 
     if (pCompany == this)
