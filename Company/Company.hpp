@@ -16,7 +16,7 @@ class Company {
 
     ~Company();
 
-    std::string getName();
+    std::string getName() const;
     std::list<Flight>& getFlights();
     std::vector<std::reference_wrapper<Plane>>& getPlanes();
     std::vector<std::reference_wrapper<CrewMember>>& getStewardesses();
@@ -58,6 +58,8 @@ class Company {
     std::vector<std::reference_wrapper<Plane>> planes;
     std::vector<std::reference_wrapper<CrewMember>> stewardesses;
     std::vector<std::reference_wrapper<CrewMember>> pilots;
+
+    friend std::ostream& operator<<(std::ostream& os, Company& company);
 };
 
 #endif

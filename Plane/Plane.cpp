@@ -172,3 +172,11 @@ bool Plane::removeFlights() {  // TESTED
     flights.clear();
     return true;
 }
+
+std::ostream& operator<<(std::ostream& os, Plane& plane) {
+    os << "Id: " << plane.getId() << " "
+       << "Company: " << plane.getCompany() << " "
+       << "Flights: " << plane.getFlights().size() << std::endl;
+
+    return os;
+}

@@ -87,6 +87,7 @@ class Flight {
 
     friend Company;
     friend Plane;
+    friend std::ostream& operator<<(std::ostream& os, Flight& flight);
 };
 
 #endif

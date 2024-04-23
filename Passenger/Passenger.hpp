@@ -31,6 +31,8 @@ class Passenger : public Person {
 
    private:
     std::vector<std::reference_wrapper<Flight>> flights;
+
+    friend std::ostream& operator<<(std::ostream& os, Passenger& passenger);
 };
 
 #endif

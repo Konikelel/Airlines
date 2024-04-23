@@ -1,5 +1,7 @@
 #include "Passenger.hpp"
 
+#include <iostream>
+
 #include "CustomErrors.hpp"
 #include "VectorHandler.hpp"
 
@@ -34,4 +36,11 @@ bool Passenger::removeFlights() {  // TESTED
 
     flights.clear();
     return success;
+}
+
+std::ostream& operator<<(std::ostream& os, Passenger& passenger) {
+    os << "Id: " << passenger.getId() << " "
+       << "Flights: " << passenger.getFlights().size() << std::endl;
+
+    return os;
 }

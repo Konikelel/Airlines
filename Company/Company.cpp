@@ -16,7 +16,7 @@ Company::~Company() {  // TESTED
     removeFlights();
 }
 
-std::string Company::getName() {  // TESTED
+std::string Company::getName() const {  // TESTED
     return name;
 }
 
@@ -157,3 +157,33 @@ bool Company::removeFlights() {
     flights.clear();
     return true;
 }  // TESTED
+
+std::ostream& operator<<(std::ostream& os, Company& company) {
+    os << "Name: " << company.getName() << std::endl;
+
+    std::list<Flight> flights = company.getFlights();
+    if (flights.size())
+        os << "Flights: " << std::endl;
+    for (Flight& flight : flights)
+        os << "\t* " << flight << std::endl;
+
+    std::vector<std::reference_wrapper<Plane>> planes = company.getPlanes();
+    if (planes.size())
+        os << "Planes: " << std::endl;
+    for (Plane& plane : planes)
+        os << "\t* " << plane << std::endl;
+
+    std::vector<std::reference_wrapper<CrewMember>> stewardesses = company.getStewardesses();
+    if (stewardesses.size())
+        os << "Stewardesses: " << std::endl;
+    for (CrewMember& stewardess : stewardesses)
+        os << "\t* " << stewardess << std::endl;
+
+    std::vector<std::reference_wrapper<CrewMember>> pilots = company.getPilots();
+    if (pilots.size())
+        os << "Pilots: " << std::endl;
+    for (CrewMember& pilot : pilots)
+        os << "\t* " << pilot << std::endl;
+
+    return os;
+}

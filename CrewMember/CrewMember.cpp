@@ -68,3 +68,11 @@ bool CrewMember::removeFlights() {  // TESTED
     flights.clear();
     return success;
 }
+
+std::ostream& operator<<(std::ostream& os, CrewMember& crewMember) {
+    os << "Id: " << crewMember.getId() << " "
+       << "Company: " << crewMember.getCompany() << " "
+       << "Flights: " << crewMember.getFlights().size() << std::endl;
+
+    return os;
+}

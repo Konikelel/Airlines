@@ -82,6 +82,7 @@ class Plane {
     unsigned int capacityPilots;
 
     friend Company;
+    friend std::ostream& operator<<(std::ostream& os, Plane& plane);
 };
 
 #endif

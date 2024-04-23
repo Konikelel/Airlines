@@ -247,3 +247,12 @@ void Flight::setDataTime(const unsigned int timeDeparture, const std::string cit
     this->cityDeparture = cityDeparture;
     this->cityArrival = cityArrival;
 }
+
+std::ostream& operator<<(std::ostream& os, Flight& flight) {
+    os << "Status: " << flight.getStatus() << " "
+       << "FlightNr: " << flight.getFlightNr() << " "
+       << "Departure: " << flight.getCityDeparture() << " "
+       << "Arrival: " << flight.getCityArrival() << " ";
+
+    return os;
+}

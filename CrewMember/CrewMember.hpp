@@ -51,6 +51,7 @@ class CrewMember : public Person {
     CrewRole role;
 
     friend Company;
+    friend std::ostream& operator<<(std::ostream& os, CrewMember& crewMember);
 };
 
 #endif
