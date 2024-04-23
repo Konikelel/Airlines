@@ -125,7 +125,7 @@ Flight& Company::createFlight(std::string flightNr,
     Flight& newElement = addList(flights, (Flight){this, flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival});
     newElement.setPlane(plane);
     return newElement;
-}
+}  // TESTED
 
 Flight& Company::createFlight(std::string flightNr,
                               unsigned int timeDeparture,
@@ -133,7 +133,7 @@ Flight& Company::createFlight(std::string flightNr,
                               std::string cityDeparture,
                               std::string cityArrival) {
     return addList(flights, (Flight){this, flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival});
-}
+}  // TESTED
 
 bool Company::removeFlight(Flight& flight) {
     if (flight.pCompany != this)
@@ -145,9 +145,15 @@ bool Company::removeFlight(Flight& flight) {
 
     flight.pCompany = nullptr;
     return deleteList(flights, flight);
-}
+}  // TESTED
 
 bool Company::removeFlights() {
+    for (Flight& flight : flights) {
+        flight.removePlane();
+        flight.removePassengers();
+        flight.removeCrewMembers();
+    }
+
     flights.clear();
     return true;
-}
+}  // TESTED

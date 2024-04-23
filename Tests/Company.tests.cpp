@@ -197,4 +197,56 @@ TEST(company, crewMember) {
 }
 
 TEST(company, flight) {
+    Company* pCompany = new (Company){"Test1"};
+
+    Plane plane{pCompany, 1, "B737", 1, 1, 1};
+
+    CrewMember pilot{pCompany, PILOT, 1, "Vic", "Ay", 1, MALE};
+
+    CrewMember stewardess{pCompany, STEWARDESS, 4, "Ki", "Be", 1, FEMALE};
+
+    Passenger passenger{7, "Ew", "Ao", 1, MALE};
+    // createFlights
+    Flight& flight1 = pCompany->createFlight("RYR120", plane, 2, 5, "Warsaw", "Berlin");
+    Flight& flight2 = pCompany->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
+
+    EXPECT_EQ(pCompany->getFlights().size(), 2);
+
+    flight1.addCrewMember(stewardess);
+    flight1.addCrewMember(pilot);
+    flight1.addPassenger(passenger);
+
+    EXPECT_EQ(pCompany->getFlights().size(), 2);
+    EXPECT_EQ(flight1.getStewardesses().size(), 1);
+    EXPECT_EQ(flight1.getPilots().size(), 1);
+    EXPECT_EQ(flight1.getPassengers().size(), 1);
+    EXPECT_EQ(flight1.getPlane(), &plane);
+
+    EXPECT_EQ(stewardess.getFlights().size(), 1);
+    EXPECT_EQ(pilot.getFlights().size(), 1);
+    EXPECT_EQ(passenger.getFlights().size(), 1);
+    EXPECT_EQ(plane.getFlights().size(), 1);
+    // removeFlight
+    pCompany->removeFlight(flight1);
+
+    EXPECT_EQ(stewardess.getFlights().size(), 0);
+    EXPECT_EQ(pilot.getFlights().size(), 0);
+    EXPECT_EQ(passenger.getFlights().size(), 0);
+    EXPECT_EQ(plane.getFlights().size(), 0);
+    EXPECT_EQ(pCompany->getFlights().size(), 1);
+
+    flight1 = pCompany->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
+
+    EXPECT_EQ(pCompany->getFlights().size(), 2);
+
+    flight1.addCrewMember(stewardess);
+    flight2.addCrewMember(pilot);
+    // removeFlights
+    pCompany->removeFlights();
+
+    EXPECT_EQ(pCompany->getFlights().size(), 0);
+    EXPECT_EQ(stewardess.getFlights().size(), 0);
+    EXPECT_EQ(pilot.getFlights().size(), 0);
+
+    delete pCompany;
 }
