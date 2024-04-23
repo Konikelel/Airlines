@@ -6,44 +6,44 @@
 #include "ListHandler.hpp"
 #include "VectorHandler.hpp"
 
-Company::Company(std::string name) {
+Company::Company(std::string name) {  // TESTED
     setName(name);
 }
 
-Company::~Company() {
+Company::~Company() {  // TESTED
     removePlanes();
     removeCrewMembers();
     removeFlights();
 }
 
-std::string Company::getName() {
+std::string Company::getName() {  // TESTED
     return name;
 }
 
-void Company::setName(std::string name) {
+void Company::setName(std::string name) {  // TESTED
     if (!name.size())
         throw InvalidName("First name must contain any character");
 
     this->name = name;
 }
 
-std::list<Flight>& Company::getFlights() {
+std::list<Flight>& Company::getFlights() {  // TESTED
     return flights;
 }
 
-std::vector<std::reference_wrapper<Plane>>& Company::getPlanes() {
+std::vector<std::reference_wrapper<Plane>>& Company::getPlanes() {  // TESTED
     return planes;
 }
 
-std::vector<std::reference_wrapper<CrewMember>>& Company::getStewardesses() {
+std::vector<std::reference_wrapper<CrewMember>>& Company::getStewardesses() {  // TESTED
     return stewardesses;
 }
 
-std::vector<std::reference_wrapper<CrewMember>>& Company::getPilots() {
+std::vector<std::reference_wrapper<CrewMember>>& Company::getPilots() {  // TESTED
     return pilots;
 }
 
-void Company::addPlane(Plane& plane) {
+void Company::addPlane(Plane& plane) {  // TESTED
     Company*& pCompany = plane.getCompany();
 
     if (pCompany == this)
@@ -55,7 +55,7 @@ void Company::addPlane(Plane& plane) {
     addVector(planes, plane);
 }
 
-bool Company::removePlane(Plane& plane) {
+bool Company::removePlane(Plane& plane) {  // TESTED
     if (plane.pCompany != this)
         return false;
 

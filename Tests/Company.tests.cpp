@@ -56,8 +56,62 @@ TEST(company, setters) {
     delete pCompany;
 }
 
-TEST(company, plane) {}
+TEST(company, plane) {
+    Company* pCompany1 = new (Company){"Test1"};
+    Company* pCompany2 = new (Company){"Test2"};
 
-TEST(company, crewMember) {}
+    Flight& flight1 = pCompany1->createFlight("RYR123", 1, 2, "Warsaw", "Berlin");
+
+    Plane plane{101, "B737", 100, 3, 2};
+    // addPlane
+    //  SET COMPANY, PREVIOUS NULLPTR
+    EXPECT_EQ(plane.getCompany(), nullptr);
+    EXPECT_EQ(plane.getFlights().size(), 0);
+    EXPECT_EQ(pCompany1->getPlanes().size(), 0);
+    EXPECT_EQ(pCompany2->getPlanes().size(), 0);
+
+    pCompany1->addPlane(plane);
+
+    EXPECT_EQ(plane.getCompany(), pCompany1);
+    EXPECT_EQ(plane.getFlights().size(), 0);
+    EXPECT_TRUE(existVector(pCompany1->getPlanes(), plane));
+    // SET COMPANY, PREVIOUS COMPANY SAME
+    plane.addFlight(flight1);
+    EXPECT_EQ(plane.getCompany(), pCompany1);
+    EXPECT_EQ(plane.getFlights().size(), 1);
+
+    pCompany1->addPlane(plane);
+
+    EXPECT_EQ(plane.getCompany(), pCompany1);
+    EXPECT_EQ(plane.getFlights().size(), 1);
+    EXPECT_EQ(pCompany1->getPlanes().size(), 1);
+    EXPECT_TRUE(existVector(pCompany1->getPlanes(), plane));
+    // SET COMPANY, PREVIOUS COMPANY DIFFERENT
+    pCompany2->addPlane(plane);
+
+    EXPECT_EQ(plane.getCompany(), pCompany2);
+    EXPECT_EQ(plane.getFlights().size(), 0);
+    EXPECT_FALSE(existVector(pCompany1->getPlanes(), plane));
+    EXPECT_TRUE(existVector(pCompany2->getPlanes(), plane));
+    // removePlane
+    EXPECT_FALSE(pCompany1->removePlane(plane));
+
+    pCompany1->addPlane(plane);
+    plane.addFlight(flight1);
+
+    EXPECT_EQ(plane.getCompany(), pCompany1);
+    EXPECT_EQ(plane.getFlights().size(), 1);
+
+    EXPECT_TRUE(pCompany1->removePlane(plane));
+
+    EXPECT_EQ(plane.getCompany(), nullptr);
+    EXPECT_EQ(plane.getFlights().size(), 0);
+    EXPECT_FALSE(existVector(pCompany1->getPlanes(), plane));
+
+    delete pCompany1, pCompany2;
+}
+
+TEST(company, crewMember) {
+}
 
 TEST(company, flight) {}
