@@ -49,6 +49,10 @@ void CrewMember::setCompany(Company* pCompany) {  // TESTED
         this->pCompany->removeCrewMember(*this);
 }
 
+void CrewMember::removeCompany() {
+    pCompany = nullptr;
+}
+
 void CrewMember::addFlight(Flight& flight) {  // TESTED
     flight.addCrewMember(*this);
 }

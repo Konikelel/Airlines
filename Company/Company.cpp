@@ -90,12 +90,12 @@ void Company::addCrewMember(CrewMember& crewMember) {  // TESTED
 }
 
 bool Company::removeCrewMember(CrewMember& crewMember) {  // TESTED
-    if (crewMember.pCompany != this)
+    if (crewMember.getCompany() != this)
         return false;
 
     crewMember.removeFlights();
+    crewMember.removeCompany();
 
-    crewMember.pCompany = nullptr;
     return deleteVector(crewMember.getRole() ? stewardesses : pilots, crewMember);
 }
 
@@ -104,11 +104,11 @@ bool Company::removeCrewMembers() {  // TESTED
 
     for (CrewMember& stewardess : stewardesses) {
         success = stewardess.removeFlights() && success;
-        stewardess.pCompany = nullptr;
+        stewardess.removeCompany();
     }
     for (CrewMember& pilot : pilots) {
         success = pilot.removeFlights() && success;
-        pilot.pCompany = nullptr;
+        pilot.removeCompany();
     }
 
     stewardesses.clear();
