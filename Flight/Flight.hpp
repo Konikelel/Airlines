@@ -97,7 +97,6 @@ class Flight {
     std::set<std::reference_wrapper<CrewMember>> pilots;
 
     friend Company;
-    friend Plane;
     friend std::ostream& operator<<(std::ostream& os, Flight& flight);
 };
 

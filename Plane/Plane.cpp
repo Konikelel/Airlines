@@ -93,7 +93,7 @@ void Plane::setName(std::string name) {  // TESTED
 }
 
 void Plane::setCapacityPassengers(const unsigned int number) {  // TESTED
-    if (flights.size())
+    if (!flights.empty())
         throw CannotPerform("Cannot modify. Plane is in use");
     if (!number)
         throw InvalidNumber("Number of passengers cannot be 0");
@@ -102,7 +102,7 @@ void Plane::setCapacityPassengers(const unsigned int number) {  // TESTED
 }
 
 void Plane::setRequiredStewardesses(const unsigned int number) {  // TESTED
-    if (flights.size())
+    if (!flights.empty())
         throw CannotPerform("Cannot modify. Plane is in use");
     if (!number)
         throw InvalidNumber("Number of stewardess cannot be 0");
@@ -112,7 +112,7 @@ void Plane::setRequiredStewardesses(const unsigned int number) {  // TESTED
 }
 
 void Plane::setRequiredPilots(const unsigned int number) {  // TESTED
-    if (flights.size())
+    if (!flights.empty())
         throw CannotPerform("Cannot modify. Plane is in use");
     if (!number)
         throw InvalidNumber("Number of pilots cannot be 0");
