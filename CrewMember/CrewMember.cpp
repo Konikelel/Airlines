@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "CustomErrors.hpp"
+#include "SetHandler.hpp"
 #include "VectorHandler.hpp"
 
 CrewMember::CrewMember(Company* pCompany,
@@ -40,11 +41,20 @@ CrewRole CrewMember::getRole() const {  // TESTED
     return role;
 }
 
-void CrewMember::setCompany(Company* pCompany) {  // TESTED
+bool CrewMember::setCompany(Company* pCompany) {  // TESTED
+    if (pCompany == this->pCompany)
+        return false;
+
+    if (this->pCompany) {
+        removeFlights();
+        deleteSet(role ? this->pCompany->getStewardesses() : this->pCompany->getPilots(), *this);
+    }
+
     if (pCompany)
-        pCompany->addCrewMember(*this);
-    else if (this->pCompany)
-        this->pCompany->removeCrewMember(*this);
+        addSet(role ? pCompany->getStewardesses() : pCompany->getPilots(), *this);
+
+    this->pCompany = pCompany;
+    return true;
 }
 
 void CrewMember::addFlight(Flight& flight) {  // TESTED

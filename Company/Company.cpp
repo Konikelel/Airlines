@@ -44,25 +44,14 @@ std::set<std::reference_wrapper<CrewMember>>& Company::getPilots() {  // TESTED
 }
 
 void Company::addPlane(Plane& plane) {  // TESTED
-    Company* pCompany = plane.getCompany();
-
-    if (pCompany == this)
-        return;
-    if (pCompany)
-        pCompany->removePlane(plane);
-
-    plane.pCompany = this;
-    addSet(planes, plane);
+    plane.setCompany(this);
 }
 
 bool Company::removePlane(Plane& plane) {  // TESTED
-    if (plane.pCompany != this)
+    if (plane.getCompany() != this)
         return false;
 
-    plane.removeFlights();
-
-    plane.pCompany = nullptr;
-    return deleteSet(planes, plane);
+    return plane.setCompany(nullptr);
 }
 
 bool Company::removePlanes() {  // TESTED
@@ -75,25 +64,14 @@ bool Company::removePlanes() {  // TESTED
 }
 
 void Company::addCrewMember(CrewMember& crewMember) {  // TESTED
-    Company* pCompany = crewMember.getCompany();
-
-    if (pCompany == this)
-        return;
-    if (pCompany)
-        pCompany->removeCrewMember(crewMember);
-
-    crewMember.pCompany = this;
-    addSet(crewMember.getRole() ? stewardesses : pilots, crewMember);
+    crewMember.setCompany(this);
 }
 
 bool Company::removeCrewMember(CrewMember& crewMember) {  // TESTED
-    if (crewMember.pCompany != this)
+    if (crewMember.getCompany() != this)
         return false;
 
-    crewMember.removeFlights();
-
-    crewMember.pCompany = nullptr;
-    return deleteSet(crewMember.getRole() ? stewardesses : pilots, crewMember);
+    return crewMember.setCompany(nullptr);
 }
 
 bool Company::removeCrewMembers() {  // TESTED

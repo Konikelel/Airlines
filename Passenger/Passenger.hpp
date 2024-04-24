@@ -30,11 +30,10 @@ class Passenger : public Person {
 
     friend bool operator==(const std::reference_wrapper<Passenger>& one, const Passenger& other);
     friend bool operator<(const std::reference_wrapper<Passenger>& one, const std::reference_wrapper<Passenger>& other);
+    friend std::ostream& operator<<(std::ostream& os, Passenger& passenger);
 
    private:
     std::set<std::reference_wrapper<Flight>> flights;
-
-    friend std::ostream& operator<<(std::ostream& os, Passenger& passenger);
 };
 
 #endif

@@ -33,7 +33,7 @@ class CrewMember : public Person {
     std::set<std::reference_wrapper<Flight>>& getFlights();
 
     // INVOKE FUNCTION FROM COMPANY TO ADD CREW MEMBER
-    void setCompany(Company* pCompany);
+    bool setCompany(Company* pCompany);
 
     // INVOKE FUNCTION FROM FLIGHT TO ADD CREW MEMBER
     void addFlight(Flight& flight);
@@ -45,15 +45,13 @@ class CrewMember : public Person {
 
     friend bool operator==(const std::reference_wrapper<CrewMember>& one, const CrewMember& other);
     friend bool operator<(const std::reference_wrapper<CrewMember>& one, const std::reference_wrapper<CrewMember>& other);
+    friend std::ostream& operator<<(std::ostream& os, CrewMember& crewMember);
 
    private:
     Company* pCompany;
     std::set<std::reference_wrapper<Flight>> flights;
 
     CrewRole role;
-
-    friend Company;
-    friend std::ostream& operator<<(std::ostream& os, CrewMember& crewMember);
 };
 
 #endif

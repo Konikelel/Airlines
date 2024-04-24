@@ -61,8 +61,10 @@ class Flight {
     bool timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) const;
 
     bool operator==(const Flight& other) const;
+
     friend bool operator==(const std::reference_wrapper<Flight>& one, const Flight& other);
     friend bool operator<(const std::reference_wrapper<Flight>& one, const std::reference_wrapper<Flight>& other);
+    friend std::ostream& operator<<(std::ostream& os, Flight& flight);
 
    private:
     Flight(
@@ -97,7 +99,6 @@ class Flight {
     std::set<std::reference_wrapper<CrewMember>> pilots;
 
     friend Company;
-    friend std::ostream& operator<<(std::ostream& os, Flight& flight);
 };
 
 #endif

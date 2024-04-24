@@ -52,14 +52,14 @@ class Company {
     bool removeFlight(Flight& flight);
     bool removeFlights();
 
+    friend std::ostream& operator<<(std::ostream& os, Company& company);
+
    private:
     std::string name;
     std::list<Flight> flights;
     std::set<std::reference_wrapper<Plane>> planes;
     std::set<std::reference_wrapper<CrewMember>> stewardesses;
     std::set<std::reference_wrapper<CrewMember>> pilots;
-
-    friend std::ostream& operator<<(std::ostream& os, Company& company);
 };
 
 #endif

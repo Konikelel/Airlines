@@ -37,7 +37,7 @@ class Plane {
     unsigned int getCapacityPilots() const;
     std::set<std::reference_wrapper<Flight>>& getFlights();
 
-    void setCompany(Company* pCompany);
+    bool setCompany(Company* pCompany);
     void setName(const std::string name);
 
     void setCapacityPassengers(const unsigned int number);
@@ -63,6 +63,7 @@ class Plane {
 
     friend bool operator==(const std::reference_wrapper<Plane>& one, const Plane& other);
     friend bool operator<(const std::reference_wrapper<Plane>& one, const std::reference_wrapper<Plane>& other);
+    friend std::ostream& operator<<(std::ostream& os, Plane& plane);
 
    private:
     void setId();
@@ -79,9 +80,6 @@ class Plane {
 
     unsigned int capacityStewardesses;
     unsigned int capacityPilots;
-
-    friend Company;
-    friend std::ostream& operator<<(std::ostream& os, Plane& plane);
 };
 
 #endif

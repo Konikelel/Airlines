@@ -4,6 +4,7 @@
 
 #include "CustomErrors.hpp"
 #include "IdGenerator.hpp"
+#include "SetHandler.hpp"
 #include "VectorHandler.hpp"
 
 std::vector<unsigned int> Plane::usedIds;
@@ -73,11 +74,20 @@ unsigned int Plane::getCapacityPilots() const {  // TESTED
     return capacityPilots;
 }
 
-void Plane::setCompany(Company* pCompany) {
+bool Plane::setCompany(Company* pCompany) {
+    if (pCompany == this->pCompany)
+        return false;
+
+    if (this->pCompany) {
+        removeFlights();
+        deleteSet(this->pCompany->getPlanes(), *this);
+    }
+
     if (pCompany)
-        pCompany->addPlane(*this);
-    else if (this->pCompany)
-        this->pCompany->removePlane(*this);
+        addSet(pCompany->getPlanes(), *this);
+
+    this->pCompany = pCompany;
+    return true;
 }
 
 void Plane::setId() {  // TESTED
