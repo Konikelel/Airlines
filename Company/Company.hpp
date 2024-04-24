@@ -22,7 +22,7 @@ class Company {
     std::set<std::reference_wrapper<CrewMember>>& getStewardesses();
     std::set<std::reference_wrapper<CrewMember>>& getPilots();
 
-    void setName(std::string name);
+    void setName(const std::string name);
     // ADD PLANE TO COMPANY AND SET PLANE'S COMPANY
     void addPlane(Plane& plane);
     // REMOVE PLANE FROM COMPANY AND REMOVES PLANE'S COMPANY

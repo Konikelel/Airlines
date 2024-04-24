@@ -45,7 +45,7 @@ std::string Plane::getName() const {  // TESTED
     return name;
 }
 
-Company*& Plane::getCompany() {  // TESTED
+Company* Plane::getCompany() const {  // TESTED
     return pCompany;
 }
 

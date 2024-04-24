@@ -38,7 +38,7 @@ Flight::~Flight() {
     deleteVector(usedIds, id);
 }
 
-Company* Flight::getCompany() {  // TESTED
+Company* Flight::getCompany() const {  // TESTED
     return pCompany;
 }
 

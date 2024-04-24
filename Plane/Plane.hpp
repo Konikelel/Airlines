@@ -29,13 +29,13 @@ class Plane {
 
     unsigned int getId() const;
     std::string getName() const;
-    Company*& getCompany();
-    std::set<std::reference_wrapper<Flight>>& getFlights();
+    Company* getCompany() const;
     unsigned int getCapacityPassengers() const;
     unsigned int getRequiredStewardesses() const;
     unsigned int getCapacityStewardesses() const;
     unsigned int getRequiredPilots() const;
     unsigned int getCapacityPilots() const;
+    std::set<std::reference_wrapper<Flight>>& getFlights();
 
     void setCompany(Company* pCompany);
     void setName(const std::string name);

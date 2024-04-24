@@ -20,7 +20,7 @@ std::string Company::getName() const {  // TESTED
     return name;
 }
 
-void Company::setName(std::string name) {  // TESTED
+void Company::setName(const std::string name) {  // TESTED
     if (!name.size())
         throw InvalidName("First name must contain any character");
 
@@ -44,7 +44,7 @@ std::set<std::reference_wrapper<CrewMember>>& Company::getPilots() {  // TESTED
 }
 
 void Company::addPlane(Plane& plane) {  // TESTED
-    Company*& pCompany = plane.getCompany();
+    Company* pCompany = plane.getCompany();
 
     if (pCompany == this)
         return;
@@ -75,7 +75,7 @@ bool Company::removePlanes() {  // TESTED
 }
 
 void Company::addCrewMember(CrewMember& crewMember) {  // TESTED
-    Company*& pCompany = crewMember.getCompany();
+    Company* pCompany = crewMember.getCompany();
 
     if (pCompany == this)
         return;

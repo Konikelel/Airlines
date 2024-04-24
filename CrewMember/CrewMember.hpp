@@ -28,9 +28,9 @@ class CrewMember : public Person {
 
     ~CrewMember();
 
-    Company*& getCompany();
-    std::set<std::reference_wrapper<Flight>>& getFlights();
     CrewRole getRole() const;
+    Company* getCompany() const;
+    std::set<std::reference_wrapper<Flight>>& getFlights();
 
     // INVOKE FUNCTION FROM COMPANY TO ADD CREW MEMBER
     void setCompany(Company* pCompany);

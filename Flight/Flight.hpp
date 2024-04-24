@@ -19,7 +19,7 @@ class Flight {
 
     static std::vector<unsigned int> usedIds;
 
-    Company* getCompany();
+    Company* getCompany() const;
     std::string getFlightNr() const;
     FlightStatus getStatus() const;
     Plane* getPlane() const;

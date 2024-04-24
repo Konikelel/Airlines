@@ -39,10 +39,4 @@ bool deleteSet(std::set<std::reference_wrapper<T>>& set, const T& target) {
     return true;
 }
 
-// COMPARISON OPERATOR
-template <typename T>
-bool operator<(const std::reference_wrapper<T>& one, const std::reference_wrapper<T>& other) {
-    return one.get().getId() < other.get().getId();
-}
-
 #endif

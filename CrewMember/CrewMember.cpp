@@ -28,7 +28,7 @@ CrewMember::~CrewMember() {
         pCompany->removeCrewMember(*this);
 }
 
-Company*& CrewMember::getCompany() {  // TESTED
+Company* CrewMember::getCompany() const {  // TESTED
     return pCompany;
 }
 
