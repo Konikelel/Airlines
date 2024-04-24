@@ -169,9 +169,8 @@ bool Flight::removePassenger(Passenger& passenger) {  // TESTED
 bool Flight::removePassengers() {  // TESTED
     bool success = true;
 
-    for (Passenger& passenger : passengers)
-        success = deleteSet(passenger.getFlights(), *this) && success;
-    passengers.clear();
+    for (auto it = passengers.begin(); it != passengers.end();)
+        success = removePassenger(*(it++)) && success;
 
     return success;
 }
