@@ -2,21 +2,17 @@
 
 #include <iostream>
 
-#include "CustomErrors.hpp"
-#include "VectorHandler.hpp"
-
-Passenger::Passenger(unsigned int id,
-                     std::string nameFirst,
+Passenger::Passenger(std::string nameFirst,
                      std::string nameSecond,
                      unsigned int timeBirthday,
-                     Gender gender) : Person(id, nameFirst, nameSecond, timeBirthday, gender) {
+                     Gender gender) : Person(nameFirst, nameSecond, timeBirthday, gender) {
 }
 
 Passenger::~Passenger() {  // TESTED
     removeFlights();
 }
 
-std::vector<std::reference_wrapper<Flight>>& Passenger::getFlights() {  // TESTED
+std::set<std::reference_wrapper<Flight>>& Passenger::getFlights() {  // TESTED
     return flights;
 }
 
@@ -31,11 +27,18 @@ bool Passenger::removeFlight(Flight& flight) {  // TESTED
 bool Passenger::removeFlights() {  // TESTED
     bool success = true;
 
-    for (Flight& flight : flights)
-        success = deleteVector(flight.getPassengers(), *this) && success;
+    for (auto it = flights.begin(); it != flights.end();)
+        success = removeFlight(*(it++)) && success;
 
-    flights.clear();
     return success;
+}
+
+bool operator==(const std::reference_wrapper<Passenger>& one, const Passenger& other) {
+    return one.get().getId() == other.getId();
+}
+
+bool operator<(const std::reference_wrapper<Passenger>& one, const std::reference_wrapper<Passenger>& other) {
+    return one.get().getId() < other.get().getId();
 }
 
 std::ostream& operator<<(std::ostream& os, Passenger& passenger) {

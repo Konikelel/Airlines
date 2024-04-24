@@ -6,9 +6,7 @@
 #include "VectorHandler.hpp"
 
 TEST(person, constructor) {
-    Person person{1, "Victor", "Alb", 2, MALE};
-    // getId
-    EXPECT_EQ(person.getId(), 1);
+    Person person{"Victor", "Alb", 2, MALE};
     // getNameFirst
     EXPECT_EQ(person.getNameFirst(), "Victor");
     // getNameSecond
@@ -20,20 +18,12 @@ TEST(person, constructor) {
 }
 
 TEST(person, destructor) {
-    Person person{2, "Victor", "Alb", 1, MALE};
-
-    EXPECT_NO_THROW(person.changeId(1));
+    Person person{"Victor", "Alb", 1, MALE};
 }
 
 TEST(person, setters) {
-    Person person1{1, "Victor", "Alb", 1, MALE};
-    Person person2{2, "Jacob", "Web", 2, MALE};
-    // changeId
-    person2.changeId(3);
-    EXPECT_EQ(person2.getId(), 3);
-    EXPECT_EQ(person2.usedIds.size(), 2);
-
-    EXPECT_THROW(person2.changeId(1), NonUniqueIDException);
+    Person person1{"Victor", "Alb", 1, MALE};
+    Person person2{"Jacob", "Web", 2, MALE};
     // setNameFirst
     person1.setNameFirst("jacob");
     EXPECT_EQ(person1.getNameFirst(), "Jacob");

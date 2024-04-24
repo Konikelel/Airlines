@@ -11,7 +11,6 @@ class Person {
     static std::vector<unsigned int> usedIds;
 
     Person(
-        unsigned int id,
         std::string nameFirst,
         std::string nameSecond,
         unsigned int timeBirthday,
@@ -25,14 +24,13 @@ class Person {
     unsigned int getTimeBirthday() const;
     Gender getGender() const;
 
-    void changeId(const unsigned int id);
     void setNameFirst(const std::string name);
     void setNameSecond(const std::string name);
 
     void setTimeBirthday(const unsigned int time);
 
    private:
-    void setId(const unsigned int id);
+    void setId();
 
     unsigned int id;
     std::string nameFirst;

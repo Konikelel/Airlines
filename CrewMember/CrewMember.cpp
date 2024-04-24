@@ -7,20 +7,18 @@
 
 CrewMember::CrewMember(Company* pCompany,
                        CrewRole role,
-                       unsigned int id,
                        std::string nameFirst,
                        std::string nameSecond,
                        unsigned int timeBirthday,
-                       Gender gender) : CrewMember(role, id, nameFirst, nameSecond, timeBirthday, gender) {
+                       Gender gender) : CrewMember(role, nameFirst, nameSecond, timeBirthday, gender) {
     setCompany(pCompany);
 }
 
 CrewMember::CrewMember(CrewRole role,
-                       unsigned int id,
                        std::string nameFirst,
                        std::string nameSecond,
                        unsigned int timeBirthday,
-                       Gender gender) : Person(id, nameFirst, nameSecond, timeBirthday, gender),
+                       Gender gender) : Person(nameFirst, nameSecond, timeBirthday, gender),
                                         pCompany{nullptr},
                                         role{role} {
 }
@@ -34,7 +32,7 @@ Company*& CrewMember::getCompany() {  // TESTED
     return pCompany;
 }
 
-std::vector<std::reference_wrapper<Flight>>& CrewMember::getFlights() {  // TESTED
+std::set<std::reference_wrapper<Flight>>& CrewMember::getFlights() {  // TESTED
     return flights;
 }
 
@@ -60,13 +58,18 @@ bool CrewMember::removeFlight(Flight& flight) {  // TESTED
 bool CrewMember::removeFlights() {  // TESTED
     bool success = true;
 
-    for (Flight& flight : flights) {
-        success = deleteVector(role ? flight.getStewardesses() : flight.getPilots(), *this) && success;
-        flight.setStatus();
-    }
+    for (auto it = flights.begin(); it != flights.end();)
+        success = removeFlight(*(it++)) && success;
 
-    flights.clear();
     return success;
+}
+
+bool operator==(const std::reference_wrapper<CrewMember>& one, const CrewMember& other) {
+    return one.get().getId() == other.getId();
+}
+
+bool operator<(const std::reference_wrapper<CrewMember>& one, const std::reference_wrapper<CrewMember>& other) {
+    return one.get().getId() < other.get().getId();
 }
 
 std::ostream& operator<<(std::ostream& os, CrewMember& crewMember) {

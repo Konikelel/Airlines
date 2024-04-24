@@ -14,7 +14,8 @@ add_subdirectory(Utils)
 enable_testing()
 add_subdirectory(Tests)
 
-add_executable(${PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
-target_link_libraries(Airlines PUBLIC Company CrewMember Flight Passenger Person Plane Utils)
 
+add_executable(${PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
+
+target_link_libraries(Airlines PUBLIC Company CrewMember Flight Passenger Person Plane Utils)
 target_compile_options(${PROJECT_NAME} PRIVATE -Wextra -Wall -pedantic)

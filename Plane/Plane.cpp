@@ -3,25 +3,24 @@
 #include <iostream>
 
 #include "CustomErrors.hpp"
+#include "IdGenerator.hpp"
 #include "VectorHandler.hpp"
 
 std::vector<unsigned int> Plane::usedIds;
 
 Plane::Plane(Company* pCompany,
-             unsigned int id,
              std::string name,
              unsigned int capacityPassengers,
              unsigned int requiredStewardess,
-             unsigned int requiredPilots) : Plane(id, name, capacityPassengers, requiredStewardess, requiredPilots) {
+             unsigned int requiredPilots) : Plane(name, capacityPassengers, requiredStewardess, requiredPilots) {
     setCompany(pCompany);
 }
 
-Plane::Plane(unsigned int id,
-             std::string name,
+Plane::Plane(std::string name,
              unsigned int capacityPassengers,
              unsigned int requiredStewardess,
              unsigned int requiredPilots) : pCompany{nullptr} {
-    setId(id);
+    setId();
     setName(name);
     setCapacityPassengers(capacityPassengers);
     setRequiredStewardesses(requiredStewardess);
@@ -50,7 +49,7 @@ Company*& Plane::getCompany() {  // TESTED
     return pCompany;
 }
 
-std::vector<std::reference_wrapper<Flight>>& Plane::getFlights() {  // TESTED
+std::set<std::reference_wrapper<Flight>>& Plane::getFlights() {  // TESTED
     return flights;
 }
 
@@ -81,18 +80,9 @@ void Plane::setCompany(Company* pCompany) {
         this->pCompany->removePlane(*this);
 }
 
-void Plane::changeId(const unsigned int id) {  // TESTED
-    unsigned int oldId = this->id;
-    setId(id);
-    deleteVector(usedIds, oldId);
-}
-
-void Plane::setId(const unsigned int id) {  // TESTED
-    if (existVector(usedIds, id))
-        throw NonUniqueIDException();
-
+void Plane::setId() {  // TESTED
+    id = generateId();
     addVector(usedIds, id);
-    this->id = id;
 }
 
 void Plane::setName(std::string name) {  // TESTED
@@ -164,14 +154,21 @@ bool Plane::removeFlight(Flight& flight) {  // TESTED
 }
 
 bool Plane::removeFlights() {  // TESTED
-    for (Flight& flight : flights) {
-        flight.pPlane = nullptr;
-        flight.setStatus();
-    }
+    bool success = true;
 
-    flights.clear();
+    for (auto it = flights.begin(); it != flights.end();)
+        success = removeFlight(*(it++)) && success;
+
     return true;
 }
+
+bool operator==(const std::reference_wrapper<Plane>& one, const Plane& other) {
+    return one.get().id == other.id;
+}
+
+bool operator<(const std::reference_wrapper<Plane>& one, const std::reference_wrapper<Plane>& other) {
+    return one.get().id < other.get().id;
+};
 
 std::ostream& operator<<(std::ostream& os, Plane& plane) {
     os << "Id: " << plane.getId() << " "

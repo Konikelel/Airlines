@@ -6,7 +6,8 @@ add_library(
     StringHandler.hpp
     VectorHandler.hpp
     ListHandler.hpp
-    Comparisons.cpp
+    IdGenerator.cpp
+    IdGenerator.hpp
 )
 
 target_include_directories(Utils INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}")

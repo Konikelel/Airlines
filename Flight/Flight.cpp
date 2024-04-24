@@ -6,11 +6,15 @@
 #include "Company.hpp"
 #include "CrewMember.hpp"
 #include "CustomErrors.hpp"
+#include "IdGenerator.hpp"
 #include "ListHandler.hpp"
 #include "Passenger.hpp"
 #include "Plane.hpp"
+#include "SetHandler.hpp"
 #include "StringHandler.hpp"
 #include "VectorHandler.hpp"
+
+std::vector<unsigned int> Flight::usedIds;
 
 Flight::Flight(Company* pCompany,
                std::string flightNr,
@@ -20,8 +24,18 @@ Flight::Flight(Company* pCompany,
                std::string cityArrival) : pCompany{pCompany},
                                           pPlane{nullptr},
                                           status{INCOMPLETE} {
+    setId();
     setFlightNr(flightNr);
     setDataTime(timeDeparture, cityDeparture, timeArrival, cityArrival);
+}
+
+void Flight::setId() {
+    id = generateId();
+    addVector(usedIds, id);
+}
+
+Flight::~Flight() {
+    deleteVector(usedIds, id);
 }
 
 Company* Flight::getCompany() {  // TESTED
@@ -56,15 +70,15 @@ std::string Flight::getCityArrival() const {  // TESTED
     return cityArrival;
 }
 
-std::vector<std::reference_wrapper<Passenger>>& Flight::getPassengers() {  // TESTED
+std::set<std::reference_wrapper<Passenger>>& Flight::getPassengers() {  // TESTED
     return passengers;
 }
 
-std::vector<std::reference_wrapper<CrewMember>>& Flight::getStewardesses() {  // TESTED
+std::set<std::reference_wrapper<CrewMember>>& Flight::getStewardesses() {  // TESTED
     return stewardesses;
 }
 
-std::vector<std::reference_wrapper<CrewMember>>& Flight::getPilots() {  // TESTED
+std::set<std::reference_wrapper<CrewMember>>& Flight::getPilots() {  // TESTED
     return pilots;
 }
 
@@ -103,7 +117,7 @@ bool Flight::removePlane() {  // TESTED
     bool success = false;
 
     if (pPlane)
-        success = deleteVector(pPlane->getFlights(), *this);
+        success = deleteSet(pPlane->getFlights(), *this);
 
     status = INCOMPLETE;
     pPlane = nullptr;
@@ -137,26 +151,26 @@ void Flight::changeDataArrival(const unsigned int time, const std::string city) 
 void Flight::addPassenger(Passenger& passenger) {  // TESTED
     if (pPlane && !pPlane->inRangePassengers(passengers.size() + 1))
         throw MaximumCapacity("Maximum capacity for passengers reached");
-    if (existVector(passengers, passenger))
+    if (existSet(passengers, passenger))
         throw DuplicationError("Passenger is already on the flight");
 
     for (Flight& flight : passenger.getFlights())
         if (timeOverlap(flight))
             throw TimeOverlap("Passenger is on other flight. Cannot add flight");
 
-    addVector(passengers, passenger);
-    addVector(passenger.getFlights(), *this);
+    addSet(passengers, passenger);
+    addSet(passenger.getFlights(), *this);
 }
 
 bool Flight::removePassenger(Passenger& passenger) {  // TESTED
-    return deleteVector(passengers, passenger) && deleteVector(passenger.getFlights(), *this);
+    return deleteSet(passengers, passenger) && deleteSet(passenger.getFlights(), *this);
 }
 
 bool Flight::removePassengers() {  // TESTED
     bool success = true;
 
     for (Passenger& passenger : passengers)
-        success = deleteVector(passenger.getFlights(), *this) && success;
+        success = deleteSet(passenger.getFlights(), *this) && success;
     passengers.clear();
 
     return success;
@@ -171,22 +185,22 @@ void Flight::addCrewMember(CrewMember& crewMember) {  // TESTED
     if (pPlane && (role ? pPlane->maximumStewardesses(stewardesses.size() + 1) : pPlane->maximumPilots(pilots.size() + 1)))
         throw MaximumCapacity("Maximum capacity for crewMember reached");
 
-    if (existVector(role ? stewardesses : pilots, crewMember))
+    if (existSet(role ? stewardesses : pilots, crewMember))
         throw DuplicationError("CrewMember is already on the flight");
 
     for (Flight& flight : crewMember.getFlights())
         if (timeOverlap(flight))
             throw TimeOverlap("CrewMember is on other flight. Cannot add flight");
 
-    addVector(role ? stewardesses : pilots, crewMember);
-    addVector(crewMember.getFlights(), *this);
+    addSet(role ? stewardesses : pilots, crewMember);
+    addSet(crewMember.getFlights(), *this);
     setStatus();
 }
 
 bool Flight::removeCrewMember(CrewMember& crewMember) {  // TESTED
     CrewRole role = crewMember.getRole();
 
-    bool success = deleteVector(role ? stewardesses : pilots, crewMember) && deleteVector(crewMember.getFlights(), *this);
+    bool success = deleteSet(role ? stewardesses : pilots, crewMember) && deleteSet(crewMember.getFlights(), *this);
     setStatus();
     return success;
 }
@@ -196,9 +210,9 @@ bool Flight::removeCrewMembers() {  // TESTED
     status = INCOMPLETE;
 
     for (CrewMember& crewMember : stewardesses)
-        success = deleteVector(crewMember.getFlights(), *this) && success;
+        success = deleteSet(crewMember.getFlights(), *this) && success;
     for (CrewMember& crewMember : pilots)
-        success = deleteVector(crewMember.getFlights(), *this) && success;
+        success = deleteSet(crewMember.getFlights(), *this) && success;
 
     stewardesses.clear();
     pilots.clear();
@@ -213,6 +227,10 @@ bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEn
     return !(timeDeparture > timeEnd || timeArrival < timeStart);
 }
 
+bool Flight::operator==(const Flight& other) const {
+    return this->flightNr == other.flightNr && this->timeDeparture == other.timeDeparture && this->timeArrival == other.timeArrival;
+}
+
 void Flight::setStatus() {  // TESTED
     status = (pPlane && pPlane->inRangeCrew(stewardesses.size(), pilots.size())) ? AS_PLANNED : INCOMPLETE;
 }
@@ -223,7 +241,7 @@ void Flight::setupPlane(Plane& plane) {  // TESTED
         throw InvalidPlane("Plane must be from the same company");
 
     this->pPlane = &plane;
-    addVector(plane.getFlights(), *this);
+    addSet(plane.getFlights(), *this);
     setStatus();
 }
 
@@ -246,6 +264,14 @@ void Flight::setDataTime(const unsigned int timeDeparture, const std::string cit
 
     this->cityDeparture = cityDeparture;
     this->cityArrival = cityArrival;
+}
+
+bool operator==(const std::reference_wrapper<Flight>& one, const Flight& other) {
+    return one.get().id == other.id;
+}
+
+bool operator<(const std::reference_wrapper<Flight>& one, const std::reference_wrapper<Flight>& other) {
+    return one.get().id < other.get().id;
 }
 
 std::ostream& operator<<(std::ostream& os, Flight& flight) {

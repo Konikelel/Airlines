@@ -1,6 +1,6 @@
 #include <functional>
+#include <set>
 #include <string>
-#include <vector>
 
 #ifndef PASSENGER_H
 #define PASSENGER_H
@@ -11,7 +11,6 @@
 class Passenger : public Person {
    public:
     Passenger(
-        unsigned int id,
         std::string nameFirst,
         std::string nameSecond,
         unsigned int timeBirthday,
@@ -19,7 +18,7 @@ class Passenger : public Person {
 
     ~Passenger();
 
-    std::vector<std::reference_wrapper<Flight>>& getFlights();
+    std::set<std::reference_wrapper<Flight>>& getFlights();
 
     // INVOKE FUNCTION FROM FLIGHT TO ADD PASSENGER
     void addFlight(Flight& flight);
@@ -29,8 +28,11 @@ class Passenger : public Person {
     // INVOKE FOR ALL FLIGHTS FUNCTION removeFlight
     bool removeFlights();
 
+    friend bool operator==(const std::reference_wrapper<Passenger>& one, const Passenger& other);
+    friend bool operator<(const std::reference_wrapper<Passenger>& one, const std::reference_wrapper<Passenger>& other);
+
    private:
-    std::vector<std::reference_wrapper<Flight>> flights;
+    std::set<std::reference_wrapper<Flight>> flights;
 
     friend std::ostream& operator<<(std::ostream& os, Passenger& passenger);
 };

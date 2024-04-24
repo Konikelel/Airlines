@@ -1,17 +1,17 @@
 #include "Person.hpp"
 
 #include "CustomErrors.hpp"
+#include "IdGenerator.hpp"
 #include "StringHandler.hpp"
 #include "VectorHandler.hpp"
 
 std::vector<unsigned int> Person::usedIds;
 
-Person::Person(unsigned int id,
-               std::string nameFirst,
+Person::Person(std::string nameFirst,
                std::string nameSecond,
                unsigned int timeBirthday,
                Gender gender) : gender{gender} {
-    setId(id);
+    setId();
     setNameFirst(nameFirst);
     setNameSecond(nameSecond);
     setTimeBirthday(timeBirthday);
@@ -41,18 +41,9 @@ Gender Person::getGender() const {  // TESTED
     return gender;
 }
 
-void Person::changeId(const unsigned int id) {  // TESTED
-    unsigned int oldId = this->id;
-    setId(id);
-    deleteVector(usedIds, oldId);
-}
-
-void Person::setId(const unsigned int id) {  // TESTED
-    if (existVector(usedIds, id))
-        throw NonUniqueIDException();
-
+void Person::setId() {  // TESTED
+    id = generateId();
     addVector(usedIds, id);
-    this->id = id;
 }
 
 void Person::setNameFirst(std::string name) {  // TESTED

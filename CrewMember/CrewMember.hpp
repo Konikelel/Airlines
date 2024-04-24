@@ -1,5 +1,6 @@
 #include <functional>
-#include <vector>
+#include <set>
+
 #ifndef CREW_MEMBER_H
 #define CREW_MEMBER_H
 
@@ -13,7 +14,6 @@ class CrewMember : public Person {
     CrewMember(
         Company* pCompany,
         CrewRole role,
-        unsigned int id,
         std::string nameFirst,
         std::string nameSecond,
         unsigned int timeBirthday,
@@ -21,7 +21,6 @@ class CrewMember : public Person {
 
     CrewMember(
         CrewRole role,
-        unsigned int id,
         std::string nameFirst,
         std::string nameSecond,
         unsigned int timeBirthday,
@@ -30,7 +29,7 @@ class CrewMember : public Person {
     ~CrewMember();
 
     Company*& getCompany();
-    std::vector<std::reference_wrapper<Flight>>& getFlights();
+    std::set<std::reference_wrapper<Flight>>& getFlights();
     CrewRole getRole() const;
 
     // INVOKE FUNCTION FROM COMPANY TO ADD CREW MEMBER
@@ -44,9 +43,12 @@ class CrewMember : public Person {
     // INVOKE FOR ALL FLIGHTS FUNCTION removeFlight
     bool removeFlights();
 
+    friend bool operator==(const std::reference_wrapper<CrewMember>& one, const CrewMember& other);
+    friend bool operator<(const std::reference_wrapper<CrewMember>& one, const std::reference_wrapper<CrewMember>& other);
+
    private:
     Company* pCompany;
-    std::vector<std::reference_wrapper<Flight>> flights;
+    std::set<std::reference_wrapper<Flight>> flights;
 
     CrewRole role;
 

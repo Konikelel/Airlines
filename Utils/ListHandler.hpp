@@ -16,13 +16,18 @@ T& addList(std::list<T>& list, const T& target) {
 }
 // RETURN ITERATOR OF FOUND ELEMENT OR VEC.END()
 template <typename T>
+typename std::list<T>::const_iterator findList(const std::list<T>& list, const T& target) {
+    return std::find(list.begin(), list.end(), target);
+}
+
+template <typename T>
 typename std::list<T>::iterator findList(std::list<T>& list, const T& target) {
     return std::find(list.begin(), list.end(), target);
 }
 
 // RETURN BOOL IF ELEMENT EXIST IN VECTOR
 template <typename T>
-bool existList(std::list<T>& list, const T& target) {
+bool existList(const std::list<T>& list, const T& target) {
     return findList<T>(list, target) != list.end();
 }
 
@@ -37,12 +42,5 @@ bool deleteList(std::list<T>& list, const T& target) {
     list.erase(targetElement);
     return true;
 }
-
-// COMPARISON OPERATOR
-bool operator==(const Person& one, const Person& other);
-
-bool operator==(const Flight& one, const Flight& other);
-
-bool operator==(const Plane& one, const Plane& other);
 
 #endif

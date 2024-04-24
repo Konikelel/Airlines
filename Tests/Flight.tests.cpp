@@ -10,6 +10,7 @@
 #include "ListHandler.hpp"
 #include "Passenger.hpp"
 #include "Plane.hpp"
+#include "SetHandler.hpp"
 #include "VectorHandler.hpp"
 
 TEST(flight, constructor) {
@@ -17,7 +18,7 @@ TEST(flight, constructor) {
 
     Flight& flight1 = pCompany->createFlight("RYR120", 1, 2, "Warsaw", "Berlin");
 
-    Plane plane{pCompany, 101, "B737", 100, 4, 2};
+    Plane plane{pCompany, "B737", 100, 4, 2};
     Flight& flight2 = pCompany->createFlight("RYR102", plane, 1, 2, "Poznan", "Krakow");
     // getCompany
     EXPECT_EQ(flight1.getCompany(), pCompany);
@@ -80,7 +81,7 @@ TEST(flight, settersTime) {
     EXPECT_THROW(flight.changeDataArrival(0), InvalidTime);
     EXPECT_THROW(flight.changeDataArrival(3, ""), InvalidName);
     // setDataTime
-    Passenger passenger{1, "Victor", "Alb", 1, MALE};
+    Passenger passenger{"Victor", "Alb", 1, MALE};
     flight.addPassenger(passenger);
 
     EXPECT_THROW(flight.changeDataDeparture(1), CannotPerform);
@@ -139,20 +140,20 @@ TEST(flight, plane) {
     Company* pCompany1 = new (Company){"Test1"};
     Company* pCompany2 = new (Company){"Test1"};
 
-    Plane plane1{pCompany1, 1, "B737", 1, 1, 1};
-    Plane plane2{pCompany1, 2, "B738", 1, 1, 1};
-    Plane plane3{pCompany2, 3, "B738", 1, 1, 1};
+    Plane plane1{pCompany1, "B737", 1, 1, 1};
+    Plane plane2{pCompany1, "B738", 1, 1, 1};
+    Plane plane3{pCompany2, "B738", 1, 1, 1};
 
-    CrewMember pilot1{pCompany1, PILOT, 1, "Vic", "Ay", 1, MALE};
-    CrewMember pilot2{pCompany1, PILOT, 2, "Val", "Ro", 1, MALE};
-    CrewMember pilot3{pCompany1, PILOT, 3, "Val", "Ro", 1, MALE};
+    CrewMember pilot1{pCompany1, PILOT, "Vic", "Ay", 1, MALE};
+    CrewMember pilot2{pCompany1, PILOT, "Val", "Ro", 1, MALE};
+    CrewMember pilot3{pCompany1, PILOT, "Val", "Ro", 1, MALE};
 
-    CrewMember stewardess1{pCompany1, STEWARDESS, 4, "Ki", "Be", 1, FEMALE};
-    CrewMember stewardess2{pCompany1, STEWARDESS, 5, "Jo", "Qa", 1, FEMALE};
-    CrewMember stewardess3{pCompany1, STEWARDESS, 6, "Jo", "Qa", 1, FEMALE};
+    CrewMember stewardess1{pCompany1, STEWARDESS, "Ki", "Be", 1, FEMALE};
+    CrewMember stewardess2{pCompany1, STEWARDESS, "Jo", "Qa", 1, FEMALE};
+    CrewMember stewardess3{pCompany1, STEWARDESS, "Jo", "Qa", 1, FEMALE};
 
-    Passenger passenger1{7, "Ew", "Ao", 1, MALE};
-    Passenger passenger2{8, "Ow", "Co", 2, FEMALE};
+    Passenger passenger1{"Ew", "Ao", 1, MALE};
+    Passenger passenger2{"Ow", "Co", 2, FEMALE};
 
     Flight& flight1 = pCompany1->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
     Flight& flight2 = pCompany1->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
@@ -161,14 +162,14 @@ TEST(flight, plane) {
 
     EXPECT_EQ(flight1.getPlane(), &plane1);
     EXPECT_EQ(plane1.getFlights().size(), 1);
-    EXPECT_TRUE(existVector(plane1.getFlights(), flight1));
+    EXPECT_TRUE(existSet(plane1.getFlights(), flight1));
     EXPECT_THROW(plane1.addFlight(flight2), TimeOverlap);
     // removePlane
     flight1.removePlane();
 
     EXPECT_EQ(flight1.getPlane(), nullptr);
     EXPECT_EQ(plane1.getFlights().size(), 0);
-    EXPECT_FALSE(existVector(plane1.getFlights(), flight1));
+    EXPECT_FALSE(existSet(plane1.getFlights(), flight1));
     // setPlane
     flight1.addPassenger(passenger1);
     flight1.addCrewMember(stewardess1);
@@ -180,14 +181,14 @@ TEST(flight, plane) {
 
     EXPECT_EQ(flight1.getPlane(), &plane1);
     EXPECT_EQ(plane1.getFlights().size(), 1);
-    EXPECT_TRUE(existVector(plane1.getFlights(), flight1));
+    EXPECT_TRUE(existSet(plane1.getFlights(), flight1));
     // removePlane
     flight1.setPlane(plane2);
 
     EXPECT_EQ(flight1.getPlane(), &plane2);
     EXPECT_EQ(plane2.getFlights().size(), 1);
     EXPECT_EQ(plane1.getFlights().size(), 0);
-    EXPECT_TRUE(existVector(plane2.getFlights(), flight1));
+    EXPECT_TRUE(existSet(plane2.getFlights(), flight1));
 
     flight1.removePlane();
     // CHECK FOR CAPACITY LIMITS
@@ -216,10 +217,10 @@ TEST(flight, plane) {
 TEST(flight, passenger) {
     Company* pCompany = new (Company){"Test1"};
 
-    Plane plane{pCompany, 3, "B737", 1, 1, 1};
+    Plane plane{pCompany, "B737", 1, 1, 1};
 
-    Passenger passenger1{7, "Ew", "Ao", 1, MALE};
-    Passenger passenger2{8, "Ow", "Co", 2, FEMALE};
+    Passenger passenger1{"Ew", "Ao", 1, MALE};
+    Passenger passenger2{"Ow", "Co", 2, FEMALE};
 
     Flight& flight1 = pCompany->createFlight("RYR120", plane, 2, 5, "Warsaw", "Berlin");
     Flight& flight2 = pCompany->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
@@ -227,10 +228,10 @@ TEST(flight, passenger) {
     flight1.addPassenger(passenger1);
 
     EXPECT_EQ(flight1.getPassengers().size(), 1);
-    EXPECT_TRUE(existVector(flight1.getPassengers(), passenger1));
+    EXPECT_TRUE(existSet(flight1.getPassengers(), passenger1));
 
     EXPECT_EQ(passenger1.getFlights().size(), 1);
-    EXPECT_TRUE(existVector(passenger1.getFlights(), flight1));
+    EXPECT_TRUE(existSet(passenger1.getFlights(), flight1));
 
     // TIME OVERLAP
     EXPECT_THROW(flight2.addPassenger(passenger1), TimeOverlap);
@@ -253,10 +254,10 @@ TEST(flight, passenger) {
     EXPECT_EQ(passenger1.getFlights().size(), 1);
     EXPECT_EQ(passenger2.getFlights().size(), 1);
 
-    EXPECT_TRUE(existVector(flight2.getPassengers(), passenger1));
-    EXPECT_TRUE(existVector(flight2.getPassengers(), passenger2));
-    EXPECT_TRUE(existVector(passenger1.getFlights(), flight2));
-    EXPECT_TRUE(existVector(passenger2.getFlights(), flight2));
+    EXPECT_TRUE(existSet(flight2.getPassengers(), passenger1));
+    EXPECT_TRUE(existSet(flight2.getPassengers(), passenger2));
+    EXPECT_TRUE(existSet(passenger1.getFlights(), flight2));
+    EXPECT_TRUE(existSet(passenger2.getFlights(), flight2));
 
     EXPECT_TRUE(flight2.removePassengers());
 
@@ -271,17 +272,17 @@ TEST(flight, crewMember) {
     Company* pCompany1 = new (Company){"Test1"};
     Company* pCompany2 = new (Company){"Test1"};
 
-    Plane plane{pCompany1, 1, "B737", 1, 1, 1};
+    Plane plane{pCompany1, "B737", 1, 1, 1};
 
-    CrewMember pilot1{pCompany1, PILOT, 1, "Vic", "Ay", 1, MALE};
-    CrewMember pilot2{pCompany1, PILOT, 2, "Val", "Ro", 1, MALE};
-    CrewMember pilot3{pCompany1, PILOT, 3, "Val", "Ro", 1, MALE};
-    CrewMember pilot4{pCompany2, PILOT, 4, "Val", "Ro", 1, MALE};
+    CrewMember pilot1{pCompany1, PILOT, "Vic", "Ay", 1, MALE};
+    CrewMember pilot2{pCompany1, PILOT, "Val", "Ro", 1, MALE};
+    CrewMember pilot3{pCompany1, PILOT, "Val", "Ro", 1, MALE};
+    CrewMember pilot4{pCompany2, PILOT, "Val", "Ro", 1, MALE};
 
-    CrewMember stewardess1{pCompany1, STEWARDESS, 5, "Ki", "Be", 1, FEMALE};
-    CrewMember stewardess2{pCompany1, STEWARDESS, 6, "Jo", "Qa", 1, FEMALE};
-    CrewMember stewardess3{pCompany1, STEWARDESS, 7, "Jo", "Qa", 1, FEMALE};
-    CrewMember stewardess4{pCompany2, STEWARDESS, 8, "Jo", "Qa", 1, FEMALE};
+    CrewMember stewardess1{pCompany1, STEWARDESS, "Ki", "Be", 1, FEMALE};
+    CrewMember stewardess2{pCompany1, STEWARDESS, "Jo", "Qa", 1, FEMALE};
+    CrewMember stewardess3{pCompany1, STEWARDESS, "Jo", "Qa", 1, FEMALE};
+    CrewMember stewardess4{pCompany2, STEWARDESS, "Jo", "Qa", 1, FEMALE};
 
     Flight& flight1 = pCompany1->createFlight("RYR120", plane, 2, 5, "Warsaw", "Berlin");
     Flight& flight2 = pCompany1->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
@@ -296,10 +297,10 @@ TEST(flight, crewMember) {
     EXPECT_EQ(flight1.getPilots().size(), 1);
     EXPECT_EQ(flight1.getStewardesses().size(), 1);
 
-    EXPECT_TRUE(existVector(flight1.getPilots(), pilot1));
-    EXPECT_TRUE(existVector(flight1.getStewardesses(), stewardess1));
-    EXPECT_TRUE(existVector(pilot1.getFlights(), flight1));
-    EXPECT_TRUE(existVector(stewardess1.getFlights(), flight1));
+    EXPECT_TRUE(existSet(flight1.getPilots(), pilot1));
+    EXPECT_TRUE(existSet(flight1.getStewardesses(), stewardess1));
+    EXPECT_TRUE(existSet(pilot1.getFlights(), flight1));
+    EXPECT_TRUE(existSet(stewardess1.getFlights(), flight1));
 
     // TIME OVERLAP
     EXPECT_THROW(flight2.addCrewMember(pilot1), TimeOverlap);
@@ -327,7 +328,7 @@ TEST(flight, crewMember) {
     EXPECT_TRUE(flight1.removeCrewMember(pilot1));
 
     EXPECT_EQ(flight1.getPilots().size(), 1);
-    EXPECT_FALSE(existVector(flight1.getPilots(), pilot1));
+    EXPECT_FALSE(existSet(flight1.getPilots(), pilot1));
     EXPECT_EQ(pilot1.getFlights().size(), 0);
     EXPECT_EQ(flight1.getStewardesses().size(), 2);
 
@@ -335,7 +336,7 @@ TEST(flight, crewMember) {
 
     EXPECT_EQ(flight1.getStewardesses().size(), 1);
     EXPECT_EQ(flight1.getPilots().size(), 1);
-    EXPECT_FALSE(existVector(flight1.getStewardesses(), stewardess1));
+    EXPECT_FALSE(existSet(flight1.getStewardesses(), stewardess1));
     EXPECT_EQ(stewardess1.getFlights().size(), 0);
 
     flight1.removeCrewMember(pilot2);
@@ -368,13 +369,13 @@ TEST(flight, crewMember) {
 TEST(flight, status) {
     Company* pCompany = new (Company){"Test1"};
 
-    Plane plane{pCompany, 1, "B737", 1, 1, 1};
+    Plane plane{pCompany, "B737", 1, 1, 1};
 
-    CrewMember pilot1{pCompany, PILOT, 1, "Vic", "Ay", 1, MALE};
-    CrewMember pilot2{pCompany, PILOT, 2, "Val", "Ro", 1, MALE};
+    CrewMember pilot1{pCompany, PILOT, "Vic", "Ay", 1, MALE};
+    CrewMember pilot2{pCompany, PILOT, "Val", "Ro", 1, MALE};
 
-    CrewMember stewardess1{pCompany, STEWARDESS, 4, "Ki", "Be", 1, FEMALE};
-    CrewMember stewardess2{pCompany, STEWARDESS, 5, "Jo", "Qa", 1, FEMALE};
+    CrewMember stewardess1{pCompany, STEWARDESS, "Ki", "Be", 1, FEMALE};
+    CrewMember stewardess2{pCompany, STEWARDESS, "Jo", "Qa", 1, FEMALE};
 
     Flight& flight = pCompany->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
 

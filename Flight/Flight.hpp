@@ -1,5 +1,5 @@
 #include <functional>
-#include <memory>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -15,6 +15,10 @@ class Plane;
 
 class Flight {
    public:
+    ~Flight();
+
+    static std::vector<unsigned int> usedIds;
+
     Company* getCompany();
     std::string getFlightNr() const;
     FlightStatus getStatus() const;
@@ -24,9 +28,9 @@ class Flight {
     std::string getCityDeparture() const;
     std::string getCityArrival() const;
 
-    std::vector<std::reference_wrapper<Passenger>>& getPassengers();
-    std::vector<std::reference_wrapper<CrewMember>>& getStewardesses();
-    std::vector<std::reference_wrapper<CrewMember>>& getPilots();
+    std::set<std::reference_wrapper<Passenger>>& getPassengers();
+    std::set<std::reference_wrapper<CrewMember>>& getStewardesses();
+    std::set<std::reference_wrapper<CrewMember>>& getPilots();
 
     void setStatus();
     void setFlightNr(const std::string flightNr);
@@ -56,6 +60,10 @@ class Flight {
     bool timeOverlap(const Flight& flight) const;
     bool timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) const;
 
+    bool operator==(const Flight& other) const;
+    friend bool operator==(const std::reference_wrapper<Flight>& one, const Flight& other);
+    friend bool operator<(const std::reference_wrapper<Flight>& one, const std::reference_wrapper<Flight>& other);
+
    private:
     Flight(
         Company* pCompany,
@@ -65,12 +73,15 @@ class Flight {
         std::string cityDeparture,
         std::string cityArrival);
 
+    void setId();
+
     // SET PLANE CALLED IN CONSTRUCTOR WITHOUT ANY CHECK ON CAPACITY LIMITS
     void setupPlane(Plane& plane);
     // SET DATA TIME CALLED IN CONSTRUCTOR VALIDATING ARGUMENTS
     void setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival);
     void setDataTime(const unsigned int timeDeparture, const std::string cityDeparture, const unsigned int timeArrival, const std::string cityArrival);
 
+    unsigned int id;
     Company* pCompany;
     std::string flightNr;
     FlightStatus status;
@@ -81,9 +92,9 @@ class Flight {
     std::string cityDeparture;
     std::string cityArrival;
 
-    std::vector<std::reference_wrapper<Passenger>> passengers;
-    std::vector<std::reference_wrapper<CrewMember>> stewardesses;
-    std::vector<std::reference_wrapper<CrewMember>> pilots;
+    std::set<std::reference_wrapper<Passenger>> passengers;
+    std::set<std::reference_wrapper<CrewMember>> stewardesses;
+    std::set<std::reference_wrapper<CrewMember>> pilots;
 
     friend Company;
     friend Plane;

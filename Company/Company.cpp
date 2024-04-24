@@ -4,7 +4,7 @@
 
 #include "CustomErrors.hpp"
 #include "ListHandler.hpp"
-#include "VectorHandler.hpp"
+#include "SetHandler.hpp"
 
 Company::Company(std::string name) {  // TESTED
     setName(name);
@@ -31,15 +31,15 @@ std::list<Flight>& Company::getFlights() {  // TESTED
     return flights;
 }
 
-std::vector<std::reference_wrapper<Plane>>& Company::getPlanes() {  // TESTED
+std::set<std::reference_wrapper<Plane>>& Company::getPlanes() {  // TESTED
     return planes;
 }
 
-std::vector<std::reference_wrapper<CrewMember>>& Company::getStewardesses() {  // TESTED
+std::set<std::reference_wrapper<CrewMember>>& Company::getStewardesses() {  // TESTED
     return stewardesses;
 }
 
-std::vector<std::reference_wrapper<CrewMember>>& Company::getPilots() {  // TESTED
+std::set<std::reference_wrapper<CrewMember>>& Company::getPilots() {  // TESTED
     return pilots;
 }
 
@@ -52,7 +52,7 @@ void Company::addPlane(Plane& plane) {  // TESTED
         pCompany->removePlane(plane);
 
     plane.pCompany = this;
-    addVector(planes, plane);
+    addSet(planes, plane);
 }
 
 bool Company::removePlane(Plane& plane) {  // TESTED
@@ -62,18 +62,15 @@ bool Company::removePlane(Plane& plane) {  // TESTED
     plane.removeFlights();
 
     plane.pCompany = nullptr;
-    return deleteVector(planes, plane);
+    return deleteSet(planes, plane);
 }
 
 bool Company::removePlanes() {  // TESTED
     bool success = true;
 
-    for (Plane& plane : planes) {
-        success = plane.removeFlights() && success;
-        plane.pCompany = nullptr;
-    }
+    for (auto it = planes.begin(); it != planes.end();)
+        success = removePlane(*(it++)) && success;
 
-    planes.clear();
     return success;
 }
 
@@ -85,8 +82,8 @@ void Company::addCrewMember(CrewMember& crewMember) {  // TESTED
     if (pCompany)
         pCompany->removeCrewMember(crewMember);
 
-    pCompany = this;
-    addVector(crewMember.getRole() ? stewardesses : pilots, crewMember);
+    crewMember.pCompany = this;
+    addSet(crewMember.getRole() ? stewardesses : pilots, crewMember);
 }
 
 bool Company::removeCrewMember(CrewMember& crewMember) {  // TESTED
@@ -96,23 +93,18 @@ bool Company::removeCrewMember(CrewMember& crewMember) {  // TESTED
     crewMember.removeFlights();
 
     crewMember.pCompany = nullptr;
-    return deleteVector(crewMember.getRole() ? stewardesses : pilots, crewMember);
+    return deleteSet(crewMember.getRole() ? stewardesses : pilots, crewMember);
 }
 
 bool Company::removeCrewMembers() {  // TESTED
     bool success = true;
 
-    for (CrewMember& stewardess : stewardesses) {
-        success = stewardess.removeFlights() && success;
-        stewardess.pCompany = nullptr;
-    }
-    for (CrewMember& pilot : pilots) {
-        success = pilot.removeFlights() && success;
-        pilot.pCompany = nullptr;
-    }
+    for (auto it = stewardesses.begin(); it != stewardesses.end();)
+        success = removeCrewMember(*(it++)) && success;
 
-    stewardesses.clear();
-    pilots.clear();
+    for (auto it = pilots.begin(); it != pilots.end();)
+        success = removeCrewMember(*(it++)) && success;
+
     return success;
 }
 
@@ -135,7 +127,7 @@ Flight& Company::createFlight(std::string flightNr,
     return addList(flights, (Flight){this, flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival});
 }  // TESTED
 
-bool Company::removeFlight(Flight& flight) {
+bool Company::removeFlight(Flight& flight) {  // TESTED
     if (flight.pCompany != this)
         return false;
 
@@ -145,18 +137,16 @@ bool Company::removeFlight(Flight& flight) {
 
     flight.pCompany = nullptr;
     return deleteList(flights, flight);
-}  // TESTED
+}
 
-bool Company::removeFlights() {
-    for (Flight& flight : flights) {
-        flight.removePlane();
-        flight.removePassengers();
-        flight.removeCrewMembers();
-    }
+bool Company::removeFlights() {  // TESTED
+    bool success = true;
 
-    flights.clear();
-    return true;
-}  // TESTED
+    for (auto it = flights.begin(); it != flights.end();)
+        success = removeFlight(*(it++)) && success;
+
+    return success;
+}
 
 std::ostream& operator<<(std::ostream& os, Company& company) {
     os << "Name: " << company.getName() << std::endl;
@@ -167,20 +157,20 @@ std::ostream& operator<<(std::ostream& os, Company& company) {
     for (Flight& flight : flights)
         os << "\t* " << flight << std::endl;
 
-    std::vector<std::reference_wrapper<Plane>> planes = company.getPlanes();
-    if (planes.size())
+    std::set<std::reference_wrapper<Plane>> planes = company.getPlanes();
+    if (!planes.empty())
         os << "Planes: " << std::endl;
     for (Plane& plane : planes)
         os << "\t* " << plane << std::endl;
 
-    std::vector<std::reference_wrapper<CrewMember>> stewardesses = company.getStewardesses();
-    if (stewardesses.size())
+    std::set<std::reference_wrapper<CrewMember>> stewardesses = company.getStewardesses();
+    if (!stewardesses.empty())
         os << "Stewardesses: " << std::endl;
     for (CrewMember& stewardess : stewardesses)
         os << "\t* " << stewardess << std::endl;
 
-    std::vector<std::reference_wrapper<CrewMember>> pilots = company.getPilots();
-    if (pilots.size())
+    std::set<std::reference_wrapper<CrewMember>> pilots = company.getPilots();
+    if (!pilots.empty())
         os << "Pilots: " << std::endl;
     for (CrewMember& pilot : pilots)
         os << "\t* " << pilot << std::endl;

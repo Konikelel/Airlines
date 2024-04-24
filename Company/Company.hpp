@@ -1,7 +1,7 @@
 #include <functional>
 #include <list>
+#include <set>
 #include <string>
-#include <vector>
 
 #ifndef COMPANY_H
 #define COMPANY_H
@@ -18,9 +18,9 @@ class Company {
 
     std::string getName() const;
     std::list<Flight>& getFlights();
-    std::vector<std::reference_wrapper<Plane>>& getPlanes();
-    std::vector<std::reference_wrapper<CrewMember>>& getStewardesses();
-    std::vector<std::reference_wrapper<CrewMember>>& getPilots();
+    std::set<std::reference_wrapper<Plane>>& getPlanes();
+    std::set<std::reference_wrapper<CrewMember>>& getStewardesses();
+    std::set<std::reference_wrapper<CrewMember>>& getPilots();
 
     void setName(std::string name);
     // ADD PLANE TO COMPANY AND SET PLANE'S COMPANY
@@ -55,9 +55,9 @@ class Company {
    private:
     std::string name;
     std::list<Flight> flights;
-    std::vector<std::reference_wrapper<Plane>> planes;
-    std::vector<std::reference_wrapper<CrewMember>> stewardesses;
-    std::vector<std::reference_wrapper<CrewMember>> pilots;
+    std::set<std::reference_wrapper<Plane>> planes;
+    std::set<std::reference_wrapper<CrewMember>> stewardesses;
+    std::set<std::reference_wrapper<CrewMember>> pilots;
 
     friend std::ostream& operator<<(std::ostream& os, Company& company);
 };

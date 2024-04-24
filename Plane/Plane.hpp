@@ -14,14 +14,12 @@ class Plane {
 
     Plane(
         Company* pCompany,
-        unsigned int id,
         std::string name,
         unsigned int capacityPassengers,
         unsigned int requiredStewardesses,
         unsigned int requiredPilots);
 
     Plane(
-        unsigned int id,
         std::string name,
         unsigned int capacityPassengers,
         unsigned int requiredStewardesses,
@@ -32,7 +30,7 @@ class Plane {
     unsigned int getId() const;
     std::string getName() const;
     Company*& getCompany();
-    std::vector<std::reference_wrapper<Flight>>& getFlights();
+    std::set<std::reference_wrapper<Flight>>& getFlights();
     unsigned int getCapacityPassengers() const;
     unsigned int getRequiredStewardesses() const;
     unsigned int getCapacityStewardesses() const;
@@ -40,8 +38,6 @@ class Plane {
     unsigned int getCapacityPilots() const;
 
     void setCompany(Company* pCompany);
-
-    void changeId(const unsigned int id);
     void setName(const std::string name);
 
     void setCapacityPassengers(const unsigned int number);
@@ -65,14 +61,17 @@ class Plane {
     // INVOKE FOR ALL FLIGHTS FUNCTION removeFlight
     bool removeFlights();
 
+    friend bool operator==(const std::reference_wrapper<Plane>& one, const Plane& other);
+    friend bool operator<(const std::reference_wrapper<Plane>& one, const std::reference_wrapper<Plane>& other);
+
    private:
-    void setId(const unsigned int id);
+    void setId();
 
     unsigned int id;
     std::string name;
 
     Company* pCompany;
-    std::vector<std::reference_wrapper<Flight>> flights;
+    std::set<std::reference_wrapper<Flight>> flights;
 
     unsigned int capacityPassengers;
     unsigned int requiredStewardesses;
