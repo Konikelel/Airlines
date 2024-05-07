@@ -88,8 +88,8 @@ bool Company::removeCrewMembers() {  // TESTED
 
 Flight& Company::createFlight(std::string flightNr,
                               Plane& plane,
-                              unsigned int timeDeparture,
-                              unsigned int timeArrival,
+                              unsigned long long timeDeparture,
+                              unsigned long long timeArrival,
                               std::string cityDeparture,
                               std::string cityArrival) {
     Flight& newElement = addList(flights, (Flight){this, flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival});
@@ -98,8 +98,8 @@ Flight& Company::createFlight(std::string flightNr,
 }  // TESTED
 
 Flight& Company::createFlight(std::string flightNr,
-                              unsigned int timeDeparture,
-                              unsigned int timeArrival,
+                              unsigned long long timeDeparture,
+                              unsigned long long timeArrival,
                               std::string cityDeparture,
                               std::string cityArrival) {
     return addList(flights, (Flight){this, flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival});
@@ -133,25 +133,25 @@ std::ostream& operator<<(std::ostream& os, Company& company) {
     if (flights.size())
         os << "Flights: " << std::endl;
     for (Flight& flight : flights)
-        os << "\t* " << flight << std::endl;
+        os << "\t* " << flight;
 
     std::set<std::reference_wrapper<Plane>> planes = company.getPlanes();
     if (!planes.empty())
         os << "Planes: " << std::endl;
     for (Plane& plane : planes)
-        os << "\t* " << plane << std::endl;
+        os << "\t* " << plane;
 
     std::set<std::reference_wrapper<CrewMember>> stewardesses = company.getStewardesses();
     if (!stewardesses.empty())
         os << "Stewardesses: " << std::endl;
     for (CrewMember& stewardess : stewardesses)
-        os << "\t* " << stewardess << std::endl;
+        os << "\t* " << stewardess;
 
     std::set<std::reference_wrapper<CrewMember>> pilots = company.getPilots();
     if (!pilots.empty())
         os << "Pilots: " << std::endl;
     for (CrewMember& pilot : pilots)
-        os << "\t* " << pilot << std::endl;
+        os << "\t* " << pilot;
 
     return os;
 }

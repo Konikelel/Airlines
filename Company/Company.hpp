@@ -7,6 +7,7 @@
 #define COMPANY_H
 
 #include "CrewMember.hpp"
+#include "CrewRole.hpp"
 #include "Flight.hpp"
 #include "Plane.hpp"
 
@@ -38,19 +39,21 @@ class Company {
     // CRETE FLIGHT IN COMPANY
     Flight& createFlight(std::string flightNr,
                          Plane& plane,
-                         unsigned int timeDeparture,
-                         unsigned int timeArrival,
+                         unsigned long long timeDeparture,
+                         unsigned long long timeArrival,
                          std::string cityDeparture,
                          std::string cityArrival);
 
     Flight& createFlight(std::string flightNr,
-                         unsigned int timeDeparture,
-                         unsigned int timeArrival,
+                         unsigned long long timeDeparture,
+                         unsigned long long timeArrival,
                          std::string cityDeparture,
                          std::string cityArrival);
     // REMOVE FLIGHT, DELETE FROM ALL CLASSES
     bool removeFlight(Flight& flight);
     bool removeFlights();
+
+    std::vector<std::reference_wrapper<CrewMember>> availableCrewMembers(unsigned long long timeStart, unsigned long long timeEnd, CrewRole role);
 
     friend std::ostream& operator<<(std::ostream& os, Company& company);
 

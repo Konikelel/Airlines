@@ -84,7 +84,7 @@ bool operator<(const std::reference_wrapper<CrewMember>& one, const std::referen
 
 std::ostream& operator<<(std::ostream& os, CrewMember& crewMember) {
     os << "Id: " << crewMember.getId() << " "
-       << "Company: " << crewMember.getCompany() << " "
+       << "Company: " << crewMember.getCompany()->getName() << " "
        << "Flights: " << crewMember.getFlights().size() << std::endl;
 
     return os;

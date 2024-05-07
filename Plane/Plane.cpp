@@ -182,7 +182,7 @@ bool operator<(const std::reference_wrapper<Plane>& one, const std::reference_wr
 
 std::ostream& operator<<(std::ostream& os, Plane& plane) {
     os << "Id: " << plane.getId() << " "
-       << "Company: " << plane.getCompany() << " "
+       << "Company: " << plane.getCompany()->getName() << " "
        << "Flights: " << plane.getFlights().size() << std::endl;
 
     return os;

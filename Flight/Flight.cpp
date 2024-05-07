@@ -18,8 +18,8 @@ std::vector<unsigned int> Flight::usedIds;
 
 Flight::Flight(Company* pCompany,
                std::string flightNr,
-               unsigned int timeDeparture,
-               unsigned int timeArrival,
+               unsigned long long timeDeparture,
+               unsigned long long timeArrival,
                std::string cityDeparture,
                std::string cityArrival) : pCompany{pCompany},
                                           pPlane{nullptr},
@@ -42,6 +42,10 @@ Company* Flight::getCompany() const {  // TESTED
     return pCompany;
 }
 
+unsigned int Flight::getId() const {
+    return id;
+}
+
 std::string Flight::getFlightNr() const {  // TESTED
     return flightNr;
 }
@@ -54,11 +58,11 @@ Plane* Flight::getPlane() const {  // TESTED
     return pPlane;
 }
 
-unsigned int Flight::getTimeDeparture() const {  // TESTED
+unsigned long long Flight::getTimeDeparture() const {  // TESTED
     return timeDeparture;
 }
 
-unsigned int Flight::getTimeArrival() const {  // TESTED
+unsigned long long Flight::getTimeArrival() const {  // TESTED
     return timeArrival;
 }
 
@@ -124,15 +128,15 @@ bool Flight::removePlane() {  // TESTED
     return success;
 }
 
-void Flight::changeDataDeparture(const unsigned int time) {  // TESTED
+void Flight::changeDataDeparture(const unsigned long long time) {  // TESTED
     setDataTime(time, timeArrival);
 }
 
-void Flight::changeDataArrival(const unsigned int time) {  // TESTED
+void Flight::changeDataArrival(const unsigned long long time) {  // TESTED
     setDataTime(timeDeparture, time);
 }
 
-void Flight::changeDataDeparture(const unsigned int time, const std::string city) {  // TESTED
+void Flight::changeDataDeparture(const unsigned long long time, const std::string city) {  // TESTED
     if (!city.size())
         throw InvalidName("City departure must contain any character");
 
@@ -140,7 +144,7 @@ void Flight::changeDataDeparture(const unsigned int time, const std::string city
     this->cityDeparture = city;
 }
 
-void Flight::changeDataArrival(const unsigned int time, const std::string city) {  // TESTED
+void Flight::changeDataArrival(const unsigned long long time, const std::string city) {  // TESTED
     if (!city.size())
         throw InvalidName("City arrival must contain any character");
 
@@ -222,7 +226,7 @@ bool Flight::timeOverlap(const Flight& flight) const {  // TESTED
     return timeOverlap(flight.getTimeDeparture(), flight.getTimeArrival());
 }
 
-bool Flight::timeOverlap(const unsigned int timeStart, const unsigned int timeEnd) const {  // TESTED
+bool Flight::timeOverlap(const unsigned long long timeStart, const unsigned long long timeEnd) const {  // TESTED
     return !(timeDeparture > timeEnd || timeArrival < timeStart);
 }
 
@@ -244,7 +248,7 @@ void Flight::setupPlane(Plane& plane) {  // TESTED
     setStatus();
 }
 
-void Flight::setDataTime(const unsigned int timeDeparture, const unsigned int timeArrival) {  // TESTED
+void Flight::setDataTime(const unsigned long long timeDeparture, const unsigned long long timeArrival) {  // TESTED
     if (passengers.size() || stewardesses.size() || pilots.size())
         throw CannotPerform("Flight is already booked");
     if (timeArrival <= timeDeparture)
@@ -254,7 +258,7 @@ void Flight::setDataTime(const unsigned int timeDeparture, const unsigned int ti
     this->timeArrival = timeArrival;
 }
 
-void Flight::setDataTime(const unsigned int timeDeparture, const std::string cityDeparture, const unsigned int timeArrival, const std::string cityArrival) {  // TESTED
+void Flight::setDataTime(const unsigned long long timeDeparture, const std::string cityDeparture, const unsigned long long timeArrival, const std::string cityArrival) {  // TESTED
     if (!cityDeparture.size())
         throw InvalidName("City departure must contain any character");
     if (!cityArrival.size())
@@ -274,10 +278,11 @@ bool operator<(const std::reference_wrapper<Flight>& one, const std::reference_w
 }
 
 std::ostream& operator<<(std::ostream& os, Flight& flight) {
-    os << "Status: " << flight.getStatus() << " "
+    os << "Id: " << flight.getId() << " "
        << "FlightNr: " << flight.getFlightNr() << " "
+       << "Status: " << flight.getStatus() << " "
        << "Departure: " << flight.getCityDeparture() << " "
-       << "Arrival: " << flight.getCityArrival() << " ";
+       << "Arrival: " << flight.getCityArrival() << std::endl;
 
     return os;
 }
