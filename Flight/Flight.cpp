@@ -280,7 +280,7 @@ bool operator<(const std::reference_wrapper<Flight>& one, const std::reference_w
 std::ostream& operator<<(std::ostream& os, Flight& flight) {
     os << "Id: " << flight.getId() << " "
        << "FlightNr: " << flight.getFlightNr() << " "
-       << "Status: " << flight.getStatus() << " "
+       << "Status: " << (flight.getStatus() ? "AS_PLANNED" : "INCOMPLETE") << " "
        << "Departure: " << flight.getCityDeparture() << " "
        << "Arrival: " << flight.getCityArrival() << std::endl;
 

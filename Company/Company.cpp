@@ -126,6 +126,25 @@ bool Company::removeFlights() {  // TESTED
     return success;
 }
 
+std::set<std::reference_wrapper<CrewMember>> Company::availableCrewMembers(unsigned long long timeStart, unsigned long long timeEnd, CrewRole role) {
+    std::set<std::reference_wrapper<CrewMember>> crewMembers;
+    bool hasTimeOverlap;
+
+    for (CrewMember& crewMember : (role ? stewardesses : pilots)) {
+        hasTimeOverlap = false;
+
+        for (Flight flight : crewMember.getFlights())
+            if (flight.timeOverlap(timeStart, timeEnd)) {
+                hasTimeOverlap = true;
+                break;
+            }
+
+        if (!hasTimeOverlap)
+            addSet(crewMembers, crewMember);
+    }
+    return crewMembers;
+}
+
 std::ostream& operator<<(std::ostream& os, Company& company) {
     os << "Name: " << company.getName() << std::endl;
 

@@ -53,7 +53,7 @@ class Company {
     bool removeFlight(Flight& flight);
     bool removeFlights();
 
-    std::vector<std::reference_wrapper<CrewMember>> availableCrewMembers(unsigned long long timeStart, unsigned long long timeEnd, CrewRole role);
+    std::set<std::reference_wrapper<CrewMember>> availableCrewMembers(unsigned long long timeStart, unsigned long long timeEnd, CrewRole role);
 
     friend std::ostream& operator<<(std::ostream& os, Company& company);
 

@@ -61,6 +61,5 @@ void Person::setNameSecond(std::string name) {  // TESTED
 }
 
 void Person::setTimeBirthday(const unsigned int time) {  // TESTED
-    // CHECK IF IN FUTURE, RAISE ERROR
     this->timeBirthday = time;
 }

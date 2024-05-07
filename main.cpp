@@ -56,6 +56,12 @@ int main() {
               << "\tChecking for available stewardess to assign to the flight\n\n";
 
     std::cout << "\tAvailable stewardess in this time period:\n";
+    std::set<std::reference_wrapper<CrewMember>> stewardesses = pCompany->availableCrewMembers(flight2.getTimeDeparture(), flight2.getTimeArrival(), STEWARDESS);
+
+    for (CrewMember stewardess : stewardesses)
+        std::cout << stewardess;
+
+    std::cout << "\n\tAdding stewardess to the flight...\n";
 
     flight2.addCrewMember(stewardess2);
 
