@@ -17,49 +17,49 @@ Person::Person(std::string nameFirst,
     setTimeBirthday(timeBirthday);
 }
 
-Person::~Person() {  // TESTED
+Person::~Person() {
     deleteVector(usedIds, id);
 }
 
-unsigned int Person::getId() const {  // TESTED
+unsigned int Person::getId() const {
     return id;
 }
 
-std::string Person::getNameFirst() const {  // TESTED
+std::string Person::getNameFirst() const {
     return nameFirst;
 }
 
-std::string Person::getNameSecond() const {  // TESTED
+std::string Person::getNameSecond() const {
     return nameSecond;
 }
 
-unsigned int Person::getTimeBirthday() const {  // TESTED
+unsigned int Person::getTimeBirthday() const {
     return timeBirthday;
 }
 
-Gender Person::getGender() const {  // TESTED
+Gender Person::getGender() const {
     return gender;
 }
 
-void Person::setId() {  // TESTED
+void Person::setId() {
     id = generateUniqueId(usedIds);
     addVector(usedIds, id);
 }
 
-void Person::setNameFirst(std::string name) {  // TESTED
+void Person::setNameFirst(std::string name) {
     if (!name.size())
         throw InvalidName("First name must contain any character");
 
     this->nameFirst = toTitle(name);
 }
 
-void Person::setNameSecond(std::string name) {  // TESTED
+void Person::setNameSecond(std::string name) {
     if (!name.size())
         throw InvalidName("Second name must contain any character");
 
     this->nameSecond = toTitle(name);
 }
 
-void Person::setTimeBirthday(const unsigned int time) {  // TESTED
+void Person::setTimeBirthday(const unsigned int time) {
     this->timeBirthday = time;
 }

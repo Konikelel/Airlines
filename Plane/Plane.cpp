@@ -31,46 +31,46 @@ Plane::Plane(std::string name,
     this->capacityPilots = requiredPilots * 2;
 }
 
-Plane::~Plane() {  // TESTED
+Plane::~Plane() {
     deleteVector(usedIds, id);
 
     if (pCompany)
         pCompany->removePlane(*this);
 }
 
-unsigned int Plane::getId() const {  // TESTED
+unsigned int Plane::getId() const {
     return id;
 }
 
-std::string Plane::getName() const {  // TESTED
+std::string Plane::getName() const {
     return name;
 }
 
-Company* Plane::getCompany() const {  // TESTED
+Company* Plane::getCompany() const {
     return pCompany;
 }
 
-std::set<std::reference_wrapper<Flight>>& Plane::getFlights() {  // TESTED
+std::set<std::reference_wrapper<Flight>>& Plane::getFlights() {
     return flights;
 }
 
-unsigned int Plane::getCapacityPassengers() const {  // TESTED
+unsigned int Plane::getCapacityPassengers() const {
     return capacityPassengers;
 }
 
-unsigned int Plane::getRequiredStewardesses() const {  // TESTED
+unsigned int Plane::getRequiredStewardesses() const {
     return requiredStewardesses;
 }
 
-unsigned int Plane::getCapacityStewardesses() const {  // TESTED
+unsigned int Plane::getCapacityStewardesses() const {
     return capacityStewardesses;
 }
 
-unsigned int Plane::getRequiredPilots() const {  // TESTED
+unsigned int Plane::getRequiredPilots() const {
     return requiredPilots;
 }
 
-unsigned int Plane::getCapacityPilots() const {  // TESTED
+unsigned int Plane::getCapacityPilots() const {
     return capacityPilots;
 }
 
@@ -90,19 +90,19 @@ bool Plane::setCompany(Company* pCompany) {
     return true;
 }
 
-void Plane::setId() {  // TESTED
+void Plane::setId() {
     id = generateUniqueId(usedIds);
     addVector(usedIds, id);
 }
 
-void Plane::setName(std::string name) {  // TESTED
+void Plane::setName(std::string name) {
     if (!name.size())
         throw InvalidName("Name must contain any character");
 
     this->name = name;
 }
 
-void Plane::setCapacityPassengers(const unsigned int number) {  // TESTED
+void Plane::setCapacityPassengers(const unsigned int number) {
     if (!flights.empty())
         throw CannotPerform("Cannot modify. Plane is in use");
     if (!number)
@@ -111,7 +111,7 @@ void Plane::setCapacityPassengers(const unsigned int number) {  // TESTED
     this->capacityPassengers = number;
 }
 
-void Plane::setRequiredStewardesses(const unsigned int number) {  // TESTED
+void Plane::setRequiredStewardesses(const unsigned int number) {
     if (!flights.empty())
         throw CannotPerform("Cannot modify. Plane is in use");
     if (!number)
@@ -121,7 +121,7 @@ void Plane::setRequiredStewardesses(const unsigned int number) {  // TESTED
     this->requiredStewardesses = number;
 }
 
-void Plane::setRequiredPilots(const unsigned int number) {  // TESTED
+void Plane::setRequiredPilots(const unsigned int number) {
     if (!flights.empty())
         throw CannotPerform("Cannot modify. Plane is in use");
     if (!number)
@@ -131,39 +131,39 @@ void Plane::setRequiredPilots(const unsigned int number) {  // TESTED
     this->requiredPilots = number;
 }
 
-bool Plane::inRangePassengers(unsigned int number) const {  // TESTED
+bool Plane::inRangePassengers(unsigned int number) const {
     return capacityPassengers >= number;
 }
 
-bool Plane::inRangeStewardesses(unsigned int number) const {  // TESTED
+bool Plane::inRangeStewardesses(unsigned int number) const {
     return requiredStewardesses <= number && number <= capacityStewardesses;
 }
 
-bool Plane::maximumStewardesses(const unsigned int number) const {  // TESTED
+bool Plane::maximumStewardesses(const unsigned int number) const {
     return number > capacityStewardesses;
 }
 
-bool Plane::inRangePilots(unsigned int number) const {  // TESTED
+bool Plane::inRangePilots(unsigned int number) const {
     return requiredPilots <= number && number <= capacityPilots;
 }
 
-bool Plane::maximumPilots(const unsigned int number) const {  // TESTED
+bool Plane::maximumPilots(const unsigned int number) const {
     return number > capacityPilots;
 }
 
-bool Plane::inRangeCrew(const unsigned int stewardess, const unsigned int pilots) const {  // TESTED
+bool Plane::inRangeCrew(const unsigned int stewardess, const unsigned int pilots) const {
     return inRangeStewardesses(stewardess) && inRangePilots(pilots);
 }
 
-void Plane::addFlight(Flight& flight) {  // TESTED
+void Plane::addFlight(Flight& flight) {
     flight.setPlane(*this);
 }
 
-bool Plane::removeFlight(Flight& flight) {  // TESTED
+bool Plane::removeFlight(Flight& flight) {
     return flight.removePlane();
 }
 
-bool Plane::removeFlights() {  // TESTED
+bool Plane::removeFlights() {
     bool success = true;
 
     for (auto it = flights.begin(); it != flights.end();)

@@ -38,7 +38,7 @@ Flight::~Flight() {
     deleteVector(usedIds, id);
 }
 
-Company* Flight::getCompany() const {  // TESTED
+Company* Flight::getCompany() const {
     return pCompany;
 }
 
@@ -46,47 +46,47 @@ unsigned int Flight::getId() const {
     return id;
 }
 
-std::string Flight::getFlightNr() const {  // TESTED
+std::string Flight::getFlightNr() const {
     return flightNr;
 }
 
-FlightStatus Flight::getStatus() const {  // TESTED
+FlightStatus Flight::getStatus() const {
     return status;
 }
 
-Plane* Flight::getPlane() const {  // TESTED
+Plane* Flight::getPlane() const {
     return pPlane;
 }
 
-unsigned long long Flight::getTimeDeparture() const {  // TESTED
+unsigned long long Flight::getTimeDeparture() const {
     return timeDeparture;
 }
 
-unsigned long long Flight::getTimeArrival() const {  // TESTED
+unsigned long long Flight::getTimeArrival() const {
     return timeArrival;
 }
 
-std::string Flight::getCityDeparture() const {  // TESTED
+std::string Flight::getCityDeparture() const {
     return cityDeparture;
 }
 
-std::string Flight::getCityArrival() const {  // TESTED
+std::string Flight::getCityArrival() const {
     return cityArrival;
 }
 
-std::set<std::reference_wrapper<Passenger>>& Flight::getPassengers() {  // TESTED
+std::set<std::reference_wrapper<Passenger>>& Flight::getPassengers() {
     return passengers;
 }
 
-std::set<std::reference_wrapper<CrewMember>>& Flight::getStewardesses() {  // TESTED
+std::set<std::reference_wrapper<CrewMember>>& Flight::getStewardesses() {
     return stewardesses;
 }
 
-std::set<std::reference_wrapper<CrewMember>>& Flight::getPilots() {  // TESTED
+std::set<std::reference_wrapper<CrewMember>>& Flight::getPilots() {
     return pilots;
 }
 
-void Flight::setFlightNr(std::string flightNr) {  // TESTED
+void Flight::setFlightNr(std::string flightNr) {
     if (flightNr.size() < 4)
         throw InvalidFlightNr("Flight number must be longer than 3 symbols");
     if (flightNr.size() > 7)
@@ -99,7 +99,7 @@ void Flight::setFlightNr(std::string flightNr) {  // TESTED
     this->flightNr = toUpper(flightNr);
 }
 
-void Flight::setPlane(Plane& plane) {  // TESTED
+void Flight::setPlane(Plane& plane) {
     if (!plane.inRangePassengers(passengers.size()))
         throw InvalidPlane("Plane cannot accommodate all passengers");
 
@@ -117,7 +117,7 @@ void Flight::setPlane(Plane& plane) {  // TESTED
     setupPlane(plane);
 }
 
-bool Flight::removePlane() {  // TESTED
+bool Flight::removePlane() {
     bool success = false;
 
     if (pPlane)
@@ -128,15 +128,15 @@ bool Flight::removePlane() {  // TESTED
     return success;
 }
 
-void Flight::changeDataDeparture(const unsigned long long time) {  // TESTED
+void Flight::changeDataDeparture(const unsigned long long time) {
     setDataTime(time, timeArrival);
 }
 
-void Flight::changeDataArrival(const unsigned long long time) {  // TESTED
+void Flight::changeDataArrival(const unsigned long long time) {
     setDataTime(timeDeparture, time);
 }
 
-void Flight::changeDataDeparture(const unsigned long long time, const std::string city) {  // TESTED
+void Flight::changeDataDeparture(const unsigned long long time, const std::string city) {
     if (!city.size())
         throw InvalidName("City departure must contain any character");
 
@@ -144,7 +144,7 @@ void Flight::changeDataDeparture(const unsigned long long time, const std::strin
     this->cityDeparture = city;
 }
 
-void Flight::changeDataArrival(const unsigned long long time, const std::string city) {  // TESTED
+void Flight::changeDataArrival(const unsigned long long time, const std::string city) {
     if (!city.size())
         throw InvalidName("City arrival must contain any character");
 
@@ -152,7 +152,7 @@ void Flight::changeDataArrival(const unsigned long long time, const std::string 
     this->cityArrival = city;
 }
 
-void Flight::addPassenger(Passenger& passenger) {  // TESTED
+void Flight::addPassenger(Passenger& passenger) {
     if (pPlane && !pPlane->inRangePassengers(passengers.size() + 1))
         throw MaximumCapacity("Maximum capacity for passengers reached");
     if (existSet(passengers, passenger))
@@ -166,11 +166,11 @@ void Flight::addPassenger(Passenger& passenger) {  // TESTED
     addSet(passenger.getFlights(), *this);
 }
 
-bool Flight::removePassenger(Passenger& passenger) {  // TESTED
+bool Flight::removePassenger(Passenger& passenger) {
     return deleteSet(passengers, passenger) && deleteSet(passenger.getFlights(), *this);
 }
 
-bool Flight::removePassengers() {  // TESTED
+bool Flight::removePassengers() {
     bool success = true;
 
     for (auto it = passengers.begin(); it != passengers.end();)
@@ -179,7 +179,7 @@ bool Flight::removePassengers() {  // TESTED
     return success;
 }
 
-void Flight::addCrewMember(CrewMember& crewMember) {  // TESTED
+void Flight::addCrewMember(CrewMember& crewMember) {
     CrewRole role = crewMember.getRole();
 
     if (crewMember.getCompany() != pCompany)
@@ -200,7 +200,7 @@ void Flight::addCrewMember(CrewMember& crewMember) {  // TESTED
     setStatus();
 }
 
-bool Flight::removeCrewMember(CrewMember& crewMember) {  // TESTED
+bool Flight::removeCrewMember(CrewMember& crewMember) {
     CrewRole role = crewMember.getRole();
 
     bool success = deleteSet(role ? stewardesses : pilots, crewMember) && deleteSet(crewMember.getFlights(), *this);
@@ -208,7 +208,7 @@ bool Flight::removeCrewMember(CrewMember& crewMember) {  // TESTED
     return success;
 }
 
-bool Flight::removeCrewMembers() {  // TESTED
+bool Flight::removeCrewMembers() {
     bool success = true;
     status = INCOMPLETE;
 
@@ -222,11 +222,11 @@ bool Flight::removeCrewMembers() {  // TESTED
     return success;
 }
 
-bool Flight::timeOverlap(const Flight& flight) const {  // TESTED
+bool Flight::timeOverlap(const Flight& flight) const {
     return timeOverlap(flight.getTimeDeparture(), flight.getTimeArrival());
 }
 
-bool Flight::timeOverlap(const unsigned long long timeStart, const unsigned long long timeEnd) const {  // TESTED
+bool Flight::timeOverlap(const unsigned long long timeStart, const unsigned long long timeEnd) const {
     return !(timeDeparture > timeEnd || timeArrival < timeStart);
 }
 
@@ -234,12 +234,12 @@ bool Flight::operator==(const Flight& other) const {
     return this->flightNr == other.flightNr && this->timeDeparture == other.timeDeparture && this->timeArrival == other.timeArrival;
 }
 
-void Flight::setStatus() {  // TESTED
+void Flight::setStatus() {
     status = (pPlane && pPlane->inRangeCrew(stewardesses.size(), pilots.size())) ? AS_PLANNED : INCOMPLETE;
 }
 // PRIVATE
 
-void Flight::setupPlane(Plane& plane) {  // TESTED
+void Flight::setupPlane(Plane& plane) {
     if (plane.getCompany() != pCompany)
         throw InvalidPlane("Plane must be from the same company");
 
@@ -248,7 +248,7 @@ void Flight::setupPlane(Plane& plane) {  // TESTED
     setStatus();
 }
 
-void Flight::setDataTime(const unsigned long long timeDeparture, const unsigned long long timeArrival) {  // TESTED
+void Flight::setDataTime(const unsigned long long timeDeparture, const unsigned long long timeArrival) {
     if (passengers.size() || stewardesses.size() || pilots.size())
         throw CannotPerform("Flight is already booked");
     if (timeArrival <= timeDeparture)
@@ -258,7 +258,7 @@ void Flight::setDataTime(const unsigned long long timeDeparture, const unsigned 
     this->timeArrival = timeArrival;
 }
 
-void Flight::setDataTime(const unsigned long long timeDeparture, const std::string cityDeparture, const unsigned long long timeArrival, const std::string cityArrival) {  // TESTED
+void Flight::setDataTime(const unsigned long long timeDeparture, const std::string cityDeparture, const unsigned long long timeArrival, const std::string cityArrival) {
     if (!cityDeparture.size())
         throw InvalidName("City departure must contain any character");
     if (!cityArrival.size())

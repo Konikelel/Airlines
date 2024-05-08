@@ -6,55 +6,55 @@
 #include "ListHandler.hpp"
 #include "SetHandler.hpp"
 
-Company::Company(std::string name) {  // TESTED
+Company::Company(std::string name) {
     setName(name);
 }
 
-Company::~Company() {  // TESTED
+Company::~Company() {
     removePlanes();
     removeCrewMembers();
     removeFlights();
 }
 
-std::string Company::getName() const {  // TESTED
+std::string Company::getName() const {
     return name;
 }
 
-void Company::setName(const std::string name) {  // TESTED
+void Company::setName(const std::string name) {
     if (!name.size())
         throw InvalidName("First name must contain any character");
 
     this->name = name;
 }
 
-std::list<Flight>& Company::getFlights() {  // TESTED
+std::list<Flight>& Company::getFlights() {
     return flights;
 }
 
-std::set<std::reference_wrapper<Plane>>& Company::getPlanes() {  // TESTED
+std::set<std::reference_wrapper<Plane>>& Company::getPlanes() {
     return planes;
 }
 
-std::set<std::reference_wrapper<CrewMember>>& Company::getStewardesses() {  // TESTED
+std::set<std::reference_wrapper<CrewMember>>& Company::getStewardesses() {
     return stewardesses;
 }
 
-std::set<std::reference_wrapper<CrewMember>>& Company::getPilots() {  // TESTED
+std::set<std::reference_wrapper<CrewMember>>& Company::getPilots() {
     return pilots;
 }
 
-void Company::addPlane(Plane& plane) {  // TESTED
+void Company::addPlane(Plane& plane) {
     plane.setCompany(this);
 }
 
-bool Company::removePlane(Plane& plane) {  // TESTED
+bool Company::removePlane(Plane& plane) {
     if (plane.getCompany() != this)
         return false;
 
     return plane.setCompany(nullptr);
 }
 
-bool Company::removePlanes() {  // TESTED
+bool Company::removePlanes() {
     bool success = true;
 
     for (auto it = planes.begin(); it != planes.end();)
@@ -63,18 +63,18 @@ bool Company::removePlanes() {  // TESTED
     return success;
 }
 
-void Company::addCrewMember(CrewMember& crewMember) {  // TESTED
+void Company::addCrewMember(CrewMember& crewMember) {
     crewMember.setCompany(this);
 }
 
-bool Company::removeCrewMember(CrewMember& crewMember) {  // TESTED
+bool Company::removeCrewMember(CrewMember& crewMember) {
     if (crewMember.getCompany() != this)
         return false;
 
     return crewMember.setCompany(nullptr);
 }
 
-bool Company::removeCrewMembers() {  // TESTED
+bool Company::removeCrewMembers() {
     bool success = true;
 
     for (auto it = stewardesses.begin(); it != stewardesses.end();)
@@ -95,7 +95,7 @@ Flight& Company::createFlight(std::string flightNr,
     Flight& newElement = addList(flights, (Flight){this, flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival});
     newElement.setPlane(plane);
     return newElement;
-}  // TESTED
+}
 
 Flight& Company::createFlight(std::string flightNr,
                               unsigned long long timeDeparture,
@@ -103,9 +103,9 @@ Flight& Company::createFlight(std::string flightNr,
                               std::string cityDeparture,
                               std::string cityArrival) {
     return addList(flights, (Flight){this, flightNr, timeDeparture, timeArrival, cityDeparture, cityArrival});
-}  // TESTED
+}
 
-bool Company::removeFlight(Flight& flight) {  // TESTED
+bool Company::removeFlight(Flight& flight) {
     if (flight.pCompany != this)
         return false;
 
@@ -117,7 +117,7 @@ bool Company::removeFlight(Flight& flight) {  // TESTED
     return deleteList(flights, flight);
 }
 
-bool Company::removeFlights() {  // TESTED
+bool Company::removeFlights() {
     bool success = true;
 
     for (auto it = flights.begin(); it != flights.end();)

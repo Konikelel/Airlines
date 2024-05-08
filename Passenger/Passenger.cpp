@@ -8,23 +8,23 @@ Passenger::Passenger(std::string nameFirst,
                      Gender gender) : Person(nameFirst, nameSecond, timeBirthday, gender) {
 }
 
-Passenger::~Passenger() {  // TESTED
+Passenger::~Passenger() {
     removeFlights();
 }
 
-std::set<std::reference_wrapper<Flight>>& Passenger::getFlights() {  // TESTED
+std::set<std::reference_wrapper<Flight>>& Passenger::getFlights() {
     return flights;
 }
 
-void Passenger::addFlight(Flight& flight) {  // TESTED
+void Passenger::addFlight(Flight& flight) {
     flight.addPassenger(*this);
 }
 
-bool Passenger::removeFlight(Flight& flight) {  // TESTED
+bool Passenger::removeFlight(Flight& flight) {
     return flight.removePassenger(*this);
 }
 
-bool Passenger::removeFlights() {  // TESTED
+bool Passenger::removeFlights() {
     bool success = true;
 
     for (auto it = flights.begin(); it != flights.end();)

@@ -25,23 +25,23 @@ CrewMember::CrewMember(CrewRole role,
 }
 
 CrewMember::~CrewMember() {
-    if (pCompany)  // TESTED
+    if (pCompany)
         pCompany->removeCrewMember(*this);
 }
 
-Company* CrewMember::getCompany() const {  // TESTED
+Company* CrewMember::getCompany() const {
     return pCompany;
 }
 
-std::set<std::reference_wrapper<Flight>>& CrewMember::getFlights() {  // TESTED
+std::set<std::reference_wrapper<Flight>>& CrewMember::getFlights() {
     return flights;
 }
 
-CrewRole CrewMember::getRole() const {  // TESTED
+CrewRole CrewMember::getRole() const {
     return role;
 }
 
-bool CrewMember::setCompany(Company* pCompany) {  // TESTED
+bool CrewMember::setCompany(Company* pCompany) {
     if (pCompany == this->pCompany)
         return false;
 
@@ -57,15 +57,15 @@ bool CrewMember::setCompany(Company* pCompany) {  // TESTED
     return true;
 }
 
-void CrewMember::addFlight(Flight& flight) {  // TESTED
+void CrewMember::addFlight(Flight& flight) {
     flight.addCrewMember(*this);
 }
 
-bool CrewMember::removeFlight(Flight& flight) {  // TESTED
+bool CrewMember::removeFlight(Flight& flight) {
     return flight.removeCrewMember(*this);
 }
 
-bool CrewMember::removeFlights() {  // TESTED
+bool CrewMember::removeFlights() {
     bool success = true;
 
     for (auto it = flights.begin(); it != flights.end();)
