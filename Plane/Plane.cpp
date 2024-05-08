@@ -91,7 +91,7 @@ bool Plane::setCompany(Company* pCompany) {
 }
 
 void Plane::setId() {  // TESTED
-    id = generateId();
+    id = generateUniqueId(usedIds);
     addVector(usedIds, id);
 }
 

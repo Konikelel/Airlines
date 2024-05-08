@@ -42,7 +42,7 @@ Gender Person::getGender() const {  // TESTED
 }
 
 void Person::setId() {  // TESTED
-    id = generateId();
+    id = generateUniqueId(usedIds);
     addVector(usedIds, id);
 }
 

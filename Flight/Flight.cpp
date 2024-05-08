@@ -30,7 +30,7 @@ Flight::Flight(Company* pCompany,
 }
 
 void Flight::setId() {
-    id = generateId();
+    id = generateUniqueId(usedIds);
     addVector(usedIds, id);
 }
 

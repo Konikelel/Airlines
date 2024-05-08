@@ -10,3 +10,13 @@ unsigned int generateId() {
 
     return int_dist(rng);
 }
+
+unsigned int generateUniqueId(std::vector<unsigned int> usedIds) {
+    unsigned int id;
+
+    do {
+        id = generateId();
+    } while (existVector(usedIds, id));
+
+    return id;
+}
