@@ -58,7 +58,7 @@ int main() {
     std::cout << "\tAvailable stewardess in this time period:\n";
     std::set<std::reference_wrapper<CrewMember>> stewardesses = pCompany->availableCrewMembers(flight2.getTimeDeparture(), flight2.getTimeArrival(), STEWARDESS);
 
-    for (CrewMember stewardess : stewardesses)
+    for (CrewMember& stewardess : stewardesses)
         std::cout << stewardess;
 
     std::cout << "\n\tAdding stewardess to the flight...\n";
