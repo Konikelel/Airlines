@@ -8,13 +8,13 @@
 #include "VectorHandler.hpp"
 
 TEST(crewMember, constructor) {
-    Company* company = new (Company){"Test1"};
+    Company* pCompany = new (Company){"Test1"};
 
     CrewMember crewMember1{STEWARDESS, "Victor", "Alb", 1, MALE};
-    CrewMember crewMember2{company, PILOT, "Victor", "Alb", 1, MALE};
+    CrewMember crewMember2{pCompany, PILOT, "Victor", "Alb", 1, MALE};
     // getCompany
     EXPECT_EQ(crewMember1.getCompany(), nullptr);
-    EXPECT_EQ(crewMember2.getCompany(), company);
+    EXPECT_EQ(crewMember2.getCompany(), pCompany);
     // getFlights
     EXPECT_EQ(crewMember1.getFlights().size(), 0);
     EXPECT_EQ(crewMember2.getFlights().size(), 0);
@@ -22,7 +22,7 @@ TEST(crewMember, constructor) {
     EXPECT_EQ(crewMember1.getRole(), STEWARDESS);
     EXPECT_EQ(crewMember2.getRole(), PILOT);
 
-    delete company;
+    delete pCompany;
 }
 
 TEST(crewMember, destructor) {
