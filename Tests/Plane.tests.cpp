@@ -6,7 +6,6 @@
 #include "CustomErrors.hpp"
 #include "SetHandler.hpp"
 #include "VectorHandler.hpp"
-#include "plane.hpp"
 
 TEST(plane, constructor) {
     Company* pCompany = new (Company){"Test"};
