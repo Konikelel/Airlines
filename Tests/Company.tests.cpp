@@ -238,11 +238,11 @@ TEST(company, flight) {
     EXPECT_EQ(plane.getFlights().size(), 0);
     EXPECT_EQ(pCompany->getFlights().size(), 1);
 
-    flight1 = pCompany->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
+    Flight& flight3 = pCompany->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
 
     EXPECT_EQ(pCompany->getFlights().size(), 2);
 
-    flight1.addCrewMember(stewardess);
+    flight3.addCrewMember(stewardess);
     flight2.addCrewMember(pilot);
     // removeFlights
     pCompany->removeFlights();
