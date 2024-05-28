@@ -1,6 +1,7 @@
 #include "Plane.hpp"
 
 #include <gtest/gtest.h>
+#include <memory.h>
 
 #include "Company.hpp"
 #include "CustomErrors.hpp"
@@ -130,7 +131,7 @@ TEST(plane, company) {
     Company* pCompany2 = new (Company){"Test2"};
     Flight& flight = pCompany1->createFlight("RYR123", 1, 2, "Warsaw", "Berlin");
 
-    Plane plane{pCompany1, "B737", 100, 3, 2};
+    Plane plane{"B737", 100, 3, 2};
     // setCompany
     // SETTING NULLPTR, PREVIOUS NULLPTR
     EXPECT_NO_THROW(plane.setCompany(nullptr));
@@ -158,7 +159,8 @@ TEST(plane, company) {
     EXPECT_EQ(pCompany2->getPlanes().size(), 0);
     EXPECT_EQ(plane.getCompany(), nullptr);
 
-    delete pCompany1, pCompany2;
+    delete pCompany1;
+    delete pCompany2;
 }
 
 TEST(plane, flight) {

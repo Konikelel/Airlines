@@ -88,7 +88,8 @@ TEST(crewMember, company) {
     EXPECT_EQ(pCompany2->getPilots().size(), 0);
     EXPECT_EQ(crewMember.getCompany(), nullptr);
 
-    delete pCompany1, pCompany2;
+    delete pCompany1;
+    delete pCompany2;
 }
 
 TEST(crewMember, flight) {
