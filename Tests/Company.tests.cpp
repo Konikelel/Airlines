@@ -119,7 +119,8 @@ TEST(company, plane) {
     EXPECT_EQ(plane2.getCompany(), nullptr);
     EXPECT_EQ(pCompany1->getPlanes().size(), 0);
 
-    delete pCompany1, pCompany2;
+    delete pCompany1;
+    delete pCompany2;
 }
 
 TEST(company, crewMember) {
@@ -194,7 +195,8 @@ TEST(company, crewMember) {
     EXPECT_EQ(pCompany1->getStewardesses().size(), 0);
     EXPECT_EQ(pCompany1->getPilots().size(), 0);
 
-    delete pCompany1, pCompany2;
+    delete pCompany1;
+    delete pCompany2;
 }
 
 TEST(company, flight) {
@@ -236,11 +238,11 @@ TEST(company, flight) {
     EXPECT_EQ(plane.getFlights().size(), 0);
     EXPECT_EQ(pCompany->getFlights().size(), 1);
 
-    flight1 = pCompany->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
+    Flight& flight3 = pCompany->createFlight("RYR120", 2, 5, "Warsaw", "Berlin");
 
     EXPECT_EQ(pCompany->getFlights().size(), 2);
 
-    flight1.addCrewMember(stewardess);
+    flight3.addCrewMember(stewardess);
     flight2.addCrewMember(pilot);
     // removeFlights
     pCompany->removeFlights();

@@ -209,7 +209,8 @@ TEST(flight, plane) {
 
     EXPECT_THROW(flight1.setPlane(plane3), InvalidPlane);
 
-    delete pCompany1, pCompany2;
+    delete pCompany1;
+    delete pCompany2;
 
     flight1;
 }
@@ -363,7 +364,8 @@ TEST(flight, crewMember) {
     EXPECT_EQ(stewardess1.getFlights().size(), 0);
     EXPECT_EQ(stewardess2.getFlights().size(), 0);
 
-    delete pCompany1, pCompany2;
+    delete pCompany1;
+    delete pCompany2;
 }
 
 TEST(flight, status) {

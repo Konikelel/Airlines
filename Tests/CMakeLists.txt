@@ -22,7 +22,7 @@ add_executable(
   "${CMAKE_CURRENT_SOURCE_DIR}/Flight.tests.cpp"
   "${CMAKE_CURRENT_SOURCE_DIR}/Company.tests.cpp"
 )
-target_link_libraries(Tests PRIVATE gtest_main Person Plane Passenger CrewMember Flight Company)
+target_link_libraries(Tests PRIVATE gtest_main Plane Flight Company Person Passenger CrewMember Utils)
 
 
 include(GoogleTest)
